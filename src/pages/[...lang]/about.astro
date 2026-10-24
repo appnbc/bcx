@@ -1,0 +1,191 @@
+---
+import Base from '../../layouts/Base.astro';
+import { href, langOf, getLangPaths } from '../../i18n/locales';
+import { aboutCopy } from '../../i18n/pages/about';
+
+export const getStaticPaths = getLangPaths;
+const lang = langOf(Astro.params.lang);
+const c = aboutCopy[lang];
+/** Titles of roles, degrees, talks, honors and training stay in English as held. */
+const titleLang = lang === 'en' ? undefined : 'en';
+
+type Link = { href: string; label: string };
+type Item = { when: string; title: string; where: string; text?: string; links?: Link[] };
+type Line = { where: string; text?: string };
+
+/** Applies translated where/text lines to items, failing the build if the lists don't line up. */
+function withLines(items: Item[], lines: Line[], name: string): Item[] {
+  if (items.length !== lines.length) throw new Error(`about.ts: ${name} has ${lines.length} lines for ${items.length} items (${lang})`);
+  return items.map((item, i) => ({ ...item, ...lines[i] }));
+}
+
+const work = (id: string, label: string): Link => ({ href: href(lang, `/work/${id}/`), label });
+const entry = (id: string, label: string): Link => ({ href: href(lang, `/archive/#${id}`), label });
+
+const experience: Item[] = [
+  { when: '2024–2026', title: 'AI UX Consultant', where: '', links: [entry('red-trig', c.links.index)] },
+  { when: '2023–2024', title: 'UX Analyst, Marketing Intelligence', where: '', links: [entry('europeana', c.links.index)] },
+  { when: '2022–2024', title: 'Interactive Designer and Researcher', where: '', links: [entry('j-sales-immigration', c.links.index)] },
+  { when: '2021–2023', title: 'Multicultural Conversational UX Strategist', where: '', links: [work('alfredo-voice-services', 'Alfredo Voice Services')] },
+  { when: '2019–2021', title: 'UX Designer and Writer', where: '', links: [work('sunnyvale-cleanwater', 'Sunnyvale Cleanwater'), work('ladwp-turf-replacement', 'LADWP Turf Replacement'), work('526-lowcountry-corridor', '526 Lowcountry Corridor')] },
+  { when: '2017–2019', title: 'Machine Learning Data Linguist; Language Specialist (Skills Kit)', where: '', links: [entry('alexa-nlu-launches', c.links.index), work('the-burger-queen', 'The Burger Queen')] },
+  { when: '2014–2016', title: 'Developmental Editor, World Languages', where: '', links: [entry('themes', 'Thèmes'), work('descubre', 'Descubre'), work('mosaik', 'Mosaik')] },
+  { when: '2010–2012', title: 'Academic Literary Research Assistant', where: '' },
+];
+
+const education: Item[] = [
+  { when: '2026–', title: 'Advanced Program in Contemporary Public Art', where: '', links: [entry('biella-atap', c.links.studio)] },
+  { when: '2024', title: 'MA, Media Arts Cultures (Erasmus Mundus Joint Master’s)', where: '', links: [entry('thesis-pokemon', c.links.thesis)] },
+  { when: '2023', title: 'Visiting Graduate Fellow, FOUNDING LAB', where: '' },
+  { when: '2019', title: 'Master’s Degree in Digital Information', where: '' },
+  { when: '2013', title: 'BS, Business Administration', where: '' },
+];
+
+const talks: Item[] = [
+  { when: '2024', title: 'Pokémon Phenomenon: Game Mechanics and its Effect on Narratives', where: '', links: [entry('thesis-pokemon', c.links.index)] },
+  { when: '2021', title: 'Localization and Latin America: Linguistic Constraints and Cultural Considerations in Conversational AI', where: '', links: [entry('talk-chatbot-summit', c.links.index)] },
+  { when: '2021', title: 'Voice and Device UX: Multimodal Interaction Design and Accessibility', where: '', links: [entry('talk-uxpa-boston', c.links.index)] },
+];
+
+const teaching: Item[] = [
+  { when: '2025–2026', title: 'Regional Juror, Scholastic Art and Writing Awards', where: '' },
+  { when: '2024–2026', title: 'Public Engagement Facilitator', where: '' },
+  { when: '2013–2014', title: 'Spanish Teacher, Foreign Languages', where: '' },
+  { when: '2010–2012', title: 'Teaching Assistant and Lead Modern Language Tutor', where: '' },
+];
+
+const honors = [
+  ['2026–2027', 'Latin American Scholarship, Accademia Unidee – Fondazione Pistoletto'],
+  ['2026', 'DPOE-N Professional Development Scholarship, Digital Preservation Outreach & Education Network (Pratt Institute / Mellon Foundation)'],
+  ['2026', 'Honorable Mention, Community Hack, MIT Reality Hack (Kynd)'],
+  ['2023', 'FOUNDING LAB Graduate Summer School Fellowship, IT:U × Ars Electronica'],
+  ['2023', 'Tropical Lab Residency Fellowship, LASALLE College of the Arts, Singapore'],
+  ['2022–2024', 'Erasmus Mundus Joint Master’s Scholarship, European Commission'],
+  ['2010–2013', 'Donna Gelormini Merit Scholarship, Suffolk University'],
+];
+
+const training = [
+  'Archival and Digital Stewardship Training (DPOE-N Scholar Track, 2026)',
+  'Professional Certificate in Digital Asset Management, University of Wisconsin',
+  'Professional Certificate: From Database to Dashboard, Davidson College',
+  'Professional Certificate in Museology, Universidad del Rosario',
+  'UX Design and Digital Archives, Society of American Archivists',
+  'AI, Chatbots, and Large Language Models in Libraries, American Library Association',
+];
+
+const languages = c.languages;
+
+const sections: { id: string; title: string; items: Item[] }[] = [
+  { id: 'experience', title: c.sections.experience, items: withLines(experience, c.experience, 'experience') },
+  { id: 'education', title: c.sections.education, items: withLines(education, c.education, 'education') },
+  { id: 'talks', title: c.sections.talks, items: withLines(talks, c.talks, 'talks') },
+  { id: 'teaching', title: c.sections.teaching, items: withLines(teaching, c.teaching, 'teaching') },
+];
+---
+<Base lang={lang} title={c.title} description={c.description} current="about">
+  <div class="wrap about">
+    <header class="grid about-head">
+      <h1 class="col-text">{c.title}</h1>
+      <div class="col-text prose lede">
+        <p>{c.lede}</p>
+      </div>
+      <div class="col-text prose">
+        <p>{c.second}</p>
+      </div>
+      <aside class="col-margin about-areas">
+        <h2 class="about-areas__title meta">{c.areasTitle}</h2>
+        <p>{c.areas}</p>
+      </aside>
+    </header>
+
+    {sections.map((s) => (
+      <section class="cv grid" aria-labelledby={`${s.id}-title`}>
+        <h2 class="cv__title" id={`${s.id}-title`}>{s.title}</h2>
+        <ol class="cv__list">
+          {s.items.map((item) => (
+            <li class="cv__item">
+              <p class="cv__when meta">{item.when}</p>
+              <div class="cv__body">
+                <h3 class="cv__role" lang={titleLang}>{item.title}</h3>
+                <p class="cv__where label">{item.where}</p>
+                {item.text && <p class="cv__text">{item.text}</p>}
+                {item.links && (
+                  <p class="cv__links meta">
+                    {item.links.map((l, i) => <>{i > 0 && ' · '}<a href={l.href}>{l.label}</a></>)}
+                  </p>
+                )}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))}
+
+    <section class="cv grid" aria-labelledby="honors-title">
+      <h2 class="cv__title" id="honors-title">{c.sections.honors}</h2>
+      <ol class="cv__list">
+        {honors.map(([when, what]) => (
+          <li class="cv__item"><p class="cv__when meta">{when}</p><p class="cv__body" lang={titleLang}>{what}</p></li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="cv grid" aria-labelledby="training-title">
+      <h2 class="cv__title" id="training-title">{c.sections.training}</h2>
+      <ul class="cv__list cv__list--plain">
+        {training.map((t) => <li lang={titleLang}>{t}</li>)}
+      </ul>
+    </section>
+
+    <section class="cv grid" aria-labelledby="methods-title">
+      <h2 class="cv__title" id="methods-title">{c.sections.methods}</h2>
+      <dl class="cv__list cv__dl">
+        <div><dt class="meta">{c.methods.researchLabel}</dt><dd>{c.methods.research}</dd></div>
+        <div><dt class="meta">{c.methods.toolsLabel}</dt><dd>{c.methods.tools}</dd></div>
+      </dl>
+    </section>
+
+    <section class="cv grid" aria-labelledby="languages-title">
+      <h2 class="cv__title" id="languages-title">{c.sections.languages}</h2>
+      <dl class="cv__list cv__langs">
+        {languages.map(([lang, level]) => <div><dt>{lang}</dt><dd class="meta">{level}</dd></div>)}
+      </dl>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .about-head { padding-top: var(--space-6); row-gap: var(--space-4); margin-bottom: var(--space-6); }
+  .about-areas { border-left: 3px solid var(--highlight); padding-left: var(--space-3); align-self: start; font-size: var(--step--1); }
+  .about-areas__title { font-size: var(--step--2); font-weight: 400; font-weight: 600; margin-bottom: var(--space-2); }
+  @media (min-width: 900px) { .about-areas { grid-row: 2 / span 2; } }
+
+  .cv { padding-top: var(--space-5); row-gap: var(--space-3); }
+  .cv__title { font-size: var(--step-2); border-top: 1px solid var(--ink); padding-top: var(--space-3); }
+  .cv__list { list-style: none; margin: 0; padding: 0; }
+  @media (min-width: 900px) {
+    .cv__title { grid-column: 1 / 4; }
+    .cv__list { grid-column: 4 / 13; border-top: 1px solid var(--ink); }
+  }
+  .cv__item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1) var(--gutter);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  @media (min-width: 640px) { .cv__item { grid-template-columns: 8rem minmax(0, 1fr); } }
+  .cv__when { margin: 0; padding-top: 0.3em; }
+  .cv__body { margin: 0; max-width: var(--measure); }
+  .cv__role { font-size: var(--step-1); font-weight: 500; }
+  .cv__where { color: var(--ink-muted); font-weight: 400; margin: var(--space-1) 0 var(--space-2); }
+  .cv__text { font-size: var(--step--1); margin-bottom: var(--space-1); }
+  .cv__links { margin: 0; }
+  .cv__list--plain li { padding: var(--space-2) 0; border-bottom: 1px solid var(--rule); font-size: var(--step--1); }
+  .cv__dl, .cv__langs { margin: 0; }
+  .cv__dl div, .cv__langs div { padding: var(--space-3) 0; border-bottom: 1px solid var(--rule); }
+  .cv__dl dd { margin: var(--space-1) 0 0; font-size: var(--step--1); max-width: var(--measure); }
+  .cv__langs div { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); }
+  .cv__langs dt { font-size: var(--step-1); }
+  .cv__langs dd { margin: 0; }
+</style>

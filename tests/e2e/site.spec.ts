@@ -1,11 +1,13 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-const routes = [
+const pages = [
   '/', '/archive/', '/about/',
   '/work/sunnyvale-cleanwater/', '/work/ladwp-turf-replacement/', '/work/descubre/', '/work/alfredo-voice-services/',
-  '/work/526-lowcountry-corridor/', '/work/the-burger-queen/', '/work/mosaik/', '/404.html',
+  '/work/526-lowcountry-corridor/', '/work/the-burger-queen/', '/work/mosaik/',
 ];
+// Every page in English, Spanish and Italian (Spanish and Italian run ~20–30% longer), plus the 404.
+const routes = [...['', '/es', '/it'].flatMap((prefix) => pages.map((p) => `${prefix}${p}`)), '/404.html'];
 const widths = [360, 768, 1280, 1600];
 const slug = (r: string) => (r === '/' ? 'home' : r.replace(/^\/|\/$/g, '').replace(/\//g, '-'));
 

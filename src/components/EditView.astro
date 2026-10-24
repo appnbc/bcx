@@ -1,4 +1,7 @@
 ---
+import Mixed from '../components/Mixed.astro';
+import { langFromUrl } from '../i18n/locales';
+import { ui } from '../i18n/ui';
 /** Copy before → after as proofreader marks. Only real before/after pairs from the sources. */
 export type EditPart = { t: string } | { del: string } | { ins: string };
 interface Props {
@@ -7,16 +10,20 @@ interface Props {
   caption?: string;
   note?: string;
   size?: 'large' | 'small';
+  /** The copy is an artifact shown as written (English unless `lang` says otherwise); never translated. */
+  verbatim?: boolean;
 }
-const { parts, lang, caption, note, size = 'large' } = Astro.props;
+const { parts, lang, caption, note, size = 'large', verbatim = false } = Astro.props;
+const lineLang = lang ?? (verbatim ? 'en' : undefined);
+const t = ui[langFromUrl(Astro.url)];
 ---
-<figure class:list={['edit-view col-text', `edit-view--${size}`]}>
-  <p class="edit-view__line" lang={lang}>
+<figure class:list={['edit-view col-text', `edit-view--${size}`]} data-verbatim={verbatim ? '' : undefined}>
+  <p class="edit-view__line" lang={lineLang}>
     {parts.map((p) =>
       'del' in p ? (
-        <del><span class="visually-hidden">deleted: </span>{p.del}</del>
+        <del><span class="visually-hidden">{t.edit.deleted} </span>{p.del}</del>
       ) : 'ins' in p ? (
-        <ins><span class="visually-hidden">inserted: </span>{p.ins}</ins>
+        <ins><span class="visually-hidden">{t.edit.inserted} </span>{p.ins}</ins>
       ) : (
         p.t
       ),
@@ -24,8 +31,8 @@ const { parts, lang, caption, note, size = 'large' } = Astro.props;
   </p>
   {(caption || note) && (
     <figcaption>
-      {caption && <span class="meta">{caption}</span>}
-      {note && <span class="edit-view__note">{note}</span>}
+      {caption && <span class="meta"><Mixed text={caption} /></span>}
+      {note && <span class="edit-view__note"><Mixed text={note} /></span>}
     </figcaption>
   )}
 </figure>

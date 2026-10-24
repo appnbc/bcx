@@ -10,3 +10,5 @@ pics/
 *.xlsx
 *.pdf
 dist-base-test/
+dist-public-test/
+dist-public-404-test/

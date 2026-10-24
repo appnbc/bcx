@@ -52,11 +52,9 @@ test('home hero has a decorative line illustration beside the headline', () => {
   assert.ok(intro.includes('>Hello<') && intro.includes('>Hola<'), 'bilingual bubbles');
 });
 
-test('home headline and illustration include Italian', () => {
-  const html = page('/');
-  const h1 = html.match(/<h1[\s\S]*?<\/h1>/)[0];
-  assert.match(h1, /<span[^>]*data-lang="it"[^>]*lang="it"[^>]*hidden/, 'Italian version, marked Italian, hidden by default');
+test('the Italian homepage has the Italian headline and the illustration has a Ciao bubble', () => {
+  const h1 = page('/it/').match(/<h1[\s\S]*?<\/h1>/)[0];
   assert.ok(h1.includes('programmi pubblici') && h1.includes('apprendimento delle lingue'));
-  assert.match(html, /<button[^>]*data-headline="it"[^>]*>Italiano<\/button>/, 'Italiano switch');
-  assert.ok(html.includes('>Ciao<'), 'Ciao bubble');
+  assert.ok(page('/').includes('>Ciao<'), 'Ciao bubble');
+  assert.ok(!/data-headline=/.test(page('/')), 'headline switch removed');
 });

@@ -1,0 +1,122 @@
+---
+import { getEntry } from 'astro:content';
+import { Picture, getImage } from 'astro:assets';
+import Base from '../../../layouts/Base.astro';
+import CaseHeader from '../../../components/CaseHeader.astro';
+import CaseSections from '../../../components/CaseSections.astro';
+import Section from '../../../components/Section.astro';
+import MarginNote from '../../../components/MarginNote.astro';
+import Persona from '../../../components/Persona.astro';
+import Pager from '../../../components/Pager.astro';
+import { img } from '../../../data/images';
+import { langOf, getLangPaths } from '../../../i18n/locales';
+import { localized } from '../../../data/localized';
+import { ui } from '../../../i18n/ui';
+import { burgerCopy } from '../../../i18n/pages/the-burger-queen';
+
+export const getStaticPaths = getLangPaths;
+const lang = langOf(Astro.params.lang);
+const c = burgerCopy[lang];
+const t = ui[lang];
+
+const project = (await getEntry('projects', 'the-burger-queen'))!;
+const p = localized(project, lang);
+
+// Alexa's side of the conversation, transcribed exactly from each prototype screen.
+type Line = string | { text: string; lang: string; italic: true };
+const dialogue: { file: string; lines: Line[][] }[] = [
+  { file: 'Alexa_Hotel_10.png', lines: [['Welcome to Las Vegas!']] },
+  { file: 'Alexa_Hotel_11.png', lines: [['There are lots of restaurants in Las Vegas, including our very own The Burger Queen.'], ['What type of restaurant would you like to eat at today?']] },
+  { file: 'Alexa_Hotel_12.png', lines: [['Our 5-star restaurant, The Burger Queen, is open from 8 a.m. to 10 p.m. Monday to Saturday and from 10 a.m. to 12 a.m. on Sundays.']] },
+  { file: 'Alexa_Hotel_13.png', lines: [['We offer American classics. There’s a menu next to your television and I have also sent the menu to the phone linked to your account.'], ['Would you like to order now?']] },
+  { file: 'Alexa_Hotel_14.png', lines: [['I have an order of 1 cheeseburger with 1 side of french fries for room 300.'], ['Would you like anything else?']] },
+  { file: 'Alexa_Hotel_15.png', lines: [['I have an order of 1 cheeseburger with 1 side of french fries for room 300.'], ['Would you like something to drink?']] },
+  { file: 'Alexa_Hotel_16.png', lines: [['I have an order of 1 cheeseburger with 1 side of french fries and 1 regular coke without ice for room 300.'], ['Would you like some dessert?']] },
+  { file: 'Alexa_Hotel_17.png', lines: [['Your room service order to room number 300 is confirmed for 3 p.m. today.'], [{ text: 'Bon appétit!', lang: 'fr', italic: true }], ['May I help you with anything else?']] },
+  { file: 'Alexa_Hotel_18.png', lines: [['Alright, John. Enjoy your stay.'], [{ text: '¡Viva Las Vegas!', lang: 'es', italic: true }]] },
+];
+const screens = dialogue.map((d, i) => ({ ...d, step: c.conversation.steps[i], picture: c.conversation.pictures[i] }));
+const fulls = await Promise.all(screens.map(async (s) => (await getImage({ src: img('the-burger-queen', s.file), format: 'webp' })).src));
+---
+<Base lang={lang} title={p.title} description={p.summary} current="work">
+  <article class="wrap">
+    <CaseHeader project={project} lang={lang} />
+    <CaseSections>
+
+    <Section id="context" title={c.context.title}>
+      <div class="col-text prose">
+        <p>{c.context.p1}</p>
+        <p>{c.context.p2}</p>
+      </div>
+    </Section>
+
+    <Section id="personas" title={c.personas.title}>
+      <div class="col-wide two-up">
+        <Persona name="John" age={24} {...c.personas.john} />
+        <Persona name="Miguel" age={45} {...c.personas.miguel} />
+      </div>
+    </Section>
+
+    <Section id="conversation" title={c.conversation.title} kicker={c.conversation.kicker}>
+      <div class="col-text prose">
+        <p>{c.conversation.p}</p>
+      </div>
+      <ol class="col-wide screens">
+        {screens.map((s, i) => (
+          <li class="screen">
+            <a class="screen__image zoom" href={fulls[i]} data-alt={c.conversation.screenShort(i + 1, s.step)} data-caption={`${String(i + 1).padStart(2, '0')}, ${s.step}`}>
+              <Picture
+                src={img('the-burger-queen', s.file)}
+                alt={c.conversation.screenAlt(i + 1, s.step, s.picture)}
+                formats={['avif', 'webp']}
+                widths={[img('the-burger-queen', s.file).width]}
+                sizes="(min-width: 900px) 40vw, 100vw"
+                loading="lazy"
+              />
+              <span class="visually-hidden">{t.lightbox.opens}</span>
+            </a>
+            <div class="screen__transcript" lang="en" data-verbatim>
+              <p class="meta" lang={lang}>{String(i + 1).padStart(2, '0')} · {s.step}</p>
+              {s.lines.map((para) => (
+                <p class="screen__line">
+                  {para.map((x) => (typeof x === 'string' ? x : <em lang={x.lang}>{x.text}</em>))}
+                </p>
+              ))}
+            </div>
+          </li>
+        ))}
+      </ol>
+      <MarginNote label={c.conversation.noteLabel}>{c.conversation.note}</MarginNote>
+    </Section>
+
+    <Section id="changes" title={c.changes.title}>
+      <div class="col-text prose">
+        <p>{c.changes.p}</p>
+        <ul>
+          <li><strong>{c.changes.greeting.term}</strong>{c.changes.greeting.rest}</li>
+          <li><strong>{c.changes.menu.term}</strong>{c.changes.menu.rest}</li>
+          <li><strong>{c.changes.italics.term}</strong>{c.changes.italics.before} <em lang="fr">Bon appétit</em> {c.changes.italics.and} <em lang="es">¡Viva Las Vegas!</em> {c.changes.italics.after}</li>
+          <li><strong>{c.changes.branding.term}</strong>{c.changes.branding.rest}</li>
+        </ul>
+      </div>
+    </Section>
+    </CaseSections>
+  </article>
+  <Pager id={project.id} lang={lang} />
+</Base>
+
+<style>
+  .screens { list-style: none; margin: var(--space-3) 0 0; padding: 0; }
+  .screen {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3) var(--gutter);
+    padding: var(--space-4) 0;
+    border-top: 1px solid var(--rule);
+    align-items: center;
+  }
+  @media (min-width: 760px) { .screen { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); } }
+  .screen__image :global(img) { width: 100%; height: auto; border-radius: 6px; }
+  .screen__transcript .meta { margin-bottom: var(--space-2); }
+  .screen__line { font-size: var(--step-1); line-height: 1.35; margin-bottom: 0.5em; }
+</style>

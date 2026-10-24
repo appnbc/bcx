@@ -1,0 +1,141 @@
+import type { Locale } from './locales';
+import type { Discipline, Capability, ProjectType } from '../data/taxonomy';
+
+const en = {
+  skipLink: 'Skip to content',
+  role: 'UX designer and UX writer',
+  nav: { label: 'Primary', work: 'Work', index: 'Index', about: 'About', contact: 'Contact' },
+  switcher: { label: 'Language' },
+  contact: {
+    title: 'Contact',
+    lead: 'Hiring, collaborating, or curious about a project? Write to me.',
+    copy: 'Copy email',
+    copied: 'Copied',
+    copyFailed: 'Copy didn’t work. Select the address above instead.',
+    soon: 'Contact details coming soon.',
+  },
+  toc: { label: 'On this page' },
+  gallery: { hint: 'Select an image to enlarge it.', previous: '← Previous', next: 'Next →', close: 'Close', of: 'of' },
+  pager: { label: 'More case studies', previous: 'Previous', next: 'Next', all: 'All projects' },
+  persona: { user: 'User persona', background: 'Background', needs: 'Needs', pains: 'Pain points' },
+  edit: { deleted: 'deleted:', inserted: 'inserted:', avoid: 'avoid:' },
+  lightbox: { label: 'Enlarged screenshot', close: 'Close', opens: '(opens full size)' },
+  facts: { role: 'Role', where: 'Where', when: 'When', team: 'Team', liveSite: 'Live site', note: 'Note', capabilities: 'Capabilities' },
+  disciplines: {
+    'UX Design': 'UX Design',
+    'UX Writing': 'UX Writing',
+    'Content Strategy': 'Content Strategy',
+    'Conversation & Voice': 'Conversation & Voice',
+    Research: 'Research',
+    'Creative Practice': 'Creative Practice',
+  } as Record<Discipline, string>,
+  capabilities: {
+    Localization: 'Localization',
+    Accessibility: 'Accessibility',
+    'Information Architecture': 'Information Architecture',
+    Editorial: 'Editorial',
+    'Front-end': 'Front-end',
+    'AR & Spatial': 'AR & Spatial',
+    'Data & NLU': 'Data & NLU',
+  } as Record<Capability, string>,
+  types: {
+    'case-study': 'Case study',
+    professional: 'Professional work',
+    exhibition: 'Exhibition & practice',
+    'talk-writing': 'Talk & writing',
+  } as Record<ProjectType, string>,
+};
+
+export type UI = typeof en;
+
+const es: UI = {
+  skipLink: 'Saltar al contenido',
+  role: 'diseñador UX y redactor UX',
+  nav: { label: 'Principal', work: 'Trabajos', index: 'Índice', about: 'Sobre mí', contact: 'Contacto' },
+  switcher: { label: 'Idioma' },
+  contact: {
+    title: 'Contacto',
+    lead: '¿Buscas a alguien para tu equipo, quieres colaborar o te interesa un proyecto? Escríbeme.',
+    copy: 'Copiar correo',
+    copied: 'Copiado',
+    copyFailed: 'No se pudo copiar. Selecciona la dirección de arriba.',
+    soon: 'Datos de contacto próximamente.',
+  },
+  toc: { label: 'En esta página' },
+  gallery: { hint: 'Selecciona una imagen para ampliarla.', previous: '← Anterior', next: 'Siguiente →', close: 'Cerrar', of: 'de' },
+  pager: { label: 'Más casos de estudio', previous: 'Anterior', next: 'Siguiente', all: 'Todos los proyectos' },
+  persona: { user: 'Persona de usuario', background: 'Contexto', needs: 'Necesidades', pains: 'Puntos de dolor' },
+  edit: { deleted: 'eliminado:', inserted: 'insertado:', avoid: 'evitar:' },
+  lightbox: { label: 'Captura ampliada', close: 'Cerrar', opens: '(se abre a tamaño completo)' },
+  facts: { role: 'Rol', where: 'Dónde', when: 'Cuándo', team: 'Equipo', liveSite: 'Sitio en línea', note: 'Nota', capabilities: 'Capacidades' },
+  disciplines: {
+    'UX Design': 'Diseño UX',
+    'UX Writing': 'Escritura UX',
+    'Content Strategy': 'Estrategia de contenidos',
+    'Conversation & Voice': 'Conversación y voz',
+    Research: 'Investigación',
+    'Creative Practice': 'Práctica creativa',
+  },
+  capabilities: {
+    Localization: 'Localización',
+    Accessibility: 'Accesibilidad',
+    'Information Architecture': 'Arquitectura de la información',
+    Editorial: 'Edición',
+    'Front-end': 'Front-end',
+    'AR & Spatial': 'RA y espacial',
+    'Data & NLU': 'Datos y NLU',
+  },
+  types: {
+    'case-study': 'Caso de estudio',
+    professional: 'Trabajo profesional',
+    exhibition: 'Exposición y práctica',
+    'talk-writing': 'Charlas y textos',
+  },
+};
+
+const it: UI = {
+  skipLink: 'Vai al contenuto',
+  role: 'UX designer e UX writer',
+  nav: { label: 'Principale', work: 'Lavori', index: 'Indice', about: 'Chi sono', contact: 'Contatti' },
+  switcher: { label: 'Lingua' },
+  contact: {
+    title: 'Contatti',
+    lead: 'Cerchi qualcuno per il tuo team, vuoi collaborare o ti incuriosisce un progetto? Scrivimi.',
+    copy: 'Copia email',
+    copied: 'Copiato',
+    copyFailed: 'Copia non riuscita. Seleziona l’indirizzo qui sopra.',
+    soon: 'Contatti in arrivo.',
+  },
+  toc: { label: 'In questa pagina' },
+  gallery: { hint: 'Seleziona un’immagine per ingrandirla.', previous: '← Precedente', next: 'Successiva →', close: 'Chiudi', of: 'di' },
+  pager: { label: 'Altri casi di studio', previous: 'Precedente', next: 'Successivo', all: 'Tutti i progetti' },
+  persona: { user: 'Persona utente', background: 'Contesto', needs: 'Bisogni', pains: 'Punti critici' },
+  edit: { deleted: 'eliminato:', inserted: 'inserito:', avoid: 'da evitare:' },
+  lightbox: { label: 'Schermata ingrandita', close: 'Chiudi', opens: '(si apre a dimensione intera)' },
+  facts: { role: 'Ruolo', where: 'Dove', when: 'Quando', team: 'Team', liveSite: 'Sito online', note: 'Nota', capabilities: 'Competenze' },
+  disciplines: {
+    'UX Design': 'UX design',
+    'UX Writing': 'UX writing',
+    'Content Strategy': 'Strategia dei contenuti',
+    'Conversation & Voice': 'Conversazione e voce',
+    Research: 'Ricerca',
+    'Creative Practice': 'Pratica artistica',
+  },
+  capabilities: {
+    Localization: 'Localizzazione',
+    Accessibility: 'Accessibilità',
+    'Information Architecture': 'Architettura dell’informazione',
+    Editorial: 'Editoria',
+    'Front-end': 'Front-end',
+    'AR & Spatial': 'AR e spaziale',
+    'Data & NLU': 'Dati e NLU',
+  },
+  types: {
+    'case-study': 'Caso di studio',
+    professional: 'Lavoro professionale',
+    exhibition: 'Mostre e pratica',
+    'talk-writing': 'Interventi e scritti',
+  },
+};
+
+export const ui: Record<Locale, UI> = { en, es, it };

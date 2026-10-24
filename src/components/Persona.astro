@@ -1,4 +1,6 @@
 ---
+import { langFromUrl } from '../i18n/locales';
+import { ui } from '../i18n/ui';
 interface Props {
   name: string;
   age?: number;
@@ -11,7 +13,8 @@ interface Props {
   pains?: string;
   kind?: string;
 }
-const { name, age, status, occupation, location, quote, bio, needs, pains, kind = 'User persona' } = Astro.props;
+const t = ui[langFromUrl(Astro.url)];
+const { name, age, status, occupation, location, quote, bio, needs, pains, kind = t.persona.user } = Astro.props;
 const facts = [age && `${age}`, status, occupation, location].filter(Boolean).join(' · ');
 ---
 <figure class="persona">
@@ -21,9 +24,9 @@ const facts = [age && `${age}`, status, occupation, location].filter(Boolean).jo
   {quote && <blockquote class="persona__quote"><p>“{quote}”</p></blockquote>}
   {(bio || needs || pains) && (
     <dl class="persona__dl">
-      {bio && <><dt>Background</dt><dd>{bio}</dd></>}
-      {needs && <><dt>Needs</dt><dd>{needs}</dd></>}
-      {pains && <><dt>Pain points</dt><dd>{pains}</dd></>}
+      {bio && <><dt>{t.persona.background}</dt><dd>{bio}</dd></>}
+      {needs && <><dt>{t.persona.needs}</dt><dd>{needs}</dd></>}
+      {pains && <><dt>{t.persona.pains}</dt><dd>{pains}</dd></>}
     </dl>
   )}
 </figure>

@@ -29,3 +29,18 @@ test('Alfredo: the moved name is not marked as an insertion', () => {
   const html = page('/work/alfredo-voice-services/').replace(/\sdata-astro-cid-[\w-]+/g, '');
   assert.ok(!html.includes('<ins><span class="visually-hidden">inserted: </span>JUAN</ins>'));
 });
+
+// The same unsupported claims must not reappear in translation.
+const unsupportedTranslated = [
+  ['/es/', 'español en lenguaje claro', '526: only consistent language access is confirmed'],
+  ['/it/', 'spagnolo in linguaggio semplice', '526: only consistent language access is confirmed'],
+  ['/es/work/526-lowcountry-corridor/', 'en lenguaje claro', '526: plain-language translation is a stated need'],
+  ['/it/work/526-lowcountry-corridor/', 'in linguaggio semplice', '526: plain-language translation is a stated need'],
+  ['/es/archive/', 'indicaciones en pantalla', 'Kynd: résumé makes no such contrast'],
+  ['/it/archive/', 'indicazioni sullo schermo', 'Kynd: résumé makes no such contrast'],
+];
+for (const [route, phrase, why] of unsupportedTranslated) {
+  test(`${route} avoids "${phrase}"`, () => {
+    assert.ok(!page(route).includes(phrase), why);
+  });
+}

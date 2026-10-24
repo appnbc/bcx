@@ -42,6 +42,14 @@ Case-study images live in `src/assets/projects/<project-id>/`. To re-import from
 npm run images
 ```
 
+## Spanish and Italian
+
+Every page also exists at `/es/…` and `/it/…` (for example `/es/work/descubre/`). These versions are deployed but **private** until approved: there is no language switcher, no page links to them, they are marked `noindex`, and they carry no `hreflang` links.
+
+- **Where the copy lives:** UI text in `src/i18n/ui.ts`; each page's copy in `src/i18n/pages/<page>.ts` (English, Spanish and Italian side by side); project summaries and roles under `i18n` in `src/data/projects.json` (edit `scripts/translations-projects.mjs` and run `node scripts/merge-project-translations.mjs`). A missing or misshapen translation fails `npm test`.
+- **What stays in English:** Brian's own artifacts (interface copy, email subject lines, the Burger Queen dialogue, style-guide originals), titles of works, and official job titles. They are marked `lang="en"` so screen readers pronounce them correctly.
+- **Going public:** set `languagesPublic` to `true` in `src/config.ts` (or set `LANGUAGES_PUBLIC: 1` in the deploy workflow's build step). That shows the English | Español | Italiano switcher in the header, adds `hreflang` links and lets search engines index the translations.
+
 ## Deploying to GitHub Pages
 
 The repository includes a workflow (`.github/workflows/deploy.yml`) that tests, builds and publishes the site on every push to `main`. It works with any repository name: a repository called `<username>.github.io` is served at that address; any other name is served at `<username>.github.io/<repo-name>/`, and the workflow sets the base path automatically.

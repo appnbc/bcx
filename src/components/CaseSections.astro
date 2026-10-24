@@ -4,6 +4,9 @@
  * their headings at build time, so it works without JS. JS only marks the
  * section currently being read. Pages with fewer than three sections skip it.
  */
+import { langFromUrl } from '../i18n/locales';
+import { ui } from '../i18n/ui';
+const t = ui[langFromUrl(Astro.url)];
 const html = await Astro.slots.render('default');
 const items = [...html.matchAll(/<section\b[^>]*\bid="([^"]+)"[\s\S]*?<h2\b[^>]*>([\s\S]*?)<\/h2>/g)].map(([, id, title]) => ({
   id,
@@ -11,8 +14,8 @@ const items = [...html.matchAll(/<section\b[^>]*\bid="([^"]+)"[\s\S]*?<h2\b[^>]*
 }));
 ---
 {items.length >= 3 && (
-  <nav class="toc" aria-label="On this page">
-    <p class="toc__label">On this page</p>
+  <nav class="toc" aria-label={t.toc.label}>
+    <p class="toc__label">{t.toc.label}</p>
     <ol class="toc__list">
       {items.map((item) => <li><a href={`#${item.id}`} set:html={item.title} /></li>)}
     </ol>

@@ -1,47 +1,51 @@
 ---
-import { withBase } from '../data/url';
+import { href, type Locale } from '../i18n/locales';
+import { ui } from '../i18n/ui';
+import { localized, titleLangAttr } from '../data/localized';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   project: CollectionEntry<'projects'>;
+  lang: Locale;
 }
-const { project } = Astro.props;
-const p = project.data;
+const { project, lang } = Astro.props;
+const p = localized(project, lang);
+const t = ui[lang];
 ---
 <header class="case-band">
   <div class="grid case-band__inner">
     <p class="col-wide case-band__kicker">
-      <a href={withBase("/archive/")}>Index</a>
+      <a href={href(lang, "/archive/")}>{t.nav.index}</a>
       <span aria-hidden="true">/</span>
-      {p.disciplines.join(', ')}
+      {p.disciplines.map((d) => t.disciplines[d]).join(', ')}
     </p>
-    <h1 class="col-wide case-band__title">{p.title}</h1>
+    <h1 class="col-wide case-band__title" lang={titleLangAttr(p, lang)}>{p.title}</h1>
     <p class="col-text case-band__summary">{p.summary}</p>
     <dl class="col-margin case-band__facts">
-      <div><dt>Role</dt><dd>{p.role}</dd></div>
+      <div><dt>{t.facts.role}</dt><dd>{p.roleLang ? <span lang={p.roleLang}>{p.role}</span> : p.role}</dd></div>
       <div>
-        <dt>Where</dt>
+        <dt>{t.facts.where}</dt>
         <dd>{p.org}{p.context && <>, {p.context}</>}</dd>
       </div>
       <div>
-        <dt>When</dt>
-        <dd>{p.years}{p.yearsNote && <span class="case-band__note">{p.yearsNote}</span>}</dd>
+        <dt>{t.facts.when}</dt>
+        <dd>{p.years}{p.yearsNote && <span class="case-band__note" lang={p.yearsNoteLang}>{p.yearsNote}</span>}</dd>
       </div>
       {p.team && p.team.length > 0 && (
         <div>
-          <dt>Team</dt>
-          <dd><ul>{p.team.map((m) => <li>{m.name}, {m.role.toLowerCase()}</li>)}</ul></dd>
+          <dt>{t.facts.team}</dt>
+          <dd><ul>{p.team.map((m) => <li>{m.name}, {/^[A-Z][a-z]/.test(m.role) ? m.role.charAt(0).toLowerCase() + m.role.slice(1) : m.role}</li>)}</ul></dd>
         </div>
       )}
       {p.liveUrl && (
         <div>
-          <dt>Live site</dt>
+          <dt>{t.facts.liveSite}</dt>
           <dd><ul>{p.liveUrl.map((u) => <li><a href={u} rel="noopener">{u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</a></li>)}</ul></dd>
         </div>
       )}
       {p.notes && p.notes.length > 0 && (
         <div>
-          <dt>Note</dt>
+          <dt>{t.facts.note}</dt>
           <dd>{p.notes.map((n) => <p>{n}</p>)}</dd>
         </div>
       )}

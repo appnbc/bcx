@@ -19,12 +19,6 @@ export const capabilities = [
 
 export const types = ['case-study', 'professional', 'exhibition', 'talk-writing'] as const;
 
-export const typeLabels: Record<(typeof types)[number], string> = {
-  'case-study': 'Case study',
-  professional: 'Professional work',
-  exhibition: 'Exhibition & practice',
-  'talk-writing': 'Talk & writing',
-};
 
 export type Discipline = (typeof disciplines)[number];
 export type Capability = (typeof capabilities)[number];

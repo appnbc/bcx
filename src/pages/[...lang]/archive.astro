@@ -1,30 +1,41 @@
 ---
-import { withBase } from '../data/url';
+import Mixed from '../../components/Mixed.astro';
 import { getCollection } from 'astro:content';
-import Base from '../layouts/Base.astro';
-import { assertInventory } from '../data/projects-check';
-import { disciplines, capabilities, types, typeLabels } from '../data/taxonomy';
+import Base from '../../layouts/Base.astro';
+import { assertInventory } from '../../data/projects-check';
+import { disciplines, capabilities, types } from '../../data/taxonomy';
+import { localized, titleLangAttr } from '../../data/localized';
+import { ui } from '../../i18n/ui';
+import { archiveCopy } from '../../i18n/pages/archive';
+import { href, langOf, getLangPaths } from '../../i18n/locales';
+
+export const getStaticPaths = getLangPaths;
+const lang = langOf(Astro.params.lang);
+const t = ui[lang];
+const c = archiveCopy[lang];
 
 const entries = await getCollection('projects');
 assertInventory(entries);
 
-const rows = [...entries].sort((a, b) => b.data.sortYear - a.data.sortYear || a.data.title.localeCompare(b.data.title));
+const rows = [...entries]
+  .map((e) => ({ id: e.id, p: localized(e, lang) }))
+  .sort((a, b) => b.p.sortYear - a.p.sortYear || a.p.title.localeCompare(b.p.title, lang));
 const used = {
   c: capabilities.filter((c) => entries.some((e) => e.data.capabilities.includes(c))),
 };
 const groups = [
-  { key: 'd', label: 'Discipline', values: disciplines.map((v) => ({ value: v, label: v })) },
-  { key: 'c', label: 'Capability', values: used.c.map((v) => ({ value: v, label: v })) },
-  { key: 't', label: 'Type', values: types.map((v) => ({ value: v, label: typeLabels[v] })) },
+  { key: 'd', label: c.groups.d, values: disciplines.map((v) => ({ value: v, label: t.disciplines[v] })) },
+  { key: 'c', label: c.groups.c, values: used.c.map((v) => ({ value: v, label: t.capabilities[v] })) },
+  { key: 't', label: c.groups.t, values: types.map((v) => ({ value: v, label: t.types[v] })) },
 ];
 ---
-<Base title="Index" description={`All ${entries.length} projects by Brian Contreras: UX design, UX writing, conversation design, research and creative practice.`} current="archive">
+<Base lang={lang} title={c.title} description={c.description(entries.length)} current="archive">
   <div class="wrap archive">
     <header class="grid archive-head">
-      <h1 class="col-text">Index</h1>
+      <h1 class="col-text">{c.title}</h1>
       <p class="col-text lede">
-        All {entries.length} projects in one list: case studies, professional work, exhibitions, talks and writing.
-        Case studies <span class="archive-row__swatch" aria-hidden="true"></span>open as their own pages; the rest <span class="archive-row__swatch archive-row__swatch--entry" aria-hidden="true"></span>expand in place.
+        {c.intro(entries.length)}{' '}
+        {c.legendPages} <span class="archive-row__swatch" aria-hidden="true"></span>{c.legendPagesTail} <span class="archive-row__swatch archive-row__swatch--entry" aria-hidden="true"></span>{c.legendEntriesTail}
       </p>
     </header>
 
@@ -40,34 +51,34 @@ const groups = [
         </div>
       ))}
       <div class="archive-status">
-        <p class="meta" role="status" aria-live="polite" data-result-count>{entries.length} projects</p>
-        <button type="button" class="filter filter--clear" data-clear hidden>Clear filters</button>
-        <button type="button" class="filter filter--sort" data-sort aria-pressed="false">Oldest first</button>
+        <p class="meta" role="status" aria-live="polite" data-result-count data-one={c.countOne} data-many={c.countMany}>{c.countMany.replace('{n}', String(entries.length))}</p>
+        <button type="button" class="filter filter--clear" data-clear hidden>{c.clear}</button>
+        <button type="button" class="filter filter--sort" data-sort aria-pressed="false">{c.oldest}</button>
       </div>
     </div>
 
-    <p class="archive-empty" data-empty hidden>No projects match these filters. Try removing one.</p>
+    <p class="archive-empty" data-empty hidden>{c.empty}</p>
 
     <div class="archive-cols meta" aria-hidden="true">
-      <span>Year</span><span>Project</span><span>Discipline</span><span>Form</span>
+      <span>{c.columns.year}</span><span>{c.columns.project}</span><span>{c.columns.discipline}</span><span>{c.columns.form}</span>
     </div>
     <ol class="archive-list" data-list>
       {rows.map((e) => {
-        const p = e.data;
+        const p = e.p;
         const meta = (
           <>
             <span class="archive-row__year meta">{p.years}</span>
-            <span class="archive-row__disc label">{p.disciplines.join(', ')}</span>
-            <span class="archive-row__type meta">{typeLabels[p.type]}</span>
+            <span class="archive-row__disc label">{p.disciplines.map((d) => t.disciplines[d]).join(', ')}</span>
+            <span class="archive-row__type meta">{t.types[p.type]}</span>
           </>
         );
         return (
           <li class="archive-row" id={e.id} data-d={p.disciplines.join('|')} data-c={p.capabilities.join('|')} data-t={p.type} data-year={p.sortYear}>
             {p.form === 'page' ? (
-              <a class="archive-row__line" href={withBase(`/work/${e.id}/`)}>
+              <a class="archive-row__line" href={href(lang, `/work/${e.id}/`)}>
                 {meta}
                 <span class="archive-row__main">
-                  <span class="archive-row__title"><span class="archive-row__swatch" aria-hidden="true"></span>{p.title}</span>
+                  <span class="archive-row__title" lang={titleLangAttr(p, lang)}><span class="archive-row__swatch" aria-hidden="true"></span>{p.title}</span>
                   <span class="archive-row__org">{p.org}</span>
                 </span>
               </a>
@@ -76,19 +87,19 @@ const groups = [
                 <summary class="archive-row__line">
                   {meta}
                   <span class="archive-row__main">
-                    <span class="archive-row__title"><span class="archive-row__swatch archive-row__swatch--entry" aria-hidden="true"></span>{p.title} <span class="archive-row__go" aria-hidden="true">+</span></span>
+                    <span class="archive-row__title" lang={titleLangAttr(p, lang)}><span class="archive-row__swatch archive-row__swatch--entry" aria-hidden="true"></span>{p.title} <span class="archive-row__go" aria-hidden="true">+</span></span>
                     <span class="archive-row__org">{p.org}</span>
                   </span>
                 </summary>
                 <div class="archive-row__detail">
                   <div class="archive-row__text">
-                    <p>{p.detail}</p>
+                    <p>{p.detail && <Mixed text={p.detail} />}</p>
                   </div>
                   <dl class="archive-row__facts">
-                    <div><dt>Role</dt><dd>{p.role}</dd></div>
-                    {p.context && <div><dt>Where</dt><dd>{p.context}</dd></div>}
-                    {p.capabilities.length > 0 && <div><dt>Capabilities</dt><dd>{p.capabilities.join(', ')}</dd></div>}
-                    {p.notes?.map((n) => <div><dt>Note</dt><dd>{n}</dd></div>)}
+                    <div><dt>{t.facts.role}</dt><dd>{p.roleLang ? <span lang={p.roleLang}>{p.role}</span> : p.role}</dd></div>
+                    {p.context && <div><dt>{t.facts.where}</dt><dd>{p.context}</dd></div>}
+                    {p.capabilities.length > 0 && <div><dt>{t.facts.capabilities}</dt><dd>{p.capabilities.map((k) => t.capabilities[k]).join(', ')}</dd></div>}
+                    {p.notes?.map((n) => <div><dt>{t.facts.note}</dt><dd>{n}</dd></div>)}
                   </dl>
                 </div>
               </details>
@@ -101,7 +112,7 @@ const groups = [
 </Base>
 
 <script>
-  import { initArchiveFilter } from '../scripts/archive-filter';
+  import { initArchiveFilter } from '../../scripts/archive-filter';
   initArchiveFilter();
 </script>
 

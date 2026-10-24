@@ -1,0 +1,191 @@
+/**
+ * About / CV copy. Titles of roles, degrees, talks, honors and training stay in
+ * English as held (rendered with lang="en"); `where` and `text` are translated.
+ * Arrays line up with the items in src/pages/[...lang]/about.astro.
+ */
+type Line = { where: string; text?: string };
+
+const en = {
+  title: 'About',
+  description: 'Brian Contreras: experience, education, talks, teaching and languages.',
+  lede: 'I’m Brian Contreras, a UX designer and writer from Boston. Most of my work happens between English and Spanish: I taught Spanish, edited language textbooks, prepared training data for Alexa’s Spanish and Italian launches, helped design a Spanish phone system at Versay, and built public websites for infrastructure programs at CDM Smith.',
+  second: 'Alongside UX, I work in research and media art: an Erasmus Mundus MA in Media Arts Cultures, work shown at Ars Electronica, and now the Advanced Program in Contemporary Public Art in Biella, Italy.',
+  areasTitle: 'Research areas',
+  areas: 'Human-computer interaction, tangible and spatial interfaces, critical data and AI studies, participatory civic design, digital cultural heritage, and the sociotechnical governance of urban infrastructure.',
+  sections: {
+    experience: 'Experience',
+    education: 'Education',
+    talks: 'Talks & writing',
+    teaching: 'Teaching & jury',
+    honors: 'Honors',
+    training: 'Training',
+    methods: 'Methods & tools',
+    languages: 'Languages',
+  },
+  links: { index: 'Details in the Index', studio: 'Studio research', thesis: 'Thesis' },
+  experience: [
+    { where: 'Red Trig · Remote / Ottawa, ON', text: 'Investigated platform governance, algorithmic transparency and user retention across AI products; advised product teams on interface trust and long-term usability.' },
+    { where: 'Europeana Foundation · Remote / The Hague, NL', text: 'Comparative qualitative research across European digital cultural heritage repositories: metadata discoverability, access barriers and participatory user pathways.' },
+    { where: 'J. Sales Immigration Law · Remote / Boston, MA', text: 'Accessible multilingual information systems and service pathways that turn federal immigration statutes into clear digital tools.' },
+    { where: 'Versay Solutions · Remote / Chicago, IL', text: 'Bilingual voice interface design and localization: usability testing, dialogue flows and multimodal interaction.' },
+    { where: 'CDM Smith · Boston, MA', text: 'Accessible civic engagement websites and technical communication for municipal infrastructure and transportation projects.' },
+    { where: 'Amazon Alexa AI · Boston and Cambridge, MA', text: 'NLU training data and localization workflows for Alexa’s first Spanish and Italian launches: mapping regional colloquialisms to standard intents and auditing model performance.' },
+    { where: 'Vista Higher Learning · Boston, MA', text: 'Editorial lifecycle of print and digital language curricula: thematic modules, teaching sequences and interactive multimedia.' },
+    { where: 'Suffolk University, Department of Modern Languages (Spanish) · Boston, MA', text: 'Archival retrieval, bibliographies and literature reviews on border studies, historical memory and post-exile narratives, supporting faculty publications.' },
+  ] as Line[],
+  education: [
+    { where: 'Accademia di Arti Contemporanee Unidee – Fondazione Pistoletto · Biella, Italy' },
+    { where: 'University of Łódź · University for Continuing Education Krems · Aalborg University', text: 'Distinction: Very Good. Thesis grade 5.0 / 5.0.' },
+    { where: 'IT:U Interdisciplinary Transformation University Austria × Ars Electronica · Linz', text: 'Graduate summer school: creative robotics, entertainment, AI and entrepreneurship, storytelling for the future.' },
+    { where: 'Pompeu Fabra University · Barcelona', text: 'Specialization in usability, interaction design and user experience, with an integrated Postgraduate Certificate in User Experience.' },
+    { where: 'Suffolk University · Boston', text: 'Interdisciplinary Business Studies; minor in History, Transatlantic. Magna cum laude.' },
+  ] as Line[],
+  talks: [
+    { where: 'Master’s thesis' },
+    { where: 'Ibero-American Chatbot Summit · Glasgow' },
+    { where: 'UXPA Boston Annual Conference' },
+  ] as Line[],
+  teaching: [
+    { where: 'Tufts University · Medford, MA', text: 'Adjudicated regional student portfolios in jewelry, digital art, participatory art, mixed media and experimental media.' },
+    { where: 'MIT Museum · Cambridge, MA', text: 'Hands-on public conversations about AI, robotics and biotechnology exhibitions, adapting technical explanations to each visitor.' },
+    { where: 'Lexington Public Schools · Lexington, MA', text: 'Secondary-level Spanish: daily curricula, assessment rubrics and immersive language activities.' },
+    { where: 'Suffolk University · Boston', text: 'Assisted in undergraduate Business Spanish and ran peer tutoring in the language lab.' },
+  ] as Line[],
+  methods: {
+    researchLabel: 'Research methods',
+    research: 'Ethnographic observation, participatory mapping, semi-structured interviews, micro-phenomenology, interaction walkthroughs, usability testing, Wizard-of-Oz prototyping.',
+    toolsLabel: 'Tools',
+    tools: 'Figma, Sketch, Adobe Creative Cloud, Canva, HTML and CSS, SSML, spatial-audio production, projection mapping, physical computing and LED integration, generative-AI workflows.',
+  },
+  languages: [
+    ['English', 'Native'],
+    ['Spanish', 'Native'],
+    ['Italian', 'Professional working proficiency'],
+    ['French', 'Intermediate'],
+    ['German', 'Basic'],
+  ] as [string, string][],
+};
+
+const es: typeof en = {
+  title: 'Sobre mí',
+  description: 'Brian Contreras: experiencia, formación, charlas, docencia e idiomas.',
+  lede: 'Soy Brian Contreras, diseñador y redactor UX de Boston. Casi todo mi trabajo ocurre entre el inglés y el español: di clases de español, edité libros de texto de idiomas, preparé datos de entrenamiento para los lanzamientos de Alexa en español e italiano, ayudé a diseñar un sistema telefónico en español en Versay y construí sitios web públicos para programas de infraestructura en CDM Smith.',
+  second: 'Además de UX, trabajo en investigación y arte de los medios: un máster Erasmus Mundus en Media Arts Cultures, obra expuesta en Ars Electronica y ahora el Advanced Program in Contemporary Public Art en Biella, Italia.',
+  areasTitle: 'Áreas de investigación',
+  areas: 'Interacción persona-ordenador, interfaces tangibles y espaciales, estudios críticos de datos e IA, diseño cívico participativo, patrimonio cultural digital y gobernanza sociotécnica de la infraestructura urbana.',
+  sections: {
+    experience: 'Experiencia',
+    education: 'Formación académica',
+    talks: 'Charlas y textos',
+    teaching: 'Docencia y jurado',
+    honors: 'Reconocimientos',
+    training: 'Formación continua',
+    methods: 'Métodos y herramientas',
+    languages: 'Idiomas',
+  },
+  links: { index: 'Detalles en el Índice', studio: 'Investigación de taller', thesis: 'Tesis' },
+  experience: [
+    { where: 'Red Trig · En remoto / Ottawa, ON', text: 'Investigué la gobernanza de plataformas, la transparencia algorítmica y la retención de usuarios en productos de IA; asesoré a equipos de producto sobre la confianza en la interfaz y la usabilidad a largo plazo.' },
+    { where: 'Europeana Foundation · En remoto / La Haya, Países Bajos', text: 'Investigación cualitativa comparativa en repositorios digitales del patrimonio cultural europeo: descubribilidad de los metadatos, barreras de acceso y recorridos participativos de los usuarios.' },
+    { where: 'J. Sales Immigration Law · En remoto / Boston, MA', text: 'Sistemas de información y recorridos de servicio accesibles y multilingües que convierten la normativa federal de inmigración en herramientas digitales claras.' },
+    { where: 'Versay Solutions · En remoto / Chicago, IL', text: 'Diseño y localización de interfaces de voz bilingües: pruebas de usabilidad, flujos de diálogo e interacción multimodal.' },
+    { where: 'CDM Smith · Boston, MA', text: 'Sitios web accesibles de participación ciudadana y comunicación técnica para proyectos municipales de infraestructura y transporte.' },
+    { where: 'Amazon Alexa AI · Boston y Cambridge, MA', text: 'Datos de entrenamiento de NLU y flujos de localización para los primeros lanzamientos de Alexa en español e italiano: asignación de expresiones coloquiales regionales a intenciones estándar y auditoría del rendimiento del modelo.' },
+    { where: 'Vista Higher Learning · Boston, MA', text: 'Ciclo editorial de programas de idiomas impresos y digitales: módulos temáticos, secuencias didácticas y multimedia interactiva.' },
+    { where: 'Suffolk University, Departamento de Lenguas Modernas (Español) · Boston, MA', text: 'Búsqueda en archivos, bibliografías y revisiones de literatura sobre estudios de frontera, memoria histórica y narrativas del exilio, como apoyo a publicaciones del profesorado.' },
+  ],
+  education: [
+    { where: 'Accademia di Arti Contemporanee Unidee – Fondazione Pistoletto · Biella, Italia' },
+    { where: 'Universidad de Łódź · Universidad de Educación Continua de Krems · Universidad de Aalborg', text: 'Calificación: Muy bien. Nota de la tesis: 5,0 / 5,0.' },
+    { where: 'IT:U Interdisciplinary Transformation University Austria × Ars Electronica · Linz', text: 'Escuela de verano de posgrado: robótica creativa, entretenimiento, IA y emprendimiento, narrativa para el futuro.' },
+    { where: 'Universidad Pompeu Fabra · Barcelona', text: 'Especialización en usabilidad, diseño de interacción y experiencia de usuario, con un certificado de posgrado integrado en experiencia de usuario.' },
+    { where: 'Suffolk University · Boston', text: 'Estudios empresariales interdisciplinarios; especialidad secundaria en Historia transatlántica. Magna cum laude.' },
+  ],
+  talks: [
+    { where: 'Tesis de máster' },
+    { where: 'Ibero-American Chatbot Summit · Glasgow' },
+    { where: 'Conferencia anual de UXPA Boston' },
+  ],
+  teaching: [
+    { where: 'Tufts University · Medford, MA', text: 'Evaluación de portfolios regionales de estudiantes en joyería, arte digital, arte participativo, técnicas mixtas y medios experimentales.' },
+    { where: 'MIT Museum · Cambridge, MA', text: 'Conversaciones prácticas con el público sobre exposiciones de IA, robótica y biotecnología, adaptando las explicaciones técnicas a cada visitante.' },
+    { where: 'Lexington Public Schools · Lexington, MA', text: 'Español de secundaria: programación diaria, rúbricas de evaluación y actividades de inmersión lingüística.' },
+    { where: 'Suffolk University · Boston', text: 'Apoyo en cursos universitarios de español para los negocios y coordinación de tutorías entre estudiantes en el laboratorio de idiomas.' },
+  ],
+  methods: {
+    researchLabel: 'Métodos de investigación',
+    research: 'Observación etnográfica, cartografía participativa, entrevistas semiestructuradas, microfenomenología, recorridos de interacción, pruebas de usabilidad, prototipado de Mago de Oz.',
+    toolsLabel: 'Herramientas',
+    tools: 'Figma, Sketch, Adobe Creative Cloud, Canva, HTML y CSS, SSML, producción de audio espacial, mapping de proyección, computación física e integración de LED, flujos de trabajo con IA generativa.',
+  },
+  languages: [
+    ['Inglés', 'Nativo'],
+    ['Español', 'Nativo'],
+    ['Italiano', 'Competencia profesional'],
+    ['Francés', 'Intermedio'],
+    ['Alemán', 'Básico'],
+  ],
+};
+
+const it: typeof en = {
+  title: 'Chi sono',
+  description: 'Brian Contreras: esperienze, formazione, interventi, insegnamento e lingue.',
+  lede: 'Sono Brian Contreras, UX designer e UX writer di Boston. Quasi tutto il mio lavoro si svolge tra inglese e spagnolo: ho insegnato spagnolo, curato libri di testo di lingue, preparato dati di addestramento per i lanci di Alexa in spagnolo e in italiano, contribuito a progettare un sistema telefonico in spagnolo in Versay e realizzato siti pubblici per programmi infrastrutturali in CDM Smith.',
+  second: 'Oltre alla UX, lavoro nella ricerca e nella media art: un master Erasmus Mundus in Media Arts Cultures, lavori esposti ad Ars Electronica e ora l’Advanced Program in Contemporary Public Art a Biella.',
+  areasTitle: 'Aree di ricerca',
+  areas: 'Interazione uomo-macchina, interfacce tangibili e spaziali, studi critici su dati e IA, design civico partecipativo, patrimonio culturale digitale e governance sociotecnica delle infrastrutture urbane.',
+  sections: {
+    experience: 'Esperienza',
+    education: 'Istruzione',
+    talks: 'Interventi e scritti',
+    teaching: 'Insegnamento e giurie',
+    honors: 'Riconoscimenti',
+    training: 'Formazione continua',
+    methods: 'Metodi e strumenti',
+    languages: 'Lingue',
+  },
+  links: { index: 'Dettagli nell’Indice', studio: 'Ricerca di studio', thesis: 'Tesi' },
+  experience: [
+    { where: 'Red Trig · Da remoto / Ottawa, ON', text: 'Ho analizzato governance delle piattaforme, trasparenza algoritmica e fidelizzazione degli utenti nei prodotti di IA; ho fatto consulenza ai team di prodotto su fiducia nell’interfaccia e usabilità a lungo termine.' },
+    { where: 'Europeana Foundation · Da remoto / L’Aia, Paesi Bassi', text: 'Ricerca qualitativa comparativa sugli archivi digitali del patrimonio culturale europeo: reperibilità dei metadati, barriere di accesso e percorsi partecipativi degli utenti.' },
+    { where: 'J. Sales Immigration Law · Da remoto / Boston, MA', text: 'Sistemi informativi e percorsi di servizio accessibili e multilingue che trasformano la normativa federale sull’immigrazione in strumenti digitali chiari.' },
+    { where: 'Versay Solutions · Da remoto / Chicago, IL', text: 'Progettazione e localizzazione di interfacce vocali bilingue: test di usabilità, flussi di dialogo e interazione multimodale.' },
+    { where: 'CDM Smith · Boston, MA', text: 'Siti accessibili di partecipazione civica e comunicazione tecnica per progetti municipali di infrastrutture e trasporti.' },
+    { where: 'Amazon Alexa AI · Boston e Cambridge, MA', text: 'Dati di addestramento NLU e flussi di localizzazione per i primi lanci di Alexa in spagnolo e in italiano: mappatura di espressioni colloquiali regionali su intenti standard e verifica delle prestazioni del modello.' },
+    { where: 'Vista Higher Learning · Boston, MA', text: 'Ciclo editoriale di corsi di lingua cartacei e digitali: moduli tematici, sequenze didattiche e contenuti multimediali interattivi.' },
+    { where: 'Suffolk University, Dipartimento di Lingue Moderne (Spagnolo) · Boston, MA', text: 'Ricerche d’archivio, bibliografie e rassegne della letteratura su studi di frontiera, memoria storica e narrazioni dell’esilio, a supporto delle pubblicazioni dei docenti.' },
+  ],
+  education: [
+    { where: 'Accademia di Arti Contemporanee Unidee – Fondazione Pistoletto · Biella' },
+    { where: 'Università di Łódź · Università per la formazione continua di Krems · Università di Aalborg', text: 'Valutazione: Molto buono. Voto della tesi: 5,0 / 5,0.' },
+    { where: 'IT:U Interdisciplinary Transformation University Austria × Ars Electronica · Linz', text: 'Summer school post-laurea: robotica creativa, intrattenimento, IA e imprenditorialità, narrazione per il futuro.' },
+    { where: 'Università Pompeu Fabra · Barcellona', text: 'Specializzazione in usabilità, interaction design ed esperienza utente, con un certificato post-laurea integrato in esperienza utente.' },
+    { where: 'Suffolk University · Boston', text: 'Studi aziendali interdisciplinari; corso secondario in Storia transatlantica. Magna cum laude.' },
+  ],
+  talks: [
+    { where: 'Tesi di master' },
+    { where: 'Ibero-American Chatbot Summit · Glasgow' },
+    { where: 'Conferenza annuale di UXPA Boston' },
+  ],
+  teaching: [
+    { where: 'Tufts University · Medford, MA', text: 'Valutazione di portfolio regionali di studenti in gioielleria, arte digitale, arte partecipativa, tecniche miste e media sperimentali.' },
+    { where: 'MIT Museum · Cambridge, MA', text: 'Conversazioni pratiche con il pubblico sulle mostre di IA, robotica e biotecnologie, adattando le spiegazioni tecniche a ogni visitatore.' },
+    { where: 'Lexington Public Schools · Lexington, MA', text: 'Spagnolo per la scuola secondaria: programmazione quotidiana, griglie di valutazione e attività di immersione linguistica.' },
+    { where: 'Suffolk University · Boston', text: 'Supporto ai corsi universitari di spagnolo commerciale e coordinamento del tutorato tra pari nel laboratorio linguistico.' },
+  ],
+  methods: {
+    researchLabel: 'Metodi di ricerca',
+    research: 'Osservazione etnografica, mappatura partecipativa, interviste semi-strutturate, microfenomenologia, walkthrough dell’interazione, test di usabilità, prototipazione Mago di Oz.',
+    toolsLabel: 'Strumenti',
+    tools: 'Figma, Sketch, Adobe Creative Cloud, Canva, HTML e CSS, SSML, produzione di audio spaziale, projection mapping, physical computing e integrazione LED, flussi di lavoro con IA generativa.',
+  },
+  languages: [
+    ['Inglese', 'Madrelingua'],
+    ['Spagnolo', 'Madrelingua'],
+    ['Italiano', 'Competenza professionale'],
+    ['Francese', 'Intermedio'],
+    ['Tedesco', 'Base'],
+  ],
+};
+
+export const aboutCopy = { en, es, it };

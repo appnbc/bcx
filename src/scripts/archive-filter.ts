@@ -35,7 +35,8 @@ export function initArchiveFilter(): void {
     const active = KEYS.some((k) => state[k]);
     clear.hidden = !active;
     empty.hidden = visible > 0;
-    count.textContent = `${visible} ${visible === 1 ? 'project' : 'projects'}`;
+    const template = visible === 1 ? count.dataset.one : count.dataset.many;
+    count.textContent = (template ?? '{n}').replace('{n}', String(visible));
 
     if (updateUrl) {
       const q = new URLSearchParams();

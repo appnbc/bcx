@@ -1,4 +1,6 @@
 ---
+import { langFromUrl } from '../i18n/locales';
+import { ui } from '../i18n/ui';
 /**
  * Facing-language table, like a bilingual edition. Columns marked `strike`
  * hold the version to avoid and render as deletions. A row can override a
@@ -10,6 +12,8 @@ export interface EnFaceColumn {
   lang?: string;
   strike?: boolean;
   muted?: boolean;
+  /** Cells in this column are artifacts shown as written, never translated. */
+  verbatim?: boolean;
 }
 interface Props {
   columns: EnFaceColumn[];
@@ -17,6 +21,7 @@ interface Props {
   caption: string;
 }
 const { columns, rows, caption } = Astro.props;
+const t = ui[langFromUrl(Astro.url)];
 ---
 <div class="enface col-wide">
   <table>
@@ -31,9 +36,9 @@ const { columns, rows, caption } = Astro.props;
             const value = row[c.key];
             const Cell = i === 0 ? 'th' : 'td';
             return (
-              <Cell scope={i === 0 ? 'row' : undefined} data-label={c.label} lang={value ? (row[`${c.key}Lang`] ?? c.lang) : undefined} class:list={{ muted: c.muted }}>
+              <Cell scope={i === 0 ? 'row' : undefined} data-label={c.label} lang={value ? (row[`${c.key}Lang`] ?? c.lang) : undefined} class:list={{ muted: c.muted }} data-verbatim={c.verbatim ? '' : undefined}>
                 {!value ? <span aria-hidden="true">—</span> : c.strike ? (
-                  <del><span class="visually-hidden">avoid: </span>{value}</del>
+                  <del><span class="visually-hidden">{t.edit.avoid} </span>{value}</del>
                 ) : value}
               </Cell>
             );

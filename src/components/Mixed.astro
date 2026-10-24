@@ -1,0 +1,16 @@
+---
+/**
+ * Renders copy that quotes another language. In the copy, ⟦text⟧ marks English
+ * (interface labels, titles, job titles kept as written) and ⟦es:text⟧ marks
+ * another language; each becomes <span lang="…">. Unmarked copy renders as is.
+ */
+interface Props {
+  text: string;
+}
+const { text } = Astro.props;
+const parts = text.split(/(⟦(?:[a-z]{2}:)?[^⟧]+⟧)/).filter(Boolean).map((part) => {
+  const m = part.match(/^⟦(?:([a-z]{2}):)?([^⟧]+)⟧$/);
+  return m ? { lang: m[1] ?? 'en', text: m[2] } : { text: part };
+});
+---
+{parts.map((p) => ('lang' in p ? <span lang={p.lang}>{p.text}</span> : p.text))}

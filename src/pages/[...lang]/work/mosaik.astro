@@ -1,0 +1,38 @@
+---
+import { getEntry } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import CaseHeader from '../../../components/CaseHeader.astro';
+import CaseSections from '../../../components/CaseSections.astro';
+import Section from '../../../components/Section.astro';
+import MarginNote from '../../../components/MarginNote.astro';
+import Figure from '../../../components/Figure.astro';
+import Pager from '../../../components/Pager.astro';
+import { img } from '../../../data/images';
+import { href, langOf, getLangPaths } from '../../../i18n/locales';
+import { localized } from '../../../data/localized';
+import { mosaikCopy } from '../../../i18n/pages/mosaik';
+
+export const getStaticPaths = getLangPaths;
+const lang = langOf(Astro.params.lang);
+const c = mosaikCopy[lang];
+
+const project = (await getEntry('projects', 'mosaik'))!;
+const p = localized(project, lang);
+---
+<Base lang={lang} title={p.title} description={p.summary} current="work">
+  <article class="wrap">
+    <CaseHeader project={project} lang={lang} />
+    <CaseSections>
+
+    <Section id="carried-over" title={c.title}>
+      <div class="col-text prose">
+        <p>{c.p1Before} <a href={href(lang, "/work/descubre/")}>Descubre</a>{c.p1After}</p>
+        <p>{c.p2}</p>
+      </div>
+      <MarginNote label={c.noteLabel}>{c.noteBefore} <a href={href(lang, "/work/descubre/")}>{c.noteLink}</a>{c.noteAfter}</MarginNote>
+      <Figure src={img('mosaik', 'VHL_GermanCovers.png')} alt={c.coversAlt} caption={c.coversCaption} size="wide" frame={false} />
+    </Section>
+    </CaseSections>
+  </article>
+  <Pager id={project.id} lang={lang} />
+</Base>

@@ -1,4 +1,6 @@
 ---
+import { langFromUrl } from '../i18n/locales';
+import { ui } from '../i18n/ui';
 import { Picture, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
@@ -13,6 +15,7 @@ interface Props {
   zoom?: boolean;
 }
 const { src, alt, caption, size = 'wide', eager = false, frame = true, zoom = true } = Astro.props;
+const t = ui[langFromUrl(Astro.url)];
 const full = zoom ? await getImage({ src, width: Math.min(2000, src.width), format: 'webp' }) : undefined;
 const col = { text: 'col-text', wide: 'col-wide', bleed: 'col-full', margin: 'col-margin' }[size];
 const sizes = {
@@ -27,7 +30,7 @@ const widths = [480, 800, 1200, 1800].filter((w) => w <= src.width);
   {full ? (
     <a class="zoom" href={full.src} data-alt={alt} data-caption={caption}>
       <Picture src={src} alt={alt} formats={['avif', 'webp']} widths={widths.length ? widths : [src.width]} sizes={sizes} loading={eager ? 'eager' : 'lazy'} decoding="async" />
-      <span class="visually-hidden">(opens full size)</span>
+      <span class="visually-hidden">{t.lightbox.opens}</span>
     </a>
   ) : (
     <Picture src={src} alt={alt} formats={['avif', 'webp']} widths={widths.length ? widths : [src.width]} sizes={sizes} loading={eager ? 'eager' : 'lazy'} decoding="async" />

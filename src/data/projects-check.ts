@@ -1,6 +1,6 @@
 import type { CollectionEntry } from 'astro:content';
 import inventory from './inventory.json';
-import { withBase } from './url';
+import { href, type Locale } from '../i18n/locales';
 
 /** Throws at build time if the collection and the audited inventory disagree. */
 export function assertInventory(entries: CollectionEntry<'projects'>[]): void {
@@ -18,6 +18,6 @@ export function inInventoryOrder(entries: CollectionEntry<'projects'>[]): Collec
 }
 
 /** Where a project lives: its case-study page, or its entry in the Index. */
-export function projectHref(entry: CollectionEntry<'projects'>): string {
-  return withBase(entry.data.form === 'page' ? `/work/${entry.id}/` : `/archive/#${entry.id}`);
+export function projectHref(entry: CollectionEntry<'projects'>, lang: Locale = 'en'): string {
+  return href(lang, entry.data.form === 'page' ? `/work/${entry.id}/` : `/archive/#${entry.id}`);
 }

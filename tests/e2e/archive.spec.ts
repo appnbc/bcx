@@ -1,6 +1,6 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 
-const rows = (page) => page.locator('.archive-row:visible');
+const rows = (page: Page) => page.locator('.archive-row:visible');
 
 test('filters by discipline and syncs URL and count', async ({ page }) => {
   await page.goto('/archive/');
@@ -11,7 +11,7 @@ test('filters by discipline and syncs URL and count', async ({ page }) => {
   const n = await rows(page).count();
   expect(n).toBeGreaterThan(0);
   expect(n).toBeLessThan(23);
-  for (const d of await rows(page).evaluateAll((els) => els.map((e) => e.getAttribute('data-d')))) {
+  for (const d of await rows(page).evaluateAll((els: Element[]) => els.map((e) => e.getAttribute('data-d')))) {
     expect(d).toContain('UX Writing');
   }
   await expect(page.locator('[data-result-count]')).toHaveText(`${n} projects`);
@@ -62,4 +62,10 @@ test('clicking a filter keeps the hash', async ({ page }) => {
   await page.goto('/archive/#kynd');
   await page.getByRole('button', { name: 'Creative Practice', exact: true }).click();
   await expect(page).toHaveURL(/#kynd$/);
+});
+
+test('Spanish Index filter uses the canonical value in the URL', async ({ page }) => {
+  await page.goto('/es/archive/');
+  await page.getByRole('button', { name: 'Escritura UX', exact: true }).click();
+  await expect(page).toHaveURL(/\?d=UX\+Writing/);
 });

@@ -1,4 +1,6 @@
 ---
+import { langFromUrl } from '../i18n/locales';
+import { ui } from '../i18n/ui';
 import { Picture, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
@@ -14,6 +16,7 @@ interface Props {
   caption?: string;
 }
 const { a, b, caption } = Astro.props;
+const t = ui[langFromUrl(Astro.url)];
 const fullOf = async (src: ImageMetadata) => (await getImage({ src, width: Math.min(2000, src.width), format: 'webp' })).src;
 const sides = await Promise.all([a, b].map(async (side) => ({ ...side, full: await fullOf(side.src) })));
 const widthsFor = (src: ImageMetadata) => {
@@ -28,7 +31,7 @@ const widthsFor = (src: ImageMetadata) => {
         <p class:list={['compare__label label', { 'compare__label--after': i === 1 }]}>{side.label}</p>
         <a class="zoom" href={side.full} data-alt={side.alt} data-caption={side.label}>
           <Picture src={side.src} alt={side.alt} formats={['avif', 'webp']} widths={widthsFor(side.src)} sizes="(min-width: 900px) 40vw, 100vw" loading="lazy" decoding="async" />
-          <span class="visually-hidden">(opens full size)</span>
+          <span class="visually-hidden">{t.lightbox.opens}</span>
         </a>
       </div>
     ))}

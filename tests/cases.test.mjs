@@ -26,8 +26,10 @@ function isThumb(html, index) {
 
 // Matches <del>/<ins> from EditView (and struck EnFace cells), tolerating Astro's scoped-style attributes.
 const strip = (html) => html.replace(/\sdata-astro-cid-[\w-]+(="[^"]*")?/g, '');
-const mark = (tag, label) => (html, s) =>
-  strip(html).includes(`<${tag}><span class="visually-hidden">${label}: </span>${s}</${tag}>`);
+// The hidden label is in the page language (deleted: / eliminado: / eliminato:).
+const labels = { deleted: ['deleted', 'eliminado', 'eliminato'], inserted: ['inserted', 'insertado', 'inserito'], avoid: ['avoid', 'evitar', 'da evitare'] };
+const mark = (tag, kind) => (html, s) =>
+  labels[kind].some((label) => strip(html).includes(`<${tag}><span class="visually-hidden">${label}: </span>${s}</${tag}>`));
 export const del = mark('del', 'deleted');
 export const ins = mark('ins', 'inserted');
 export const avoid = mark('del', 'avoid');

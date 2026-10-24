@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "node --test \"tests/*.test.mjs\"",
+    "test": "astro check && node --test \"tests/*.test.mjs\"",
     "e2e": "playwright test",
     "images": "node scripts/import-images.mjs"
   },
@@ -18,7 +18,9 @@
     "astro": "^7.4.2"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.12",
     "@axe-core/playwright": "^4.14.0",
-    "@playwright/test": "^1.64.1"
+    "@playwright/test": "^1.64.1",
+    "typescript": "^6.0.3"
   }
 }

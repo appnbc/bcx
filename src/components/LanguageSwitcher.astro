@@ -1,0 +1,37 @@
+---
+/** Links to the current page in each language. Rendered only when site.languagesPublic is true. */
+import { locales, localeNames, href, type Locale } from '../i18n/locales';
+import { ui } from '../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  /** The page path without a language prefix, e.g. "/work/descubre/". */
+  path: string;
+}
+const { lang, path } = Astro.props;
+---
+<nav class="lang-switcher" aria-label={ui[lang].switcher.label}>
+  <ul>
+    {locales.map((l) => (
+      <li>
+        <a href={href(l, path)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined}>{localeNames[l]}</a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .lang-switcher ul { list-style: none; margin: 0; padding: 3px; display: inline-flex; gap: 2px; border: 1px solid var(--rule); border-radius: 999px; }
+  .lang-switcher a {
+    display: block;
+    font-family: var(--sans);
+    font-size: var(--step--2);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.3em 0.9em;
+    border-radius: 999px;
+    color: var(--ink-muted);
+  }
+  .lang-switcher a:hover { color: var(--ink); }
+  .lang-switcher a[aria-current] { background: var(--highlight); color: var(--on-highlight); }
+</style>

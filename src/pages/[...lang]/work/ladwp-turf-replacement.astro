@@ -1,0 +1,154 @@
+---
+import Mixed from '../../../components/Mixed.astro';
+import { getEntry } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import CaseHeader from '../../../components/CaseHeader.astro';
+import CaseSections from '../../../components/CaseSections.astro';
+import Section from '../../../components/Section.astro';
+import MarginNote from '../../../components/MarginNote.astro';
+import EditView from '../../../components/EditView.astro';
+import Figure from '../../../components/Figure.astro';
+import Compare from '../../../components/Compare.astro';
+import Gallery from '../../../components/Gallery.astro';
+import Ledger from '../../../components/Ledger.astro';
+import Persona from '../../../components/Persona.astro';
+import Pager from '../../../components/Pager.astro';
+import { img } from '../../../data/images';
+import { localized } from '../../../data/localized';
+import { langOf, getLangPaths } from '../../../i18n/locales';
+import { ladwpCopy } from '../../../i18n/pages/ladwp-turf-replacement';
+
+export const getStaticPaths = getLangPaths;
+const lang = langOf(Astro.params.lang);
+const c = ladwpCopy[lang];
+
+const project = (await getEntry('projects', 'ladwp-turf-replacement'))!;
+const p = localized(project, lang);
+const la = (f: string) => img('ladwp-turf-replacement', f);
+const shotFiles = ['LA_WP_dept_3.png', 'LA_WP_dept_2.png', 'LA_WP_dept_11.png'];
+---
+<Base lang={lang} title={p.title} description={p.summary} current="work">
+  <article class="wrap">
+    <CaseHeader project={project} lang={lang} />
+    <CaseSections>
+
+    <Section id="context" title={c.context.title}>
+      <div class="col-text prose">
+        <p>{c.context.p1}</p>
+        <p>{c.context.p2}</p>
+      </div>
+      <MarginNote label={c.context.noteLabel}>{c.context.note}</MarginNote>
+    </Section>
+
+    <Section id="persona" title={c.persona.title}>
+      <div class="col-wide two-up">
+        <Persona name="Monica" age={24} {...c.persona.monica} />
+        <div class="persona-gloss prose">
+          <p class="meta">{c.persona.connectionLabel}</p>
+          <p><Mixed text={c.persona.connection} /></p>
+        </div>
+      </div>
+    </Section>
+
+    <Section id="global" title={c.global.title}>
+      <div class="col-text prose">
+        <p>{c.global.p}</p>
+      </div>
+      <Ledger caption={c.global.caption} headers={c.global.headers} rows={c.global.rows} />
+    </Section>
+
+    <Section id="hyperlinking" title={c.hyperlinking.title}>
+      <div class="col-text prose">
+        <p>{c.hyperlinking.p}</p>
+      </div>
+    </Section>
+
+    <Section id="steps" title={c.steps.title}>
+      <div class="col-text prose">
+        <p><Mixed text={c.steps.p1} /></p>
+        <p>{c.steps.p2}</p>
+      </div>
+      <Figure src={la('LA_WP_dept_1.png')} alt={c.steps.alt} size="margin" />
+    </Section>
+
+    <Section id="application" title={c.application.title}>
+      <div class="col-text prose">
+        <p>{c.application.p1}</p>
+        <p>{c.application.p2}</p>
+      </div>
+      <Gallery
+        id="application"
+        label={c.application.galleryLabel}
+        items={c.application.shots.map((s, i) => ({ src: la(shotFiles[i]), alt: s.alt, caption: s.caption }))}
+      />
+    </Section>
+
+    <Section id="troubleshooting" title={c.troubleshooting.title}>
+      <div class="col-text prose">
+        <p><Mixed text={c.troubleshooting.p} /></p>
+      </div>
+      <figure class="col-wide tip" data-verbatim>
+        <blockquote lang="en">
+          <p>
+            It’s recommended to use the Chrome browser to access the form. If you have problems accessing the form, please disable your
+            ad blockers and <u>clear your cache</u>. If trouble still persists, please open <u>the form in its own window</u>.
+          </p>
+        </blockquote>
+        <figcaption class="meta">{c.troubleshooting.caption}</figcaption>
+      </figure>
+    </Section>
+
+    <Section id="email" title={c.email.title} kicker={c.email.kicker}>
+      <div class="col-text prose">
+        <p>{c.email.p}</p>
+      </div>
+      <EditView
+        verbatim
+        size="small"
+        parts={[
+          { t: 'LADWP ' },
+          { del: 'Turf Replacement Design Services ' },
+          { t: '- John Test 51 - ' },
+          { ins: 'Turf Replacement Design Services - ' },
+          { t: 'Application in Review' },
+        ]}
+        caption={c.email.subjectCaption}
+        note={c.email.subjectNote}
+      />
+      <Compare
+        a={{ src: la('LA_WP_dept_6.png'), ...c.email.before }}
+        b={{ src: la('LA_WP_dept_7.png'), ...c.email.after }}
+      />
+      <div class="col-text prose">
+        <ul>
+          {c.email.changes.map((ch) => <li><strong>{ch.term}</strong>{ch.rest}</li>)}
+        </ul>
+      </div>
+    </Section>
+
+    <Section id="retrospective" title={c.retrospective.title}>
+      <div class="col-text prose">
+        <p>{c.retrospective.p1}</p>
+        <p>{c.retrospective.p2}</p>
+      </div>
+    </Section>
+    </CaseSections>
+  </article>
+  <Pager id={project.id} lang={lang} />
+</Base>
+
+<style>
+  .persona-gloss { align-self: end; border-left: 3px solid var(--highlight); padding-left: var(--space-3); font-size: var(--step--1); }
+  .tip { margin: var(--space-3) 0; }
+  .tip blockquote {
+    margin: 0;
+    padding: var(--space-4);
+    background: var(--paper-sunk);
+    border-left: 3px solid var(--ink);
+    font-family: var(--sans);
+    font-size: var(--step-0);
+    line-height: 1.6;
+  }
+  .tip u { text-decoration-color: var(--ink-muted); }
+  .tip figcaption { margin-top: var(--space-2); }
+</style>

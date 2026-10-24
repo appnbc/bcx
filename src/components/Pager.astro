@@ -1,21 +1,25 @@
 ---
-import { withBase } from '../data/url';
+import { href, type Locale } from '../i18n/locales';
+import { ui } from '../i18n/ui';
+import { localized, titleLangAttr } from '../data/localized';
 import { getCollection } from 'astro:content';
 import { inInventoryOrder } from '../data/projects-check';
 
 interface Props {
   id: string;
+  lang: Locale;
 }
-const { id } = Astro.props;
+const { id, lang } = Astro.props;
+const t = ui[lang];
 const pages = inInventoryOrder(await getCollection('projects', (e) => e.data.form === 'page'));
 const i = pages.findIndex((p) => p.id === id);
 const prev = pages[(i - 1 + pages.length) % pages.length];
 const next = pages[(i + 1) % pages.length];
 ---
-<nav class="pager wrap" aria-label="More case studies">
-  <a href={withBase(`/work/${prev.id}/`)} rel="prev"><span class="meta">Previous</span><span class="pager__title">{prev.data.title}</span></a>
-  <a href={withBase("/archive/")} class="pager__index"><span class="meta">All projects</span><span class="pager__title">Index</span></a>
-  <a href={withBase(`/work/${next.id}/`)} rel="next"><span class="meta">Next</span><span class="pager__title">{next.data.title}</span></a>
+<nav class="pager wrap" aria-label={t.pager.label}>
+  <a href={href(lang, `/work/${prev.id}/`)} rel="prev"><span class="meta">{t.pager.previous}</span><span class="pager__title" lang={titleLangAttr(localized(prev, lang), lang)}>{localized(prev, lang).title}</span></a>
+  <a href={href(lang, "/archive/")} class="pager__index"><span class="meta">{t.pager.all}</span><span class="pager__title">{t.nav.index}</span></a>
+  <a href={href(lang, `/work/${next.id}/`)} rel="next"><span class="meta">{t.pager.next}</span><span class="pager__title" lang={titleLangAttr(localized(next, lang), lang)}>{localized(next, lang).title}</span></a>
 </nav>
 
 <style>

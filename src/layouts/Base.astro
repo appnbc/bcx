@@ -1,5 +1,4 @@
 ---
-import { withBase } from '../data/url';
 import '@fontsource-variable/newsreader/opsz.css';
 import '@fontsource-variable/newsreader/opsz-italic.css';
 import '@fontsource-variable/public-sans/wght.css';
@@ -7,27 +6,36 @@ import '../styles/tokens.css';
 import '../styles/base.css';
 import '../styles/layout.css';
 import { site, hasContact } from '../config';
+import { href, stripLocale, type Locale } from '../i18n/locales';
+import { ui } from '../i18n/ui';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 
 interface Props {
   title: string;
   description: string;
+  lang?: Locale;
   current?: 'work' | 'archive' | 'about';
-  /** Keep this page out of search results (e.g. design previews). */
+  /** Keep this page out of search results. Non-English pages also stay out until languages are public. */
   noindex?: boolean;
+  /** Set false on pages with no Spanish/Italian version (the 404): no switcher, no alternates. */
+  translations?: boolean;
 }
 
-const { title, description, current, noindex = false } = Astro.props;
-const fullTitle = title === site.name ? `${site.name} — ${site.role}` : `${title} — ${site.name}`;
+const { title, description, lang = 'en', current, noindex = false, translations = true } = Astro.props;
+const offerLanguages = site.languagesPublic && translations;
+const t = ui[lang];
+const fullTitle = title === site.name ? `${site.name} — ${t.role}` : `${title} — ${site.name}`;
+const hidden = noindex || (lang !== 'en' && !site.languagesPublic);
+const path = stripLocale(Astro.url.pathname);
 const nav = [
-  { href: '/#work', label: 'Work', key: 'work' },
-  { href: '/archive/', label: 'Index', key: 'archive' },
-  { href: '/about/', label: 'About', key: 'about' },
-  { href: '#contact', label: 'Contact', key: 'contact' },
+  { path: '/#work', label: t.nav.work, key: 'work' },
+  { path: '/archive/', label: t.nav.index, key: 'archive' },
+  { path: '/about/', label: t.nav.about, key: 'about' },
 ];
 const { email, linkedin, other = [] } = site.contact;
 ---
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -39,24 +47,34 @@ const { email, linkedin, other = [] } = site.contact;
     <meta property="og:site_name" content={site.name} />
     <meta name="twitter:card" content="summary" />
     <meta name="color-scheme" content="light dark" />
-    {noindex && <meta name="robots" content="noindex" />}
-    <link rel="icon" href={withBase("/favicon.svg")} type="image/svg+xml" />
+    {hidden && <meta name="robots" content="noindex" />}
+    {offerLanguages && (
+      <>
+        <link rel="alternate" hreflang="en" href={href('en', path)} />
+        <link rel="alternate" hreflang="es" href={href('es', path)} />
+        <link rel="alternate" hreflang="it" href={href('it', path)} />
+        <link rel="alternate" hreflang="x-default" href={href('en', path)} />
+      </>
+    )}
+    <link rel="icon" href={href('en', '/favicon.svg')} type="image/svg+xml" />
     <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">{t.skipLink}</a>
     <header class="site-header">
       <div class="wrap">
-        <a class="site-name" href={withBase("/")}>{site.name} <span>{site.role}</span></a>
-        <nav class="site-nav" aria-label="Primary">
+        <a class="site-name" href={href(lang, '/')}>{site.name} <span>{t.role}</span></a>
+        <nav class="site-nav" aria-label={t.nav.label}>
           <ul>
             {nav.map((item) => (
               <li>
-                <a href={item.href.startsWith('/') ? withBase(item.href) : item.href} aria-current={item.key === current ? 'page' : undefined}>{item.label}</a>
+                <a href={href(lang, item.path)} aria-current={item.key === current ? 'page' : undefined}>{item.label}</a>
               </li>
             ))}
+            <li><a href="#contact">{t.nav.contact}</a></li>
           </ul>
         </nav>
+        {offerLanguages && <LanguageSwitcher lang={lang} path={path} />}
       </div>
     </header>
 
@@ -66,15 +84,15 @@ const { email, linkedin, other = [] } = site.contact;
 
     <footer class="site-footer" id="contact">
       <div class="wrap contact">
-        <h2 class="contact__title">Contact</h2>
+        <h2 class="contact__title">{t.contact.title}</h2>
         {hasContact ? (
           <>
-            <p class="contact__lead">Hiring, collaborating, or curious about a project? Write to me.</p>
+            <p class="contact__lead">{t.contact.lead}</p>
             {email && (
               <>
                 <a class="contact-big" href={`mailto:${email}`}>{email}</a>
                 <p class="contact__copy">
-                  <button type="button" data-copy={email}>Copy email</button>
+                  <button type="button" data-copy={email} data-copied={t.contact.copied} data-failed={t.contact.copyFailed}>{t.contact.copy}</button>
                   <span class="contact__status" data-copy-status role="status"></span>
                 </p>
               </>
@@ -87,13 +105,13 @@ const { email, linkedin, other = [] } = site.contact;
             )}
           </>
         ) : (
-          <p class="label">Contact details coming soon.</p>
+          <p class="label">{t.contact.soon}</p>
         )}
       </div>
     </footer>
 
-    <dialog id="lightbox" class="lightbox" aria-label="Enlarged screenshot">
-      <div class="lightbox__bar"><button type="button" class="label" data-close>Close</button></div>
+    <dialog id="lightbox" class="lightbox" aria-label={t.lightbox.label}>
+      <div class="lightbox__bar"><button type="button" class="label" data-close>{t.lightbox.close}</button></div>
       <figure class="lightbox__figure"><figcaption></figcaption></figure>
     </dialog>
     <script>
@@ -106,9 +124,9 @@ const { email, linkedin, other = [] } = site.contact;
         btn.addEventListener('click', async () => {
           try {
             await navigator.clipboard.writeText(btn.dataset.copy!);
-            if (status) status.textContent = 'Copied';
+            if (status) status.textContent = btn.dataset.copied ?? '';
           } catch {
-            if (status) status.textContent = 'Copy didn’t work. Select the address above instead.';
+            if (status) status.textContent = btn.dataset.failed ?? '';
           }
           window.setTimeout(() => status && (status.textContent = ''), 4000);
         });

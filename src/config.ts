@@ -4,9 +4,18 @@ export interface Contact {
   other?: { label: string; href: string }[];
 }
 
+/** Reads a build-time environment variable (config is only evaluated during the build). */
+function buildEnv(name: string): string | undefined {
+  return (globalThis as { process?: { env: Record<string, string | undefined> } }).process?.env[name];
+}
+
 export const site = {
+  /**
+   * Spanish and Italian pages are built and deployed, but stay unannounced (no switcher,
+   * no hreflang, noindex) until this is true. LANGUAGES_PUBLIC=1 turns it on for one build.
+   */
+  languagesPublic: buildEnv('LANGUAGES_PUBLIC') === '1',
   name: 'Brian Contreras',
-  role: 'UX designer and UX writer',
   statement:
     'I design and write interfaces for public programs, language learning and voice, in English and Spanish.',
   contact: {

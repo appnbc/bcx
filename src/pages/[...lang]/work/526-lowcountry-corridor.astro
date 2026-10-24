@@ -1,0 +1,56 @@
+---
+import { getEntry } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import CaseHeader from '../../../components/CaseHeader.astro';
+import CaseSections from '../../../components/CaseSections.astro';
+import Section from '../../../components/Section.astro';
+import Ledger from '../../../components/Ledger.astro';
+import Persona from '../../../components/Persona.astro';
+import Pager from '../../../components/Pager.astro';
+import { langOf, getLangPaths } from '../../../i18n/locales';
+import { localized } from '../../../data/localized';
+import { lccCopy } from '../../../i18n/pages/526-lowcountry-corridor';
+
+export const getStaticPaths = getLangPaths;
+const lang = langOf(Astro.params.lang);
+
+const project = (await getEntry('projects', '526-lowcountry-corridor'))!;
+
+const c = lccCopy[lang];
+const p = localized(project, lang);
+---
+<Base lang={lang} title={p.title} description={p.summary} current="work">
+  <article class="wrap">
+    <CaseHeader project={project} lang={lang} />
+    <CaseSections>
+
+    <Section id="role" title={c.role.title}>
+      <div class="col-text prose">
+        <p>{c.role.p1}</p>
+        <p>{c.role.p2}</p>
+      </div>
+    </Section>
+
+    <Section id="persona" title={c.persona.title}>
+      <div class="col-text">
+        <Persona name="Daniel" age={35} {...c.persona.daniel} />
+      </div>
+    </Section>
+
+    <Section id="issues" title={c.issues.title} kicker={c.issues.kicker}>
+      <div class="col-text prose">
+        <p>{c.issues.p}</p>
+      </div>
+      <Ledger caption={c.issues.caption} headers={c.issues.headers} rows={c.issues.rows} />
+    </Section>
+
+    <Section id="retrospective" title={c.retrospective.title}>
+      <div class="col-text prose">
+        <p>{c.retrospective.p1}</p>
+        <p>{c.retrospective.p2}</p>
+      </div>
+    </Section>
+    </CaseSections>
+  </article>
+  <Pager id={project.id} lang={lang} />
+</Base>

@@ -1,0 +1,156 @@
+---
+import Mixed from '../../../components/Mixed.astro';
+import { getEntry } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import CaseHeader from '../../../components/CaseHeader.astro';
+import CaseSections from '../../../components/CaseSections.astro';
+import Section from '../../../components/Section.astro';
+import MarginNote from '../../../components/MarginNote.astro';
+import EditView from '../../../components/EditView.astro';
+import Figure from '../../../components/Figure.astro';
+import Compare from '../../../components/Compare.astro';
+import Persona from '../../../components/Persona.astro';
+import Pager from '../../../components/Pager.astro';
+import { img } from '../../../data/images';
+import { localized } from '../../../data/localized';
+import { langOf, getLangPaths } from '../../../i18n/locales';
+import { sunnyvaleCopy } from '../../../i18n/pages/sunnyvale-cleanwater';
+
+export const getStaticPaths = getLangPaths;
+const lang = langOf(Astro.params.lang);
+const c = sunnyvaleCopy[lang];
+
+const project = (await getEntry('projects', 'sunnyvale-cleanwater'))!;
+const p = localized(project, lang);
+const sv = (f: string) => img('sunnyvale-cleanwater', f);
+
+const draftFiles = ['sunnyvalecleanwater_18.png', 'sunnyvalecleanwater_19.png', 'sunnyvalecleanwater_20.png', 'sunnyvalecleanwater_21.png'];
+const drafts = c.microcopy.drafts.map((d, i) => ({ ...d, file: draftFiles[i], final: i === draftFiles.length - 1 }));
+const side = (file: string, s: { label: string; alt: string }) => ({ src: sv(file), label: s.label, alt: s.alt });
+---
+<Base lang={lang} title={p.title} description={p.summary} current="work">
+  <article class="wrap">
+    <CaseHeader project={project} lang={lang} />
+    <CaseSections>
+
+    <Section id="context" title={c.context.title}>
+      <div class="col-text prose">
+        <p>{c.context.p1}</p>
+        <p>{c.context.p2}</p>
+      </div>
+      <MarginNote label={c.context.noteLabel}>{c.context.note}</MarginNote>
+    </Section>
+
+    <Section id="team" title={c.team.title}>
+      <div class="col-text prose">
+        <p>{c.team.p}</p>
+      </div>
+    </Section>
+
+    <Section id="personas" title={c.personas.title}>
+      <div class="col-wide two-up">
+        <Persona name="Sierra" age={32} {...c.personas.sierra} />
+        <Persona name="Tyler" age={30} {...c.personas.tyler} />
+      </div>
+    </Section>
+
+    <Section id="microcopy" title={c.microcopy.title} kicker={c.microcopy.kicker}>
+      <div class="col-text prose">
+        <p>{c.microcopy.p1}</p>
+        <h3>{c.microcopy.subtitleTitle}</h3>
+        <p>{c.microcopy.subtitleP}</p>
+      </div>
+      <ol class="col-wide drafts">
+        {drafts.map((d) => (
+          <li class:list={['draft', { 'draft--final': d.final }]}>
+            <p class="meta draft__label">{d.label}</p>
+            <Figure src={sv(d.file)} alt={d.alt} size="wide" frame={false} zoom={false} />
+            <p class="draft__why">{d.why}</p>
+          </li>
+        ))}
+      </ol>
+      <EditView
+        verbatim
+        parts={[
+          { t: 'Meeting ' },
+          { del: 'Service and Environment Goals' },
+          { ins: 'service and environment goals' },
+          { t: ' ' },
+          { del: 'now' },
+          { ins: 'today' },
+          { t: ' and for ' },
+          { del: 'the' },
+          { ins: 'our' },
+          { t: ' future' },
+        ]}
+        caption={c.microcopy.editCaption}
+      />
+      <div class="col-text prose">
+        <ul>
+          {c.microcopy.changes.map((ch) => <li><strong><Mixed text={ch.term} /></strong>{ch.rest}</li>)}
+        </ul>
+        <h3>{c.microcopy.buttonsTitle}</h3>
+        <p>{c.microcopy.buttonsP}</p>
+      </div>
+      <Figure src={sv('sunnyvalecleanwater_11.png')} alt={c.microcopy.buttonAlt} caption={c.microcopy.buttonCaption} size="margin" />
+    </Section>
+
+    <Section id="ia" title={c.ia.title} kicker={c.ia.kicker}>
+      <div class="col-text prose">
+        <p>{c.ia.p1}</p>
+      </div>
+      <Compare a={side('sunnyvalecleanwater_5.png', c.ia.before)} b={side('sunnyvalecleanwater_6.png', c.ia.after)} caption={c.ia.caption} />
+      <div class="col-text prose">
+        <p>{c.ia.p2}</p>
+      </div>
+      <Figure src={sv('sunnyvalecleanwater_9.png')} alt={c.ia.projectsAlt} size="text" />
+    </Section>
+
+    <Section id="navigation" title={c.navigation.title}>
+      <div class="col-text prose">
+        <p><Mixed text={c.navigation.p} /></p>
+      </div>
+      <Compare a={side('sunnyvalecleanwater_15.png', c.navigation.before)} b={side('sunnyvalecleanwater_8.png', c.navigation.after)} />
+    </Section>
+
+    <Section id="layout" title={c.layout.title}>
+      <div class="col-text prose">
+        <h3>{c.layout.faqTitle}</h3>
+        <p><Mixed text={c.layout.faqP} /></p>
+      </div>
+      <Compare a={side('sunnyvalecleanwater_3.png', c.layout.faqBefore)} b={side('sunnyvalecleanwater_4.png', c.layout.faqAfter)} />
+      <Figure src={sv('sunnyvalecleanwater_10.png')} alt={c.layout.longAlt} caption={c.layout.longCaption} size="text" />
+      <div class="col-text prose">
+        <h3>{c.layout.planTitle}</h3>
+        <p>{c.layout.planP}</p>
+      </div>
+      <Compare a={side('sunnyvalecleanwater_1.png', c.layout.planBefore)} b={side('sunnyvalecleanwater_2.png', c.layout.planAfter)} />
+    </Section>
+
+    <Section id="process" title={c.process.title}>
+      <div class="col-text prose">
+        <p><Mixed text={c.process.p1} /></p>
+        <p>{c.process.p2}</p>
+      </div>
+    </Section>
+
+    <Section id="retrospective" title={c.retrospective.title}>
+      <div class="col-text prose">
+        <p>{c.retrospective.p1}</p>
+        <p>{c.retrospective.p2}</p>
+      </div>
+    </Section>
+    </CaseSections>
+  </article>
+  <Pager id={project.id} lang={lang} />
+</Base>
+
+<style>
+  .drafts { list-style: none; padding: 0; margin: var(--space-3) 0 0; display: grid; gap: var(--space-4); }
+  .draft { display: grid; gap: var(--space-1) var(--gutter); align-items: start; border-top: 1px solid var(--rule); padding-top: var(--space-3); }
+  @media (min-width: 760px) { .draft { grid-template-columns: 6rem minmax(0, 1.4fr) minmax(0, 1fr); } }
+  .draft :global(.figure) { margin: 0; }
+  .draft__label { margin: 0; }
+  .draft--final .draft__label { color: var(--ink); font-weight: 700; }
+  .draft__why { margin: 0; font-size: var(--step--1); }
+</style>

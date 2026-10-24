@@ -1,0 +1,155 @@
+---
+import Mixed from '../../../components/Mixed.astro';
+import { getEntry } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import CaseHeader from '../../../components/CaseHeader.astro';
+import CaseSections from '../../../components/CaseSections.astro';
+import Section from '../../../components/Section.astro';
+import MarginNote from '../../../components/MarginNote.astro';
+import EditView from '../../../components/EditView.astro';
+import EnFace, { type EnFaceColumn } from '../../../components/EnFace.astro';
+import Figure from '../../../components/Figure.astro';
+import Gallery from '../../../components/Gallery.astro';
+import Persona from '../../../components/Persona.astro';
+import Pager from '../../../components/Pager.astro';
+import { img } from '../../../data/images';
+import { localized } from '../../../data/localized';
+import { href, langOf, getLangPaths } from '../../../i18n/locales';
+import { descubreCopy } from '../../../i18n/pages/descubre';
+
+export const getStaticPaths = getLangPaths;
+const lang = langOf(Astro.params.lang);
+const c = descubreCopy[lang];
+
+const project = (await getEntry('projects', 'descubre'))!;
+const p = localized(project, lang);
+const vhl = (f: string) => img('descubre', f);
+
+// The examples and glosses are shown as written (artifacts); only the rule text is translated.
+const examples = [
+  { es: 'Ella presta atención. (She’s paying attention.)', use: 'pays attention', avoid: 'to pay attention, to give attention', avoidLang: 'en' },
+  { es: '¡Hay una montaña rusa ahí! (There’s a roller coaster there!)', use: 'roller coaster', avoid: 'Russian mountain', avoidLang: 'en' },
+  { es: '¿Quieres ir a la librería? (Do you want to go to the bookstore?)', use: 'bookstore', avoid: 'library', avoidLang: 'en' },
+  { use: 'A los gatos les gusta tomar leche. (Cats like to drink milk.)', avoid: 'A los abuelos les gusta tomar té. (Grandparents like to drink tea.)', useLang: 'es', avoidLang: 'es' },
+  { use: 'Carlos es de Paraguay.', avoid: 'Charles es de Paraguay.', useLang: 'es', avoidLang: 'es' },
+];
+const guidelines = examples.map((row, i) => ({ g: c.guidelines.rules[i], ...row }));
+
+const prompts = [
+  { kind: 'partner', es: '¿Dónde le gusta ver películas a tu pareja? (Ej. ¿Prefieres ver películas en cine o en televisión?)' },
+  { kind: 'partner', es: '¿A tu pareja le gusta volver a ver películas? (Ej. ¿Repites las películas que te gustan mucho?)' },
+  { kind: 'virtual', es: '¿Qué cines en tu comunidad muestran buenas películas?' },
+  { kind: 'virtual', es: 'Si una película no te gusta, ¿duermes en el cine?' },
+] as const;
+const chats = prompts.map((row, i) => ({ type: c.conversations.types[row.kind], es: row.es, translation: c.conversations.chatTranslations?.[i] }));
+const chatColumns: EnFaceColumn[] = [
+  { key: 'type', label: c.conversations.columns.type },
+  { key: 'es', label: c.conversations.columns.es, lang: 'es' },
+  ...(c.conversations.chatTranslations ? [{ key: 'translation', label: c.conversations.columns.translation, lang, muted: true }] : []),
+];
+
+const screenFiles = ['VHL_3.png', 'VHL_4.png', 'VHL_5.png', 'VHL_6.png', 'VHL_7.png', 'VHL_8.png', 'VHL_9.png', 'VHL_12.png', 'VHL_13.png'];
+const screens = c.digital.screens.map((s, i) => ({ src: vhl(screenFiles[i]), ...s }));
+---
+<Base lang={lang} title={p.title} description={p.summary} current="work">
+  <article class="wrap">
+    <CaseHeader project={project} lang={lang} />
+    <CaseSections>
+
+    <Section id="context" title={c.context.title}>
+      <div class="col-text prose">
+        <p>{c.context.p1}</p>
+        <p>{c.context.p2}</p>
+      </div>
+      <MarginNote label={c.context.noteLabel}>{c.context.note}</MarginNote>
+    </Section>
+
+    <Section id="team" title={c.team.title}>
+      <div class="col-text prose">
+        <p>{c.team.p}</p>
+      </div>
+      <MarginNote label={c.team.noteLabel}><Mixed text={c.team.note} /></MarginNote>
+    </Section>
+
+    <Section id="persona" title={c.persona.title}>
+      <div class="col-text">
+        <Persona name="Mikey" age={14} {...c.persona.mikey} />
+      </div>
+    </Section>
+
+    <Section id="guidelines" title={c.guidelines.title} kicker={c.guidelines.kicker}>
+      <div class="col-text prose">
+        <p>{c.guidelines.p}</p>
+        <ul>
+          {c.guidelines.points.map((pt) => <li><strong>{pt.term}</strong>{pt.rest}</li>)}
+        </ul>
+      </div>
+      <EnFace
+        caption={c.guidelines.tableCaption}
+        columns={[
+          { key: 'g', label: c.guidelines.columns.g },
+          { key: 'es', label: c.guidelines.columns.es, lang: 'es', verbatim: true },
+          { key: 'use', label: c.guidelines.columns.use, lang: 'en', verbatim: true },
+          { key: 'avoid', label: c.guidelines.columns.avoid, strike: true, verbatim: true },
+        ]}
+        rows={guidelines}
+      />
+      <div class="col-wide two-up docs">
+        <Figure src={vhl('VHL_1.png')} {...c.guidelines.doc1} size="wide" />
+        <Figure src={vhl('VHL_2.png')} {...c.guidelines.doc2} size="wide" />
+      </div>
+    </Section>
+
+    <Section id="inclusion" title={c.inclusion.title}>
+      <div class="col-text prose">
+        <p>{c.inclusion.p1}</p>
+        <p>
+          {c.inclusion.p2Before}{' '}
+          <span lang="es"><em>él/ella</em>, <em>nosotros/nosotras</em>, <em>vosotros/vosotras</em></span>{' '}{c.inclusion.p2And}{' '}
+          <span lang="es"><em>ellos/ellas</em></span> {c.inclusion.p2After}
+        </p>
+      </div>
+      <Figure src={vhl('VHL_15.png')} alt={c.inclusion.openerAlt} caption={c.inclusion.openerCaption} size="margin" />
+    </Section>
+
+    <Section id="digital" title={c.digital.title} kicker={c.digital.kicker}>
+      <div class="col-text prose">
+        <p>{c.digital.p1}</p>
+        <p><Mixed text={c.digital.p2} /></p>
+      </div>
+      <EditView verbatim parts={[{ t: '“' }, { del: 'circle' }, { ins: 'select' }, { t: ' the word”' }]} caption={c.digital.editCaption} />
+      <Gallery id="descubre-screens" label={c.digital.galleryLabel} items={screens} />
+      <MarginNote label={c.digital.noteLabel}>{c.digital.note}</MarginNote>
+    </Section>
+
+    <Section id="conversations" title={c.conversations.title} kicker={c.conversations.kicker}>
+      <div class="col-text prose">
+        <p>{c.conversations.p1}</p>
+        <p>{c.conversations.p2}</p>
+        <ul>
+          {c.conversations.kinds.map((k) => <li><strong>{k.term}</strong>{k.rest}</li>)}
+        </ul>
+      </div>
+      <EnFace caption={c.conversations.tableCaption} columns={chatColumns} rows={chats} />
+      <div class="col-wide two-up">
+        <Figure src={vhl('VHL_10.png')} {...c.conversations.partnerShot} size="wide" />
+        <Figure src={vhl('VHL_11.png')} {...c.conversations.virtualShot} size="wide" />
+      </div>
+    </Section>
+
+    <Section id="retrospective" title={c.retrospective.title}>
+      <div class="col-text prose">
+        <p>{c.retrospective.p1Before} <a href={href(lang, '/work/mosaik/')}>Mosaik</a>{c.retrospective.p1After}</p>
+        <p>{c.retrospective.p2}</p>
+      </div>
+      <Figure src={vhl('VHL_SpanishCovers.png')} alt={c.retrospective.coversAlt} caption={c.retrospective.coversCaption} size="wide" frame={false} />
+    </Section>
+    </CaseSections>
+  </article>
+  <Pager id={project.id} lang={lang} />
+</Base>
+
+<style>
+  .docs { margin-top: var(--space-4); }
+  .docs :global(.figure) { margin: 0; }
+</style>

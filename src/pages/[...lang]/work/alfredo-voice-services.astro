@@ -1,0 +1,174 @@
+---
+import Mixed from '../../../components/Mixed.astro';
+import { getEntry } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import CaseHeader from '../../../components/CaseHeader.astro';
+import CaseSections from '../../../components/CaseSections.astro';
+import Section from '../../../components/Section.astro';
+import MarginNote from '../../../components/MarginNote.astro';
+import EditView from '../../../components/EditView.astro';
+import EnFace from '../../../components/EnFace.astro';
+import Persona from '../../../components/Persona.astro';
+import Pager from '../../../components/Pager.astro';
+import { href, langOf, getLangPaths } from '../../../i18n/locales';
+import { localized } from '../../../data/localized';
+import { alfredoCopy } from '../../../i18n/pages/alfredo-voice-services';
+
+export const getStaticPaths = getLangPaths;
+const lang = langOf(Astro.params.lang);
+const c = alfredoCopy[lang];
+
+const project = (await getEntry('projects', 'alfredo-voice-services'))!;
+const p = localized(project, lang);
+
+const examples = [
+  { en: 'It’s ten a.m.', es: 'Son las diez de la mañana.', no: 'Son las diez a.m.' },
+  { en: 'Go ahead and enter that number.', es: 'Continúa e ingresa ese número.', no: 'Dale ahora y pon ese número.' },
+  { en: 'That worked!', es: '¡Funcionó!', no: 'Eso fue bueno.' },
+  { en: 'Savvy choice.', es: 'Buena elección.', no: 'Muy sensato.' },
+];
+const styleGuide = examples.map((row, i) => ({ rule: c.styleGuide.rules[i], ...row }));
+---
+<Base lang={lang} title={p.title} description={p.summary} current="work">
+  <article class="wrap alfredo">
+    <CaseHeader project={project} lang={lang} />
+    <CaseSections>
+
+    <Section id="context" title={c.context.title}>
+      <div class="col-text prose">
+        <p>{c.context.p1}</p>
+        <p>{c.context.p2}</p>
+      </div>
+      <MarginNote label={c.context.noteLabel}>{c.context.note}</MarginNote>
+    </Section>
+
+    <Section id="personas" title={c.personas.title}>
+      <div class="col-wide two-up">
+        <Persona name="José" age={38} {...c.personas.jose} />
+        <Persona name="Alfredo" age={35} {...c.personas.alfredo} />
+      </div>
+    </Section>
+
+    <Section id="brainstorming" title={c.brainstorming.title}>
+      <div class="col-text prose">
+        <p>{c.brainstorming.p1}</p>
+        <p>{c.brainstorming.p2}</p>
+      </div>
+    </Section>
+
+    <Section id="voice" title={c.voice.title} kicker={c.voice.kicker}>
+      <dl class="col-wide voice-attrs">
+        {[c.voice.accent, c.voice.vocabulary, c.voice.slang].map((a) => (
+          <div>
+            <dt>{a.term}</dt>
+            <dd>{a.text}</dd>
+          </div>
+        ))}
+        <div>
+          <dt>{c.voice.informal.term}</dt>
+          <dd>{c.voice.informal.before} <span lang="es"><em>tú</em></span> {c.voice.informal.with} <span lang="es"><em>tu, tus, tuyo</em></span>{c.voice.informal.after}</dd>
+        </div>
+      </dl>
+    </Section>
+
+    <Section id="style-guide" title={c.styleGuide.title} kicker={c.styleGuide.kicker}>
+      <div class="col-text prose">
+        <p>{c.styleGuide.p}</p>
+      </div>
+      <EnFace
+        caption={c.styleGuide.caption}
+        columns={[
+          { key: 'rule', label: c.styleGuide.columns.rule },
+          { key: 'en', label: c.styleGuide.columns.en, lang: 'en', muted: true },
+          { key: 'es', label: c.styleGuide.columns.es, lang: 'es' },
+          { key: 'no', label: c.styleGuide.columns.no, lang: 'es', strike: true },
+        ]}
+        rows={styleGuide}
+      />
+      <div class="col-text prose">
+        <p>
+          {c.styleGuide.acceptedBefore} <em lang="en">hotspot</em>, <em lang="en">wireless</em> {c.styleGuide.acceptedAnd} <em lang="en">Wi-Fi</em>{c.styleGuide.acceptedAfter}{' '}
+          <span lang="es"><em>hotspot móvil</em></span>.
+        </p>
+      </div>
+    </Section>
+
+    <Section id="sms" title={c.sms.title} kicker={c.sms.kicker}>
+      <div class="col-text prose">
+        <p>{c.sms.p}</p>
+      </div>
+      <ol class="col-wide sms-edits">
+        <li>
+          <p class="meta sms-edits__where">{c.sms.cancel}</p>
+          <EditView size="small" parts={[{ del: 'STOP' }, { ins: 'NO' }]} lang="es" verbatim />
+          <p class="sms-edits__why"><Mixed text={c.sms.stop} /></p>
+        </li>
+        <li>
+          <p class="meta sms-edits__where">{c.sms.cancel}</p>
+          <EditView size="small" parts={[{ del: 'Mande texto' }, { ins: 'enviar' }]} lang="es" verbatim />
+          <p class="sms-edits__why"><Mixed text={c.sms.mandeBefore} /> <span lang="es"><em>enviar</em></span>{c.sms.mandeAfter}</p>
+        </li>
+        <li>
+          <p class="meta sms-edits__where">{c.sms.registration}</p>
+          <EditView size="small" parts={[{ t: 'JUAN …' }]} lang="es" verbatim caption={c.sms.movedCaption} />
+          <p class="sms-edits__why">{c.sms.juan}</p>
+        </li>
+        <li>
+          <p class="meta sms-edits__where">{c.sms.registration}</p>
+          <EditView size="small" parts={[{ del: 'haga clic' }]} lang="es" verbatim />
+          <p class="sms-edits__why">{c.sms.clic}</p>
+        </li>
+        <li>
+          <p class="meta sms-edits__where">{c.sms.registration}</p>
+          <EditView size="small" parts={[{ del: 'vinculo' }, { ins: 'enlace' }]} lang="es" verbatim />
+          <p class="sms-edits__why"><span lang="es"><em>Enlace</em></span> <Mixed text={c.sms.enlaceBefore} /><span lang="es"><em>vínculo</em></span>{c.sms.enlaceAfter}</p>
+        </li>
+        <li>
+          <p class="meta sms-edits__where">{c.sms.registration}</p>
+          <EditView size="small" parts={[{ ins: 'aquí' }]} lang="es" verbatim />
+          <p class="sms-edits__why">{c.sms.aqui}</p>
+        </li>
+      </ol>
+    </Section>
+
+    <Section id="retrospective" title={c.retrospective.title}>
+      <div class="col-text prose">
+        <p>{c.retrospective.p1}</p>
+        <p>{c.retrospective.p2}</p>
+        <p>
+          {c.retrospective.relatedBefore} <a href={href(lang, "/archive/#talk-chatbot-summit")} lang="en">{c.retrospective.relatedLink}</a> {c.retrospective.relatedAfter}
+        </p>
+      </div>
+      <MarginNote label={c.retrospective.noteLabel}>{c.retrospective.note}</MarginNote>
+    </Section>
+    </CaseSections>
+  </article>
+  <Pager id={project.id} lang={lang} />
+</Base>
+
+<style>
+  .voice-attrs {
+    margin: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0 var(--gutter);
+  }
+  @media (min-width: 760px) { .voice-attrs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .voice-attrs div { border-top: 1px solid var(--rule); padding: var(--space-3) 0 var(--space-4); }
+  .voice-attrs dt { font-size: var(--step-2); line-height: 1.15; margin-bottom: var(--space-2); }
+  .voice-attrs dd { margin: 0; font-size: var(--step--1); max-width: 44ch; }
+
+  .sms-edits {
+    list-style: none;
+    margin: var(--space-3) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0 var(--gutter);
+  }
+  @media (min-width: 760px) { .sms-edits { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .sms-edits li { border-top: 1px solid var(--rule); padding: var(--space-3) 0 var(--space-4); }
+  .sms-edits :global(.edit-view) { margin: var(--space-2) 0; }
+  .sms-edits__where { margin: 0; }
+  .sms-edits__why { font-size: var(--step--1); margin: 0; }
+</style>

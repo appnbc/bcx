@@ -1,0 +1,296 @@
+---
+import { getCollection } from 'astro:content';
+import { Picture, getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import EditView from '../../components/EditView.astro';
+import HeroArt from '../../components/HeroArt.astro';
+import { site } from '../../config';
+import { img } from '../../data/images';
+import { types } from '../../data/taxonomy';
+import { href, langOf, getLangPaths } from '../../i18n/locales';
+import { homeCopy } from '../../i18n/pages/home';
+import { ui } from '../../i18n/ui';
+import { localized, titleLangAttr } from '../../data/localized';
+
+export const getStaticPaths = getLangPaths;
+const lang = langOf(Astro.params.lang);
+const c = homeCopy[lang];
+const t = ui[lang];
+
+const all = await getCollection('projects');
+const byId = (id: string) => all.find((e) => e.id === id)!;
+
+const practice = all.filter((e) => e.data.featured === 'practice').sort((a, b) => b.data.sortYear - a.data.sortYear).map((e) => ({ id: e.id, p: localized(e, lang) }));
+const counts = types.map((type) => {
+  const n = all.filter((e) => e.data.type === type).length;
+  return `${n} ${c.counts[type][n === 1 ? 0 : 1]}`;
+});
+
+const selected = [
+  {
+    id: 'sunnyvale-cleanwater',
+    image: { src: img('sunnyvale-cleanwater', 'sunnyvalecleanwater_4.png') },
+  },
+  {
+    id: 'ladwp-turf-replacement',
+    image: { src: img('ladwp-turf-replacement', 'LA_WP_dept_7.png') },
+  },
+  { id: 'alfredo-voice-services' },
+  {
+    id: 'descubre',
+    image: { src: img('descubre', 'VHL_3.png') },
+  },
+  { id: '526-lowcountry-corridor' },
+  {
+    id: 'the-burger-queen',
+    image: { src: img('the-burger-queen', 'Alexa_Hotel_13.png') },
+  },
+].map((s) => {
+  const entry = byId(s.id);
+  const p = localized(entry, lang);
+  const d = entry.data.disciplines;
+  const kinds = [d.includes('UX Design') && 'design', (d.includes('UX Writing') || d.includes('Content Strategy')) && 'writing'].filter(Boolean);
+  return { ...s, p, focus: c.focus[s.id], alt: c.alts[s.id] ?? '', kinds: kinds.join(' ') };
+});
+const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getImage({ src: s.image.src, width: Math.min(2000, s.image.src.width), format: 'webp' })).src : undefined)));
+
+---
+<Base lang={lang} title={site.name} description={c.description}>
+  <div class="wrap calm">
+    <header class="grid intro">
+      <h1 class="col-wide hero">
+        {c.headline.map((seg) => ('m' in seg ? <mark>{seg.m}</mark> : seg.t))}
+      </h1>
+      <p class="col-text intro__sub">{c.sub}</p>
+      <div class="intro__art"><HeroArt /></div>
+      <aside class="col-margin note">
+        <p class="label-text">{c.currentlyLabel}</p>
+        <p>{c.currently}</p>
+      </aside>
+    </header>
+
+    <section id="work" class="block" aria-labelledby="selected-title">
+      <div class="block__head">
+        <h2 id="selected-title">{c.selectedTitle}</h2>
+        <div class="switch" data-switch role="group" aria-label={c.switch.label}>
+          <button type="button" data-show="all" aria-pressed="true">{c.switch.all}</button>
+          <button type="button" data-show="design" aria-pressed="false">{c.switch.design}</button>
+          <button type="button" data-show="writing" aria-pressed="false">{c.switch.writing}</button>
+        </div>
+        <p class="visually-hidden" role="status" data-switch-status data-all={c.switch.statusAll} data-design={c.switch.statusDesign} data-writing={c.switch.statusWriting}></p>
+      </div>
+      {selected.map((s, i) => (
+        <article class:list={['grid selected', { 'selected--flip': i % 2 === 1 }]} data-kinds={s.kinds}>
+          <div class="selected__visual">
+            {s.image ? (
+              <a class="zoom" href={fulls[i]} data-alt={s.alt} data-caption={s.p.title}>
+                <Picture class="selected__image" src={s.image.src} alt={s.alt} formats={['avif', 'webp']} widths={[480, 800, 1200].filter((w) => w <= s.image!.src.width)} sizes="(min-width: 900px) 50vw, 100vw" loading={i === 0 ? 'eager' : 'lazy'} />
+                <span class="visually-hidden">{t.lightbox.opens}</span>
+              </a>
+            ) : s.id === 'alfredo-voice-services' ? (
+              <div class="selected__type">
+                <p class="label-text">{c.alfredoLabel}</p>
+                <EditView lang="es" parts={[{ t: 'Son las diez ' }, { del: 'a.m.' }, { ins: 'de la mañana' }, { t: '.' }]} caption={c.alfredoCaption} />
+              </div>
+            ) : (
+              <div class="selected__type">
+                <p class="label-text">{c.lccLabel}</p>
+                <ul class="selected__issues">{c.lccIssues.map((x) => <li>{x}</li>)}</ul>
+              </div>
+            )}
+          </div>
+          <div class="selected__text">
+            <p class="label-text">{s.focus}</p>
+            <h3><a href={href(lang, `/work/${s.id}/`)} lang={titleLangAttr(s.p, lang)}>{s.p.title}</a></h3>
+            <p>{s.p.summary}</p>
+            <p class="label-text">{s.p.org}, {s.p.years}</p>
+            <p><a class="more" href={href(lang, `/work/${s.id}/`)}>{c.readCase}<span class="visually-hidden">: {s.p.title}</span></a></p>
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <section class="block" aria-labelledby="practice-title">
+      <div class="block__head">
+        <h2 id="practice-title">{c.practiceTitle}</h2>
+      </div>
+      <p class="block__lead">{c.practiceLead}</p>
+      <ul class="three-up practice">
+        {practice.map((e) => (
+          <li>
+            <p class="label-text">{e.p.org}, {e.p.years}</p>
+            <h3><a href={href(lang, `/archive/#${e.id}`)} lang={titleLangAttr(e.p, lang)}>{e.p.title}</a></h3>
+            <p>{e.p.summary}</p>
+            <p class="label-text">{e.p.roleLang ? <span lang={e.p.roleLang}>{e.p.role}</span> : e.p.role}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="block" aria-labelledby="index-title">
+      <h2 id="index-title" class="visually-hidden">{c.everythingElse}</h2>
+      <a class="all-link" href={href(lang, "/archive/")}>{c.seeAll.replace('{n}', String(all.length))}</a>
+      <p class="label-text">{counts.join(', ')}</p>
+    </section>
+
+    <section class="block" aria-labelledby="about-title">
+      <div class="block__head">
+        <h2 id="about-title">{c.aboutTitle}</h2>
+      </div>
+      <div class="prose">
+        <p>{c.aboutText}</p>
+        <p><a class="more" href={href(lang, "/about/")}>{c.aboutLink}</a></p>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-switch]');
+  const status = document.querySelector<HTMLElement>('[data-switch-status]');
+  const items = [...document.querySelectorAll<HTMLElement>('article.selected')];
+  bar?.addEventListener('click', (e) => {
+    const btn = (e.target as Element).closest<HTMLButtonElement>('button[data-show]');
+    if (!btn) return;
+    const show = btn.dataset.show!;
+    for (const b of bar.querySelectorAll('button')) b.setAttribute('aria-pressed', String(b === btn));
+    let n = 0;
+    items.forEach((item) => {
+      const on = show === 'all' || (item.dataset.kinds ?? '').split(' ').includes(show);
+      item.hidden = !on;
+      if (on) n++;
+    });
+    items.filter((item) => !item.hidden).forEach((item, i) => item.classList.toggle('selected--flip', i % 2 === 1));
+    const template = status?.dataset[show] ?? '{n}';
+    if (status) status.textContent = template.replace('{n}', String(n));
+  });
+</script>
+
+<style>
+  /*
+   * One signature (the highlighter), one rule for shapes
+   * (square corners; pills only for controls), one label style, ink + paper.
+   */
+  .calm { --hl: var(--highlight); }
+
+  /* The one label style. */
+  .label-text {
+    font-family: var(--sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    font-style: normal;
+    color: var(--ink-muted);
+    margin: 0 0 var(--space-2);
+  }
+
+  /* Highlighter: the only mark. */
+  mark {
+    background: linear-gradient(var(--hl), var(--hl)) no-repeat 0 62% / 100% 0.72em;
+    color: inherit;
+    padding-inline: 0.04em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    animation: swipe 650ms cubic-bezier(0.6, 0, 0.3, 1) backwards;
+  }
+  mark:nth-of-type(1) { animation-delay: 300ms; }
+  mark:nth-of-type(2) { animation-delay: 650ms; }
+  mark:nth-of-type(3) { animation-delay: 1000ms; }
+  @keyframes swipe { from { background-size: 0% 0.72em; } }
+  @media (prefers-reduced-motion: reduce) { mark { animation: none; } }
+  @media (prefers-color-scheme: dark) { mark { color: var(--on-highlight); background-size: 100% 0.95em; background-position: 0 70%; } }
+
+  .intro { padding-top: var(--space-7); row-gap: var(--space-5); }
+  .hero {
+    font-size: clamp(2.25rem, 1.2rem + 4.2vw, 5.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    max-width: 17ch;
+  }
+  .intro__sub { font-size: var(--step-1); line-height: 1.4; color: var(--ink-muted); }
+  .note { border-left: 3px solid var(--hl); padding-left: var(--space-3); align-self: end; font-size: var(--step--1); color: var(--ink-muted); }
+  .intro__art { max-width: 340px; width: 100%; justify-self: center; }
+  @media (min-width: 900px) {
+    .intro .hero { grid-column: 1 / 8; grid-row: 1; }
+    .intro .intro__sub { grid-column: 1 / 7; grid-row: 2; }
+    .intro .note { grid-column: 1 / 7; grid-row: 3; align-self: start; }
+    .intro__art { grid-column: 8 / 13; grid-row: 1 / span 3; align-self: center; max-width: none; }
+  }
+
+  /* Pills are for controls only. */
+  .switch { display: none; gap: 2px; padding: 3px; border-radius: 999px; border: 1px solid var(--rule); width: fit-content; }
+  :global(.js) .switch { display: inline-flex; }
+  .switch button {
+    font-family: var(--sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    border: 0;
+    border-radius: 999px;
+    padding: 0.4em 1.1em;
+    background: transparent;
+    color: var(--ink-muted);
+    cursor: pointer;
+  }
+  .switch button:hover { color: var(--ink); }
+  .switch button[aria-pressed='true'] { background: var(--hl); color: var(--on-highlight); }
+
+  /* Every section opens the same way: a full-width ink rule, then the title. */
+  .block { margin-top: var(--space-7); }
+  .block__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    border-top: 2px solid var(--ink);
+    padding-top: var(--space-3);
+  }
+  .block h2 { font-size: var(--step-3); }
+  .block__lead { max-width: 60ch; margin-top: var(--space-3); }
+
+  .selected { padding-block: var(--space-6); row-gap: var(--space-4); align-items: center; border-bottom: 1px solid var(--rule); }
+  .selected:last-of-type { border-bottom: 0; }
+  .selected__image :global(img), :global(.selected__image) {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 30rem;
+    object-fit: cover;
+    object-position: top;
+    border: 1px solid var(--rule);
+    background: #fff;
+  }
+  .selected__type { border: 1px solid var(--rule); padding: clamp(var(--space-4), 4vw, var(--space-6)); }
+  .selected__type :global(.edit-view--large .edit-view__line) { font-size: var(--step-3); }
+  .selected__issues { list-style: none; margin: var(--space-3) 0 0; padding: 0; font-size: var(--step-2); line-height: 1.25; }
+  .selected__issues li { padding: var(--space-2) 0; border-top: 1px solid var(--rule); }
+  .selected h3 { font-size: var(--step-3); font-weight: 400; letter-spacing: -0.02em; margin: 0 0 var(--space-3); }
+  .selected h3 a, .practice h3 a { text-decoration: none; }
+  .selected h3 a:hover, .practice h3 a:hover { background: linear-gradient(var(--hl), var(--hl)) no-repeat 0 85% / 100% 0.3em; }
+  @media (min-width: 900px) {
+    .selected .selected__visual { grid-column: 1 / 8; }
+    .selected .selected__text { grid-column: 9 / 13; }
+    .selected--flip .selected__visual { grid-column: 6 / 13; grid-row: 1; }
+    .selected--flip .selected__text { grid-column: 1 / 5; grid-row: 1; }
+  }
+
+  /* Links that lead somewhere get the same highlighter underline, filling on hover. */
+  .more, .all-link {
+    font-family: var(--sans);
+    font-weight: 600;
+    text-decoration: none;
+    color: inherit;
+    background: linear-gradient(var(--hl), var(--hl)) no-repeat 0 100% / 100% 0.3em;
+    padding-inline: 0.1em;
+    transition: background-size 150ms ease;
+  }
+  .more:hover, .all-link:hover { background-size: 100% 100%; color: var(--on-highlight); text-decoration: none; }
+  .all-link { display: inline-block; font-family: var(--serif); font-weight: 400; font-size: var(--step-4); letter-spacing: -0.02em; margin-bottom: var(--space-2); }
+
+  .practice { list-style: none; padding: 0; margin: var(--space-5) 0 0; }
+  .practice li { border-top: 1px solid var(--rule); padding-top: var(--space-3); }
+  .practice h3 { font-size: var(--step-2); font-weight: 400; margin: 0 0 var(--space-2); }
+  .practice p { font-size: var(--step--1); }
+
+  .prose { max-width: var(--measure); margin-top: var(--space-3); }
+</style>
