@@ -30,7 +30,7 @@ for (const lang of ['es', 'it']) {
 
 test('filter buttons are translated but keep canonical values', () => {
   const es = page('/es/archive/');
-  assert.match(es, /<button[^>]*data-value="UX Writing"[^>]*>Escritura UX<\/button>/);
+  assert.match(es, /<button[^>]*data-value="UX Writing"[^>]*>Redacción UX<\/button>/);
   const it = page('/it/archive/');
   assert.match(it, /<button[^>]*data-value="Accessibility"[^>]*>Accessibilità<\/button>/);
 });

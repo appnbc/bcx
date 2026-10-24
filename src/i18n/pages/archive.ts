@@ -16,7 +16,7 @@ const en = {
 
 const es: typeof en = {
   title: 'Índice',
-  description: (n) => `Los ${n} proyectos de Brian Contreras: diseño UX, escritura UX, diseño conversacional, investigación y práctica creativa.`,
+  description: (n) => `Los ${n} proyectos de Brian Contreras: diseño UX, redacción UX, diseño conversacional, investigación y práctica creativa.`,
   intro: (n) => `Los ${n} proyectos en una sola lista: casos de estudio, trabajo profesional, exposiciones, charlas y textos.`,
   legendPages: 'Los casos de estudio',
   legendPagesTail: 'se abren en su propia página; el resto',
@@ -26,7 +26,7 @@ const es: typeof en = {
   countMany: '{n} proyectos',
   clear: 'Quitar filtros',
   oldest: 'Más antiguos primero',
-  empty: 'Ningún proyecto coincide con estos filtros. Prueba a quitar uno.',
+  empty: 'Ningún proyecto coincide con estos filtros. Intenta quitar uno.',
   columns: { year: 'Año', project: 'Proyecto', discipline: 'Disciplina', form: 'Formato' },
 };
 

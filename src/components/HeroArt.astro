@@ -3,7 +3,12 @@
  * Decorative line illustration for the homepage hero: English, Spanish and
  * Italian speech bubbles flowing into an interface that's being edited.
  * Drawn in the site's ink + highlighter palette; hidden from assistive tech.
+ * The button speaks the page's language.
  */
+import { langFromUrl } from '../i18n/locales';
+import { ui } from '../i18n/ui';
+
+const t = ui[langFromUrl(Astro.url)];
 ---
 <svg class="hero-art" viewBox="0 0 460 470" aria-hidden="true" focusable="false">
   <!-- voice: sound waves -->
@@ -54,7 +59,7 @@
     <rect class="ink-fill" x="226" y="377" width="58" height="6" rx="3" />
 
     <rect class="hl-fill ink-line" x="146" y="404" width="104" height="30" rx="15" />
-    <text x="198" y="424" class="button__text">Enviar</text>
+    <text x="198" y="424" class="button__text">{t.heroArt.send}</text>
   </g>
 
   <!-- pointer -->
@@ -80,15 +85,22 @@
   .hl-fill.ink-line { fill: var(--highlight); }
   .paper-fill.ink-line { fill: var(--paper); }
 
-  /* Enters once, after the headline highlights. */
+  /* Enters once, after the headline highlights, then settles into a slow loop:
+     the bubbles float out of step, the words flow into the interface, and the
+     pointer taps Enviar now and then. */
   .bubble, .window, .pointer { animation: rise 600ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
-  .bubble--en { animation-delay: 500ms; }
-  .bubble--es { animation-delay: 800ms; }
-  .bubble--it { animation-delay: 1100ms; }
+  .bubble { transform-box: fill-box; }
+  .bubble--en { animation: rise 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 500ms backwards, float 6.5s ease-in-out 1.1s infinite alternate; }
+  .bubble--es { animation: rise 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 800ms backwards, float 8s ease-in-out 1.4s infinite alternate-reverse; }
+  .bubble--it { animation: rise 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 1100ms backwards, float 7.2s ease-in-out 1.7s infinite alternate; }
   .window { animation-delay: 1400ms; }
-  .pointer { animation-delay: 1750ms; }
+  .pointer { transform-box: fill-box; transform-origin: 0 0; animation: rise 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 1750ms backwards, tap 6s ease-in-out 3s infinite; }
+  .flow path { animation: flow 1.8s linear infinite; }
   @keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+  @keyframes float { from { transform: translateY(-3px); } to { transform: translateY(4px); } }
+  @keyframes flow { to { stroke-dashoffset: -18; } }
+  @keyframes tap { 0%, 88%, 100% { transform: none; } 93% { transform: translate(-1px, -2px) scale(0.92); } }
   @media (prefers-reduced-motion: reduce) {
-    .bubble, .window, .pointer { animation: none; }
+    .bubble, .window, .pointer, .flow path { animation: none; }
   }
 </style>

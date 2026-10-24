@@ -29,9 +29,21 @@
   margin-inline: calc(50% - 50vw);
 }
 
+html { scroll-padding-top: calc(var(--header-h, 72px) + var(--space-3)); }
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--paper);
   border-bottom: 1px solid var(--rule);
+  transition: background-color 200ms ease, border-color 200ms ease;
 }
+/* Only with JS, which turns it solid again on scroll. */
+.js .site-header--overlay:not(.is-scrolled) {
+  background: transparent;
+  border-bottom-color: transparent;
+}
+@media (prefers-reduced-motion: reduce) { .site-header { transition: none; } }
 .site-header .wrap {
   display: flex;
   flex-wrap: wrap;
@@ -47,6 +59,12 @@
   letter-spacing: -0.01em;
 }
 .site-name span { color: var(--ink-muted); font-style: italic; margin-left: 0.35em; }
+/* Phones: name and language switcher share the first row, the menu takes the second. */
+@media (max-width: 699px) {
+  .site-header .wrap { align-items: center; }
+  .site-header .lang-switcher { order: 2; }
+  .site-nav { order: 3; flex-basis: 100%; }
+}
 .site-nav ul {
   display: flex;
   flex-wrap: wrap;
@@ -73,45 +91,76 @@
 main { display: block; }
 main:focus { outline: none; }
 
+/* The contact section bookends the homepage hero: the same two glows, the same
+   left-aligned serif statement, and the email in one of the hero's speech bubbles. */
 .site-footer {
   margin-top: var(--space-7);
-  padding-block: var(--space-7) var(--space-5);
-  background: var(--paper-sunk);
-  box-shadow: 0 0 0 100vmax var(--paper-sunk);
-  clip-path: inset(0 -100vmax);
+  padding-block: var(--space-7);
+  border-top: 1px solid var(--rule);
+  background:
+    radial-gradient(min(760px, 90vw) 560px at 88% 35%, var(--wash-peach), transparent 70%),
+    radial-gradient(min(820px, 110vw) 600px at 4% 100%, var(--wash-sage), transparent 70%);
 }
-.contact { text-align: center; display: grid; justify-items: center; gap: var(--space-3); }
+.contact { display: grid; justify-items: start; gap: var(--space-4); }
 .contact__title {
   font-family: var(--sans);
-  font-size: var(--step-0);
+  font-size: var(--step--1);
   font-weight: 600;
   color: var(--ink-muted);
-  letter-spacing: 0;
+  margin: 0;
 }
-.contact__lead { font-size: var(--step-1); color: var(--ink-muted); max-width: 32ch; margin: 0; }
-/* The email is the call to action: big, centered, highlighted on hover. */
+.contact__lead {
+  font-size: var(--step-4);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  max-width: 18ch;
+  margin: 0;
+}
+.contact__lead mark {
+  color: var(--on-highlight);
+  background: linear-gradient(var(--highlight), var(--highlight)) no-repeat 0 70% / 100% 0.9em;
+  padding-inline: 0.06em;
+}
+.contact__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-5); margin-top: var(--space-3); }
+.contact__bubble {
+  position: relative;
+  margin: 0 0 22px;
+  padding: 0.35em 0.6em 0.4em;
+  font-size: clamp(1.5rem, 0.7rem + 3.4vw, 3.75rem);
+  line-height: 1.1;
+  border: 2.5px solid var(--ink);
+  border-radius: 22px;
+  background: var(--paper);
+  max-width: 100%;
+}
+/* The tail: an ink triangle with a paper one on top. */
+.contact__bubble::before, .contact__bubble::after {
+  content: '';
+  position: absolute;
+  left: 1.1em;
+  border-style: solid;
+  border-color: transparent;
+}
+.contact__bubble::before { bottom: -24px; border-width: 24px 24px 0 0; border-top-color: var(--ink); }
+.contact__bubble::after { bottom: -18.5px; left: calc(1.1em + 2.5px); border-width: 18px 18px 0 0; border-top-color: var(--paper); }
 .contact-big {
-  font-size: clamp(2rem, 0.9rem + 5vw, 5.75rem);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   text-decoration: none;
   overflow-wrap: anywhere;
-  padding: 0.05em 0.15em;
-  background: linear-gradient(var(--highlight), var(--highlight)) no-repeat 0 92% / 100% 0.18em;
+  background: linear-gradient(var(--highlight), var(--highlight)) no-repeat 0 92% / 100% 0.14em;
   transition: background-size 200ms ease, color 200ms ease;
-  margin-block: var(--space-2);
 }
 .contact-big:hover, .contact-big:focus-visible { background-size: 100% 100%; color: var(--on-highlight); text-decoration: none; }
-.contact__copy { display: none; align-items: center; gap: var(--space-3); margin: 0; min-height: 2.5rem; }
+.contact__copy { display: none; align-items: center; gap: var(--space-3); margin: 0 0 22px; min-height: 2.5rem; }
 .js .contact__copy { display: flex; }
 .contact__copy button {
   font-family: var(--sans);
   font-size: var(--step--1);
   font-weight: 600;
-  border: 1px solid var(--ink);
-  border-radius: 999px;
   background: transparent;
   color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
   padding: 0.5em 1.3em;
   cursor: pointer;
   transition: background-color 150ms ease, color 150ms ease;
@@ -151,7 +200,7 @@ main:focus { outline: none; }
   background: var(--paper);
   color: var(--ink);
 }
-.lightbox::backdrop { background: rgb(15 24 48 / 0.82); }
+.lightbox::backdrop { background: rgb(9 26 21 / 0.82); }
 .lightbox__bar { display: flex; justify-content: flex-end; margin-bottom: var(--space-2); }
 .lightbox__bar button {
   background: none;
@@ -169,4 +218,4 @@ main:focus { outline: none; }
 /* A screenshot that opens in the lightbox. */
 a.zoom { display: block; cursor: zoom-in; border-radius: var(--radius-s); }
 a.zoom img { transition: transform 150ms ease, box-shadow 150ms ease; }
-a.zoom:hover img { transform: translateY(-2px); box-shadow: 0 10px 28px -12px rgb(29 43 83 / 0.45); }
+a.zoom:hover img { transform: translateY(-2px); box-shadow: 0 10px 28px -12px rgb(21 57 47 / 0.45); }

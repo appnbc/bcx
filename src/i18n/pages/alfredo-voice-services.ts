@@ -97,7 +97,7 @@ const es: typeof en = {
     note: 'Esa cifra es la proporción de usuarios que ya preferían el español. Describe el público, no un resultado de este proyecto.',
   },
   personas: {
-    title: 'Personas',
+    title: 'Perfiles de usuario',
     jose: {
       status: 'Casado',
       occupation: 'Arquitecto',
@@ -105,10 +105,10 @@ const es: typeof en = {
       quote: '¡Cuando oigo que hay opción en español, es un alivio! Puedo ser yo mismo durante toda la conversación.',
       bio: 'Costarricense; se mudó a Texas por trabajo. Tiene esposa y tres hijos en Texas; el resto de su familia vive en San José. Se desplaza por la ciudad por trabajo y se comunica con sus compañeros por llamadas y mensajes.',
       needs: 'Una comunicación fiable con la familia de ambos países y con sus colegas.',
-      pains: 'Esperar eternamente en las líneas de atención al cliente, y los malentendidos, porque el inglés es su segunda lengua.',
+      pains: 'Las esperas eternas en las líneas de atención al cliente, y los malentendidos, porque el inglés es su segunda lengua.',
     },
     alfredo: {
-      kind: 'Persona del producto: la voz',
+      kind: 'Personaje del producto: la voz',
       status: 'Soltero',
       occupation: 'Representante de atención al cliente',
       location: 'Miami, Florida',
@@ -131,7 +131,7 @@ const es: typeof en = {
   },
   styleGuide: {
     title: 'Guía de estilo',
-    kicker: 'Escritura',
+    kicker: 'Redacción',
     p: 'La voz y el tono pasaron a la guía de estilo, junto con casos que necesitaban más orientación. La hora del día, por ejemplo, tiene palabras específicas para el mediodía y la medianoche.',
     caption: 'Ejemplos de la guía de estilo',
     columns: { rule: 'Norma', en: 'Inglés original', es: 'Español correcto', no: 'Incorrecto' },
@@ -147,7 +147,7 @@ const es: typeof en = {
   },
   sms: {
     title: 'SMS',
-    kicker: 'Escritura',
+    kicker: 'Redacción',
     p: 'Edité los mensajes de texto para que siguieran el mismo estilo que el audio, corrigiendo faltas de ortografía y frases torpes. Estos son los cambios uno por uno.',
     cancel: 'Cancelar notificaciones',
     registration: 'Registro',
@@ -163,7 +163,7 @@ const es: typeof en = {
   },
   retrospective: {
     title: 'Retrospectiva',
-    p1: 'La gente ha elegido el IVR en español, y les ofrece una experiencia lo más parecida posible a la que tienen quienes hablan inglés. El proyecto seguía en marcha entonces, pero ya recordaba que la localización tiene que estar desde el principio de un producto: cambia los flujos, la longitud del contenido y cualquier estructura que funcione distinto en otro idioma.',
+    p1: 'Los usuarios han elegido el IVR en español, que les ofrece una experiencia lo más parecida posible a la que tienen quienes hablan inglés. El proyecto seguía en marcha entonces, pero ya dejaba claro que la localización tiene que estar desde el principio de un producto: cambia los flujos, la longitud del contenido y cualquier estructura que funcione distinto en otro idioma.',
     p2: 'Personalmente, disfruté preparando a los actores de voz, viendo cómo el SMS y el IVR funcionaban de la mano, y usando SSML para cambiar la prosodia de las grabaciones.',
     relatedBefore: 'Relacionado: mi charla de 2021',
     relatedLink: '“Localization and Latin America”',
@@ -182,7 +182,7 @@ const it: typeof en = {
     note: 'Quel dato è la quota di utenti che preferivano già lo spagnolo. Descrive il pubblico, non un risultato di questo progetto.',
   },
   personas: {
-    title: 'Personas',
+    title: 'Profili utente',
     jose: {
       status: 'Sposato',
       occupation: 'Architetto',
@@ -193,7 +193,7 @@ const it: typeof en = {
       pains: 'Aspettare all’infinito nelle code dell’assistenza clienti, e i malintesi, perché l’inglese è la sua seconda lingua.',
     },
     alfredo: {
-      kind: 'Persona di prodotto: la voce',
+      kind: 'Personaggio del prodotto: la voce',
       status: 'Single',
       occupation: 'Addetto all’assistenza clienti',
       location: 'Miami, Florida',
@@ -203,7 +203,7 @@ const it: typeof en = {
   },
   brainstorming: {
     title: 'Brainstorming',
-    p1: 'Come team siamo andati alla lavagna per definire chi fosse la voce inglese. Con molto lavoro di mappatura, e tornando alla documentazione originale in inglese dei primi anni 2000, abbiamo creato Alfredo.',
+    p1: 'Con il team ci siamo messi alla lavagna per definire chi fosse la voce inglese. Con molto lavoro di mappatura, e tornando alla documentazione originale in inglese dei primi anni 2000, abbiamo creato Alfredo.',
     p2: 'Anche i flussi delle chiamate hanno dovuto cambiare in base a ciò che chiedeva chi parlava spagnolo. Per esempio, il servizio di chiamate internazionali veniva richiesto molto più spesso che da chi parlava inglese.',
   },
   voice: {
@@ -249,7 +249,7 @@ const it: typeof en = {
   retrospective: {
     title: 'Retrospettiva',
     p1: 'Le persone hanno scelto l’IVR in spagnolo, che offre loro un’esperienza il più possibile vicina a quella di chi parla inglese. All’epoca il progetto era ancora in corso, ma ricordava già che la localizzazione va pensata dall’inizio di un prodotto: cambia i flussi, la lunghezza dei contenuti e qualsiasi struttura che funzioni diversamente in un’altra lingua.',
-    p2: 'Personalmente mi è piaciuto preparare gli attori vocali, vedere SMS e IVR lavorare insieme e usare SSML per cambiare la prosodia delle registrazioni.',
+    p2: 'Personalmente mi è piaciuto preparare gli speaker, vedere SMS e IVR lavorare insieme e usare SSML per cambiare la prosodia delle registrazioni.',
     relatedBefore: 'Correlato: il mio intervento del 2021',
     relatedLink: '“Localization and Latin America”',
     relatedAfter: 'all’Ibero-American Chatbot Summit.',

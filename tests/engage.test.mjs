@@ -35,7 +35,7 @@ test('home has one selected-work section with a Design / Writing switch', () => 
   assert.ok(!/<h2[^>]*>Design<\/h2>/.test(html), 'no duplicate Design list');
 });
 
-test('contact is a big, centered email link with a copy button on every page', () => {
+test('contact is a big email link with a copy button on every page', () => {
   for (const route of ['/', '/about/', '/work/descubre/']) {
     const footer = page(route).match(/<footer[\s\S]*?<\/footer>/)[0];
     assert.match(footer, /<a[^>]*class="[^"]*contact-big[^"]*"[^>]*href="mailto:brieducon@gmail\.com"|<a[^>]*href="mailto:brieducon@gmail\.com"[^>]*class="[^"]*contact-big/, `${route} big link`);
@@ -57,4 +57,13 @@ test('the Italian homepage has the Italian headline and the illustration has a C
   assert.ok(h1.includes('programmi pubblici') && h1.includes('apprendimento delle lingue'));
   assert.ok(page('/').includes('>Ciao<'), 'Ciao bubble');
   assert.ok(!/data-headline=/.test(page('/')), 'headline switch removed');
+});
+
+test('the illustration’s button says Send in the page’s language', () => {
+  const words = { '': 'Send', '/es': 'Enviar', '/it': 'Invia' };
+  for (const [prefix, word] of Object.entries(words)) {
+    const art = page(`${prefix}/`).match(/<svg[^>]*hero-art[\s\S]*?<\/svg>/)[0];
+    const button = art.match(/class="button__text"[^>]*>([^<]*)</)?.[1];
+    assert.equal(button, word, prefix || '/');
+  }
 });

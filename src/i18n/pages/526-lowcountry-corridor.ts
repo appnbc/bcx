@@ -44,11 +44,11 @@ const en = {
 const es: typeof en = {
   role: {
     title: 'Rol',
-    p1: 'Me encargué del diseño UX del sitio web de 526 Lowcountry Corridor, lo construí en el gestor de contenidos y dirigí su trabajo de accesibilidad. Trabajé con Alyssa, responsable de comunidad, y con Amy, que dirigía el proyecto. El sitio se publicó y sigue en línea.',
+    p1: 'Me encargué del diseño UX del sitio web de 526 Lowcountry Corridor, lo construí en el gestor de contenidos y dirigí el trabajo de accesibilidad. Trabajé con Alyssa, responsable de comunidad, y con Amy, que dirigía el proyecto. El sitio se publicó y sigue en línea.',
     p2: 'El público del proyecto incluye a personas cuya primera lengua no es el inglés, así que aquí la accesibilidad significaba acceso lingüístico además de acceso para personas con discapacidad.',
   },
   persona: {
-    title: 'Persona',
+    title: 'Perfil de usuario',
     daniel: {
       status: 'Soltero',
       occupation: 'Camionero',
@@ -65,7 +65,7 @@ const es: typeof en = {
     rows: [
       { issue: 'Contraste de color en la paleta de la marca', response: 'El verde y el azul del sitio forman parte de su marca, pero no contrastaban lo suficiente para que las personas con baja visión o daltonismo distinguieran los elementos. Se mejoró el contraste de la combinación de colores manteniendo la marca.' },
       { issue: 'Navegación con teclado y un menú aparte en español', response: 'A quienes usaban el teclado les costaba recorrer los menús, y un menú aparte para hispanohablantes añadía confusión. Se simplificó la navegación con teclado y se hizo coherente el acceso lingüístico en ambos menús.' },
-      { issue: 'Falta de texto alternativo y de guiones para los vídeos', response: 'Las imágenes sin texto alternativo dejaban fuera a quienes usan lectores de pantalla, y los vídeos sin guion dejaban fuera a las personas con dificultades auditivas. Las imágenes recibieron texto alternativo y los vídeos, guiones.' },
+      { issue: 'Falta de texto alternativo y de guiones para los videos', response: 'Las imágenes sin texto alternativo dejaban fuera a quienes usan lectores de pantalla, y los videos sin guion dejaban fuera a las personas con dificultades auditivas. Las imágenes recibieron texto alternativo y los videos, guiones.' },
       { issue: 'Barrera lingüística', response: 'Para quienes no hablan inglés, como Daniel, la traducción tiene que ser directa, sin modismos ni jerga. El acceso lingüístico se hizo coherente en todo el sitio.' },
       { issue: 'Iconos de flecha sin etiqueta', response: 'Las flechas señalan la navegación, los enlaces externos y las descargas. La recomendación: dar a cada una un texto alternativo descriptivo, para que todo el mundo sepa qué hace.' },
       { issue: 'Pocas pruebas con usuarios diversos', response: 'Las pruebas no habían abarcado una gama amplia de usuarios, incluidas personas con discapacidad. Ese es el siguiente paso.' },
@@ -73,7 +73,7 @@ const es: typeof en = {
   },
   retrospective: {
     title: 'Retrospectiva',
-    p1: 'Resolver el contraste de color, la navegación con teclado, los menús de idioma, el texto alternativo y los guiones de vídeo hizo el sitio más fácil de usar para más personas, sobre todo para quienes tienen discapacidad visual o auditiva y para los hispanohablantes.',
+    p1: 'Resolver el contraste de color, la navegación con teclado, los menús de idioma, el texto alternativo y los guiones de video hizo el sitio más fácil de usar para más personas, sobre todo para quienes tienen discapacidad visual o auditiva y para los hispanohablantes.',
     p2: 'La lección que saqué: la accesibilidad necesita atención continua y pruebas con un grupo de usuarios realmente diverso, incluidas personas con discapacidad.',
   },
 };
@@ -85,7 +85,7 @@ const it: typeof en = {
     p2: 'Il pubblico del progetto comprende persone la cui prima lingua non è l’inglese, quindi qui accessibilità voleva dire accesso linguistico oltre che accesso per le persone con disabilità.',
   },
   persona: {
-    title: 'Persona',
+    title: 'Profilo utente',
     daniel: {
       status: 'Single',
       occupation: 'Camionista',
@@ -102,16 +102,16 @@ const it: typeof en = {
     rows: [
       { issue: 'Contrasto dei colori nella palette del marchio', response: 'Il verde e il blu del sito fanno parte del marchio, ma non avevano abbastanza contrasto perché le persone ipovedenti o daltoniche distinguessero gli elementi. Il contrasto della combinazione di colori è stato migliorato mantenendo il marchio.' },
       { issue: 'Navigazione da tastiera e un menu separato in spagnolo', response: 'Chi usava la tastiera faticava a muoversi tra i menu, e un menu separato per chi parla spagnolo creava confusione. La navigazione da tastiera è stata semplificata e l’accesso linguistico reso coerente in entrambi i menu.' },
-      { issue: 'Testo alternativo e copioni dei video mancanti', response: 'Le immagini senza testo alternativo escludevano chi usa uno screen reader, e i video senza copione escludevano le persone con problemi di udito. Le immagini hanno ricevuto il testo alternativo e i video i copioni.' },
+      { issue: 'Testo alternativo e script dei video mancanti', response: 'Le immagini senza testo alternativo escludevano chi usa uno screen reader, e i video senza script escludevano le persone con problemi di udito. Le immagini hanno ricevuto il testo alternativo e i video gli script.' },
       { issue: 'Barriera linguistica', response: 'Per chi non parla inglese, come Daniel, la traduzione deve essere diretta, senza modi di dire né gergo. L’accesso linguistico è stato reso coerente in tutto il sito.' },
       { issue: 'Icone a freccia senza etichetta', response: 'Le frecce indicano navigazione, link esterni e download. La raccomandazione: dare a ciascuna un testo alternativo descrittivo, così che tutti sappiano cosa fa.' },
-      { issue: 'Pochi test con utenti diversi', response: 'I test non avevano coinvolto una gamma ampia di utenti, comprese le persone con disabilità. È il passo successivo.' },
+      { issue: 'Pochi test con utenti eterogenei', response: 'I test non avevano coinvolto una gamma ampia di utenti, comprese le persone con disabilità. È il passo successivo.' },
     ],
   },
   retrospective: {
     title: 'Retrospettiva',
-    p1: 'Risolvere contrasto dei colori, navigazione da tastiera, menu delle lingue, testo alternativo e copioni dei video ha reso il sito più facile da usare per più persone, soprattutto per chi ha disabilità visive o uditive e per chi parla spagnolo.',
-    p2: 'La lezione che ne ho tratto: l’accessibilità richiede un’attenzione continua e test con un gruppo di utenti davvero diverso, comprese le persone con disabilità.',
+    p1: 'Risolvere contrasto dei colori, navigazione da tastiera, menu delle lingue, testo alternativo e script dei video ha reso il sito più facile da usare per più persone, soprattutto per chi ha disabilità visive o uditive e per chi parla spagnolo.',
+    p2: 'La lezione che ne ho tratto: l’accessibilità richiede un’attenzione continua e test con un gruppo di utenti davvero eterogeneo, comprese le persone con disabilità.',
   },
 };
 

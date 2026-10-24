@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Mixed from '../../components/Mixed.astro';
 import { href, langOf, getLangPaths } from '../../i18n/locales';
 import { aboutCopy } from '../../i18n/pages/about';
 
@@ -108,7 +109,7 @@ const sections: { id: string; title: string; items: Item[] }[] = [
               <div class="cv__body">
                 <h3 class="cv__role" lang={titleLang}>{item.title}</h3>
                 <p class="cv__where label">{item.where}</p>
-                {item.text && <p class="cv__text">{item.text}</p>}
+                {item.text && <p class="cv__text"><Mixed text={item.text} /></p>}
                 {item.links && (
                   <p class="cv__links meta">
                     {item.links.map((l, i) => <>{i > 0 && ' · '}<a href={l.href}>{l.label}</a></>)}

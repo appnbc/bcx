@@ -3,6 +3,7 @@ import { langFromUrl } from '../i18n/locales';
 import { ui } from '../i18n/ui';
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import { widthsFor, IMAGE_QUALITY } from './image-widths';
 
 interface Item {
   src: ImageMetadata;
@@ -16,10 +17,6 @@ interface Props {
 }
 const { id, label, items } = Astro.props;
 const t = ui[langFromUrl(Astro.url)];
-const widthsFor = (src: ImageMetadata, list: number[]) => {
-  const w = list.filter((n) => n <= src.width);
-  return w.length ? w : [src.width];
-};
 ---
 <div class="gallery col-wide" data-gallery>
   <p class="meta gallery__label" id={`${id}-label`}>{label}. {t.gallery.hint}</p>
@@ -27,7 +24,7 @@ const widthsFor = (src: ImageMetadata, list: number[]) => {
     {items.map((item, i) => (
       <li>
         <button type="button" class="gallery-thumb" data-index={i} aria-haspopup="dialog">
-          <Picture src={item.src} alt="" formats={['avif', 'webp']} widths={widthsFor(item.src, [320, 640])} sizes="(min-width: 900px) 20vw, 45vw" loading="lazy" decoding="async" />
+          <Picture src={item.src} alt="" formats={['avif', 'webp']} widths={widthsFor(item.src, [320, 640, 960])} quality={IMAGE_QUALITY} sizes="(min-width: 900px) 20vw, 45vw" loading="lazy" decoding="async" />
           <span class="gallery-thumb__caption">{item.caption ?? item.alt}</span>
         </button>
       </li>
@@ -44,7 +41,7 @@ const widthsFor = (src: ImageMetadata, list: number[]) => {
     </div>
     {items.map((item, i) => (
       <figure class="gallery-dialog__item" data-item={i} hidden>
-        <Picture src={item.src} alt={item.alt} formats={['avif', 'webp']} widths={widthsFor(item.src, [800, 1200, 1800])} sizes="90vw" loading="lazy" decoding="async" />
+        <Picture src={item.src} alt={item.alt} formats={['avif', 'webp']} widths={widthsFor(item.src)} quality={IMAGE_QUALITY} sizes="90vw" loading="lazy" decoding="async" />
         <figcaption class="meta">{item.caption ?? item.alt}</figcaption>
       </figure>
     ))}
@@ -101,7 +98,7 @@ const widthsFor = (src: ImageMetadata, list: number[]) => {
     color: var(--ink);
     padding: var(--space-3);
   }
-  .gallery-dialog::backdrop { background: rgb(20 19 15 / 0.82); }
+  .gallery-dialog::backdrop { background: rgb(9 26 21 / 0.82); }
   .gallery-dialog__bar {
     display: flex;
     flex-wrap: wrap;

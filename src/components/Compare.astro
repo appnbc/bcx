@@ -3,6 +3,7 @@ import { langFromUrl } from '../i18n/locales';
 import { ui } from '../i18n/ui';
 import { Picture, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import { widthsFor, IMAGE_QUALITY } from './image-widths';
 
 /** Two images side by side, labeled (e.g. Before / After). Stacks on narrow screens. */
 interface Side {
@@ -17,12 +18,8 @@ interface Props {
 }
 const { a, b, caption } = Astro.props;
 const t = ui[langFromUrl(Astro.url)];
-const fullOf = async (src: ImageMetadata) => (await getImage({ src, width: Math.min(2000, src.width), format: 'webp' })).src;
+const fullOf = async (src: ImageMetadata) => (await getImage({ src, width: Math.min(2400, src.width), format: 'webp', quality: IMAGE_QUALITY })).src;
 const sides = await Promise.all([a, b].map(async (side) => ({ ...side, full: await fullOf(side.src) })));
-const widthsFor = (src: ImageMetadata) => {
-  const w = [480, 800, 1200].filter((n) => n <= src.width);
-  return w.length ? w : [src.width];
-};
 ---
 <figure class="compare col-wide">
   <div class="compare__pair">
@@ -30,7 +27,7 @@ const widthsFor = (src: ImageMetadata) => {
       <div class="compare__side">
         <p class:list={['compare__label label', { 'compare__label--after': i === 1 }]}>{side.label}</p>
         <a class="zoom" href={side.full} data-alt={side.alt} data-caption={side.label}>
-          <Picture src={side.src} alt={side.alt} formats={['avif', 'webp']} widths={widthsFor(side.src)} sizes="(min-width: 900px) 40vw, 100vw" loading="lazy" decoding="async" />
+          <Picture src={side.src} alt={side.alt} formats={['avif', 'webp']} widths={widthsFor(side.src)} quality={IMAGE_QUALITY} sizes="(min-width: 900px) 40vw, 100vw" loading="lazy" decoding="async" />
           <span class="visually-hidden">{t.lightbox.opens}</span>
         </a>
       </div>

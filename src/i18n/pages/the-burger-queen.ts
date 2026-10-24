@@ -48,11 +48,11 @@ const en = {
 const es: typeof en = {
   context: {
     title: 'Contexto',
-    p1: 'Un asistente multimodal, voz más pantalla, para los dispositivos Alexa de las habitaciones de un hotel de Las Vegas. Los huéspedes podían informarse sobre el restaurante del hotel, The Burger Queen, y pedir servicio de habitaciones.',
+    p1: 'Un asistente multimodal, de voz y pantalla, para los dispositivos Alexa de las habitaciones de un hotel de Las Vegas. Los huéspedes podían informarse sobre el restaurante del hotel, The Burger Queen, y pedir servicio de habitaciones.',
     p2: 'El encargo: un conserje con aire de hotel de lujo, una voz de marca coherente, una forma de presentar los demás locales del hotel y más ingresos para el hotel.',
   },
   personas: {
-    title: 'Personas',
+    title: 'Perfiles de usuario',
     john: { status: 'Soltero', occupation: 'Turista (profesional del marketing)', location: 'Londres, Inglaterra', quote: 'Quiero la experiencia estadounidense en Las Vegas.' },
     miguel: { status: 'Casado', occupation: 'Gran apostador', location: 'Las Vegas, Nevada' },
   },
@@ -63,12 +63,12 @@ const es: typeof en = {
     steps: ['Saludo', 'Locales', 'Horario', 'Menú', 'Pedido', 'Bebida', 'Postre', 'Confirmación', 'Despedida'],
     pictures: [
       'el letrero Welcome to Fabulous Las Vegas de noche',
-      'una hamburguesa con patatas fritas',
-      'una hamburguesa con patatas fritas',
+      'una hamburguesa con papas fritas',
+      'una hamburguesa con papas fritas',
       'una hamburguesa con queso de varios pisos',
       'refresco de cola servido sobre hielo',
       'refresco de cola servido sobre hielo',
-      'una tarta cubierta de frutos rojos',
+      'un pastel cubierto de frutos rojos',
       'una persona sonriente en el mostrador de recepción del hotel',
       'una persona sonriente en el mostrador de recepción del hotel',
     ],
@@ -79,7 +79,7 @@ const es: typeof en = {
   },
   changes: {
     title: 'Qué cambió',
-    p: 'Al revisar la aplicación encontramos tres problemas: no tenía saludo, no mostraba suficiente oferta de comida y su imagen de marca no era coherente con la del hotel. A lo largo de varias iteraciones:',
+    p: 'Al revisar la aplicación encontramos tres problemas: no tenía saludo, no mostraba lo suficiente la oferta de comida y su imagen de marca no era coherente con la del hotel. A lo largo de varias iteraciones:',
     greeting: { term: 'Añadimos un saludo personalizado.', rest: ' En estas pantallas, por ejemplo, el asistente se dirige al huésped por su nombre al final (pantalla 9).' },
     menu: { term: 'Ampliamos el menú a bebidas y postres', rest: '; en estas pantallas se ofrecen a medida que se completa el pedido (pantallas 6 y 7).' },
     italics: { term: 'Pusimos en cursiva los términos ajenos al inglés de la interfaz', before: ', como', and: 'y', after: '(pantallas 8 y 9).' },
@@ -90,11 +90,11 @@ const es: typeof en = {
 const it: typeof en = {
   context: {
     title: 'Contesto',
-    p1: 'Un assistente multimodale, voce più schermo, per i dispositivi Alexa nelle camere di un hotel di Las Vegas. Gli ospiti potevano conoscere il ristorante dell’hotel, The Burger Queen, e ordinare il servizio in camera.',
+    p1: 'Un assistente multimodale, voce e schermo, per i dispositivi Alexa nelle camere di un hotel di Las Vegas. Gli ospiti potevano conoscere il ristorante dell’hotel, The Burger Queen, e ordinare il servizio in camera.',
     p2: 'Il brief: un concierge con l’atmosfera di un hotel di lusso, una voce di marca coerente, un modo per presentare gli altri locali dell’hotel e più ricavi per l’hotel.',
   },
   personas: {
-    title: 'Personas',
+    title: 'Profili utente',
     john: { status: 'Single', occupation: 'Turista (marketer)', location: 'Londra, Inghilterra', quote: 'Voglio l’esperienza americana a Las Vegas.' },
     miguel: { status: 'Sposato', occupation: 'Giocatore d’alto bordo', location: 'Las Vegas, Nevada' },
   },

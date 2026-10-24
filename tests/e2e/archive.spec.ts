@@ -66,6 +66,6 @@ test('clicking a filter keeps the hash', async ({ page }) => {
 
 test('Spanish Index filter uses the canonical value in the URL', async ({ page }) => {
   await page.goto('/es/archive/');
-  await page.getByRole('button', { name: 'Escritura UX', exact: true }).click();
+  await page.getByRole('button', { name: 'Redacción UX', exact: true }).click();
   await expect(page).toHaveURL(/\?d=UX\+Writing/);
 });

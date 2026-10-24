@@ -48,11 +48,14 @@ test('copy email button copies and confirms', async ({ page, context }) => {
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('brieducon@gmail.com');
 });
 
-test('the big contact link is centered', async ({ page }) => {
-  await page.goto('/');
-  const link = page.locator('a.contact-big');
-  const box = (await link.boundingBox())!;
-  const vw = page.viewportSize()!.width;
-  expect(Math.abs(box.x + box.width / 2 - vw / 2)).toBeLessThan(24);
+test('contact bookends the hero: same wash, left-aligned, email in a speech bubble', async ({ page }) => {
+  await page.goto('/about/');
+  const footer = page.locator('.site-footer');
+  expect(await footer.evaluate((el) => getComputedStyle(el).backgroundImage)).toContain('radial-gradient');
+  await expect(page.locator('.contact__lead mark')).toHaveText('Write to me.');
+  const bubble = (await page.locator('.contact__bubble').boundingBox())!;
+  const lead = (await page.locator('.contact__lead').boundingBox())!;
+  expect(Math.abs(bubble.x - lead.x)).toBeLessThan(2);
+  await expect(page.locator('.contact__bubble a.contact-big')).toHaveAttribute('href', 'mailto:brieducon@gmail.com');
 });
 

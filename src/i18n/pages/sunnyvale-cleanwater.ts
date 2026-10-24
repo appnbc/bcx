@@ -107,16 +107,16 @@ const es: typeof en = {
   context: {
     title: 'Contexto',
     p1: 'El Sunnyvale Cleanwater Program es un conjunto de proyectos que reconstruyen la infraestructura que depura las aguas residuales de la ciudad para un uso público seguro, sobre todo la propia planta de tratamiento. Ya existía un sitio web del programa, pero era difícil de usar y no daba a conocer el programa como hacía falta.',
-    p2: 'El nuevo sitio tenía dos públicos. Los residentes necesitaban entender qué hacía Sunnyvale con sus aguas residuales. Los profesionales necesitaban consultar documentos técnicos y contactar con el programa por trabajos de contratación.',
+    p2: 'El nuevo sitio tenía dos públicos. Los residentes necesitaban entender qué hacía Sunnyvale con sus aguas residuales. Los profesionales necesitaban consultar documentos técnicos y contactar con el programa para optar a contratos.',
     noteLabel: 'Antes del lanzamiento',
     note: 'Trabajé en el sitio antes de su lanzamiento. Parte del contenido del sitio en línea ha cambiado desde entonces.',
   },
   team: {
     title: 'Equipo',
-    p: 'Fui el diseñador UX y el redactor UX. Erin, científica del agua, era la experta en la materia. Elizabeth, directora del programa, era además su enlace con la comunidad.',
+    p: 'Fui el diseñador UX y el redactor UX. Erin, científica del agua, era la experta en la materia. Elizabeth, directora del programa, era además el enlace del programa con la comunidad.',
   },
   personas: {
-    title: 'Personas',
+    title: 'Perfiles de usuario',
     sierra: {
       status: 'Casada',
       occupation: 'Ingeniera informática',
@@ -130,7 +130,7 @@ const es: typeof en = {
       status: 'Soltero',
       occupation: 'Científico del agua',
       location: 'Santa Clara, California',
-      quote: 'Hay mucho movimiento en las obras de Sunnyvale. Ojalá hubiera un sitio donde leer datos disponibles enseguida.',
+      quote: 'Hay mucho movimiento en las obras de Sunnyvale. Ojalá hubiera un sitio donde leer datos de libre acceso.',
       bio: 'Un científico que quiere aprender algo nuevo cada día. Sigue cómo gestionan las ciudades cercanas su agua y sus estudios sobre el agua.',
       needs: 'Investigación para mejorar la depuración del agua, idealmente datos públicos que pueda leer sin tener que pedirlos.',
       pains: 'Muchos sitios tienen una navegación anticuada y documentos mal organizados, si es que están organizados.',
@@ -138,7 +138,7 @@ const es: typeof en = {
   },
   microcopy: {
     title: 'Microtextos',
-    kicker: 'Escritura',
+    kicker: 'Redacción',
     p1: 'Había que reescribir los microtextos de todo el sitio. Como no contenían afirmaciones científicas, solo orientación para los visitantes, quedaron a mi cargo.',
     subtitleTitle: 'El subtítulo de la cabecera',
     subtitleP: 'La frase bajo la cabecera del sitio tenía que llamar la atención y seguir sonando seria. Pasó por tres borradores (el sitio está en inglés).',
@@ -155,7 +155,7 @@ const es: typeof en = {
       { term: '“⟦our⟧” en lugar de “⟦the⟧”', rest: ': el futuro del que se habla es el de la comunidad.' },
     ],
     buttonsTitle: 'Botones',
-    buttonsP: 'Los botones siguen un mismo patrón en todo el sitio. Una flecha indica cómo se comporta el enlace. Las etiquetas tienen como máximo tres palabras, con dos excepciones: una llamada a la acción que debe decir adónde lleva (como la suscripción al boletín) y un botón que nombra el archivo que va a descargar.',
+    buttonsP: 'Los botones siguen un mismo patrón en todo el sitio. Una flecha indica cómo se comporta el enlace. Las etiquetas tienen como máximo tres palabras, con dos excepciones: una llamada a la acción que debe decir adónde lleva (como la suscripción al boletín) y un botón que nombra el archivo que se va a descargar.',
     buttonAlt: 'Avance de la sección Overview con un botón morado "Learn More →" junto a una foto de la planta.',
     buttonCaption: 'Dos palabras y una flecha.',
   },
@@ -171,7 +171,7 @@ const es: typeof en = {
   },
   navigation: {
     title: 'Navegación',
-    p: 'Las pruebas cambiaron algunas partes del sitio para ajustarlas a lo que la gente buscaba más. Muchos visitantes querían contactar con el programa y su responsable más que leer novedades. Tras un test A/B, ⟦Contact Us⟧ pasó por encima de ⟦Updates⟧ en el menú ⟦Get Involved⟧.',
+    p: 'Tras las pruebas, algunas partes del sitio se ajustaron a lo que la gente más buscaba. Muchos visitantes querían contactar con el programa y su responsable más que leer novedades. Tras un test A/B, ⟦Contact Us⟧ pasó por encima de ⟦Updates⟧ en el menú ⟦Get Involved⟧.',
     before: { label: 'Antes', alt: 'Menú de navegación: en Get Involved, Updates aparece por encima de Contact Us.' },
     after: { label: 'Después', alt: 'Menú de navegación: en Get Involved, Contact Us aparece por encima de Updates.' },
   },
@@ -180,7 +180,7 @@ const es: typeof en = {
     faqTitle: 'Preguntas frecuentes',
     faqP: 'La página de preguntas frecuentes era nueva y su disposición mejoró en sucesivas iteraciones. Empezó como una simple lista de preguntas y respuestas. La versión final abre con “⟦On this page⟧”, una lista de las preguntas enlazadas a sus respuestas. Cada respuesta tiene un enlace “⟦Back to Questions⟧”, y las respuestas más largas se acompañan de una imagen para leerlas en partes más pequeñas.',
     faqBefore: { label: 'Primera versión', alt: 'Primera versión de la página de preguntas frecuentes: preguntas como títulos, cada una seguida de un párrafo de respuesta.' },
-    faqAfter: { label: 'Versión final', alt: 'Versión final de la página de preguntas frecuentes: una lista «On this page» de preguntas enlazadas junto a la foto de una persona científica.' },
+    faqAfter: { label: 'Versión final', alt: 'Versión final de la página de preguntas frecuentes: una lista «On this page» de preguntas enlazadas junto a la foto de un científico.' },
     longAlt: 'Una respuesta larga junto a la foto de una tubería con la etiqueta "Digested sludge", con un enlace "Back to Questions".',
     longCaption: 'Una respuesta larga dividida por una imagen, con un camino de vuelta a la lista.',
     planTitle: 'Plan maestro',
@@ -191,11 +191,11 @@ const es: typeof en = {
   process: {
     title: 'Simplificación de procesos',
     p1: 'Parte del trabajo de la planta es complejo: la generación de energía, la producción de biosólidos y el reciclaje de agua en la página ⟦Benefits, Value, Community⟧, y el proceso del calendario del programa en la página de proyectos.',
-    p2: 'Expliqué cada uno con iconos, flechas y lenguaje claro. Los iconos representan los sustantivos del texto que un visitante reconocería. Cada flecha lleva una frase breve con la acción que hace avanzar el proceso. El reciclaje de agua tiene además un resumen de dos frases. Las expertas en la materia aprobaron tanto el texto como las imágenes.',
+    p2: 'Expliqué cada uno con iconos, flechas y lenguaje claro. Los iconos representan los sustantivos del texto que un visitante reconocería. Cada flecha lleva una frase breve con la acción que hace avanzar el proceso. El reciclaje de agua tiene además un resumen de dos frases. Los expertos en la materia aprobaron tanto el texto como las imágenes.',
   },
   retrospective: {
     title: 'Retrospectiva',
-    p1: 'Lo mejor fue aprender un tema nuevo para mí junto a una persona experta: rondas para entender cómo funciona la planta y, a partir de ahí, diseñar información para los residentes de Sunnyvale. También disfruté organizando el contenido para que el sitio fuera informativo y agradable a la vez.',
+    p1: 'Lo mejor fue aprender un tema nuevo para mí junto a una experta en la materia: varias rondas para entender cómo funciona la planta y, a partir de ahí, diseñar información para los residentes de Sunnyvale. También disfruté organizando el contenido para que el sitio fuera informativo y agradable a la vez.',
     p2: 'Lo que haría de otra manera: involucrarme en las redes sociales. El sitio dio a conocer el programa y los residentes lo elogiaron, pero quedaba margen para llegar a más gente. La ciudad controla sus redes sociales; crear contenido para esos canales habría permitido conocer la planta en las aplicaciones que la gente ya usa.',
   },
 };
@@ -213,7 +213,7 @@ const it: typeof en = {
     p: 'Ero lo UX designer e lo UX writer. Erin, scienziata dell’acqua, era l’esperta della materia. Elizabeth, responsabile del programma, era anche il punto di contatto con la comunità.',
   },
   personas: {
-    title: 'Personas',
+    title: 'Profili utente',
     sierra: {
       status: 'Sposata',
       occupation: 'Ingegnera informatica',
@@ -227,7 +227,7 @@ const it: typeof en = {
       status: 'Single',
       occupation: 'Scienziato dell’acqua',
       location: 'Santa Clara, California',
-      quote: 'C’è un gran movimento nei cantieri di Sunnyvale. Vorrei un posto dove leggere dati subito disponibili.',
+      quote: 'C’è un gran movimento nei cantieri di Sunnyvale. Vorrei un posto dove leggere dati liberamente accessibili.',
       bio: 'Uno scienziato che vuole imparare qualcosa di nuovo ogni giorno. Segue come le città vicine gestiscono la loro acqua e i loro studi sull’acqua.',
       needs: 'Ricerche per migliorare la depurazione dell’acqua, idealmente dati pubblici da leggere senza doverli chiedere.',
       pains: 'Molti siti hanno una navigazione antiquata e documenti mal organizzati, sempre che siano organizzati.',
@@ -252,7 +252,7 @@ const it: typeof en = {
       { term: '“⟦our⟧” al posto di “⟦the⟧”', rest: ': il futuro di cui si parla è quello della comunità.' },
     ],
     buttonsTitle: 'Pulsanti',
-    buttonsP: 'I pulsanti seguono un unico schema in tutto il sito. Una freccia mostra come si comporta il link. Le etichette hanno al massimo tre parole, con due eccezioni: una call to action che deve dire dove porta (come l’iscrizione alla newsletter) e un pulsante che nomina il file che sta per scaricare.',
+    buttonsP: 'I pulsanti seguono un unico schema in tutto il sito. Una freccia mostra come si comporta il link. Le etichette hanno al massimo tre parole, con due eccezioni: una call to action che deve dire dove porta (come l’iscrizione alla newsletter) e un pulsante che nomina il file che si sta per scaricare.',
     buttonAlt: 'Anteprima della sezione Overview con un pulsante viola "Learn More →" accanto a una foto dell’impianto.',
     buttonCaption: 'Due parole e una freccia.',
   },
@@ -268,7 +268,7 @@ const it: typeof en = {
   },
   navigation: {
     title: 'Navigazione',
-    p: 'I test hanno cambiato alcune parti del sito per adattarle a ciò che le persone cercavano di più. Molti visitatori volevano contattare il programma e il suo responsabile più che leggere gli aggiornamenti. Dopo un test A/B, ⟦Contact Us⟧ è stato spostato sopra ⟦Updates⟧ nel menu ⟦Get Involved⟧.',
+    p: 'Dopo i test, alcune parti del sito sono state adattate a ciò che le persone cercavano di più. Molti visitatori volevano contattare il programma e il suo responsabile più che leggere gli aggiornamenti. Dopo un test A/B, ⟦Contact Us⟧ è stato spostato sopra ⟦Updates⟧ nel menu ⟦Get Involved⟧.',
     before: { label: 'Prima', alt: 'Menu di navigazione: in Get Involved, Updates compare sopra Contact Us.' },
     after: { label: 'Dopo', alt: 'Menu di navigazione: in Get Involved, Contact Us compare sopra Updates.' },
   },
@@ -277,7 +277,7 @@ const it: typeof en = {
     faqTitle: 'Domande frequenti',
     faqP: 'La pagina delle domande frequenti era nuova e la sua impaginazione è migliorata nelle iterazioni. È nata come un semplice elenco di domande e risposte. La versione finale si apre con “⟦On this page⟧”, un elenco delle domande collegate alle risposte. Ogni risposta ha un link “⟦Back to Questions⟧”, e le risposte più lunghe sono affiancate da un’immagine per leggerle a pezzi più piccoli.',
     faqBefore: { label: 'Prima versione', alt: 'Prima versione della pagina delle domande frequenti: domande come titoli, ognuna seguita da un paragrafo di risposta.' },
-    faqAfter: { label: 'Versione finale', alt: 'Versione finale della pagina delle domande frequenti: un elenco «On this page» di domande con link accanto alla foto di una persona di scienza al lavoro.' },
+    faqAfter: { label: 'Versione finale', alt: 'Versione finale della pagina delle domande frequenti: un elenco «On this page» di domande con link accanto alla foto di uno scienziato al lavoro.' },
     longAlt: 'Una risposta lunga accanto alla foto di un tubo con l’etichetta "Digested sludge", con un link "Back to Questions".',
     longCaption: 'Una risposta lunga spezzata da un’immagine, con un modo per tornare all’elenco.',
     planTitle: 'Piano generale',
@@ -292,7 +292,7 @@ const it: typeof en = {
   },
   retrospective: {
     title: 'Retrospettiva',
-    p1: 'La parte migliore è stata imparare un argomento nuovo per me insieme a una persona esperta: giri successivi per capire come funziona l’impianto e poi, da lì, progettare informazioni per i residenti di Sunnyvale. Mi è piaciuto anche organizzare i contenuti perché il sito fosse informativo e piacevole allo stesso tempo.',
+    p1: 'La parte migliore è stata imparare un argomento nuovo per me insieme a un’esperta della materia: vari cicli per capire come funziona l’impianto e poi, da lì, progettare informazioni per i residenti di Sunnyvale. Mi è piaciuto anche organizzare i contenuti perché il sito fosse informativo e piacevole allo stesso tempo.',
     p2: 'Cosa farei diversamente: occuparmi dei social media. Il sito ha fatto conoscere il programma e i residenti lo hanno apprezzato, ma c’era spazio per raggiungere più persone. La città gestisce i propri social; creare contenuti per quei canali avrebbe permesso di conoscere l’impianto nelle app che le persone già usano.',
   },
 };

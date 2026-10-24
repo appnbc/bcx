@@ -1,18 +1,24 @@
 /*
- * An editor's desk: white proof paper and blue-black ink. The highlighter is
- * the one signature mark; red pen appears only on deleted copy.
+ * An editor's desk: off-white proof paper and deep green ink. The peach
+ * highlighter is the one signature mark; red pen appears only on deleted copy.
  */
 :root {
   color-scheme: light dark;
 
-  --paper: #FFFFFF;
-  --paper-sunk: #F3F5FA;
-  --ink: #1D2B53;
-  --ink-muted: #56607D;
-  --rule: #DCE1EC;
-  --red: #C81E35;
-  --highlight: #FFE45C;
-  --on-highlight: #1D2B53;
+  --paper: #FCFCFA;
+  --paper-sunk: #F1F4F0;
+  --ink: #15392F;
+  --ink-muted: #4D6960;
+  --rule: #DCE4DD;
+  --red: #C2412D;
+  --highlight: #FFC9B5;
+  --on-highlight: #15392F;
+  /* Panels that work sits on. */
+  --mat-sage: #E4EFE7;
+  --mat-peach: #FCE9E0;
+  --mat-shadow: rgb(21 57 47 / 0.28);
+  --wash-peach: rgb(255 201 181 / 0.5);
+  --wash-sage: rgb(196 224 205 / 0.6);
 
   --serif: 'Newsreader Variable', 'Iowan Old Style', Georgia, serif;
   --sans: 'Public Sans Variable', system-ui, sans-serif;
@@ -47,13 +53,18 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #0F1830;
-    --paper-sunk: #17223F;
-    --ink: #EEF1F8;
-    --ink-muted: #A9B3CC;
-    --rule: #2A3757;
-    --red: #FF6B7A;
-    --highlight: #FFE45C;
-    --on-highlight: #1D2B53;
+    --paper: #0E1F1A;
+    --paper-sunk: #152A23;
+    --ink: #E8F0EB;
+    --ink-muted: #A3BAB0;
+    --rule: #284139;
+    --red: #FF8A73;
+    --highlight: #FFC9B5;
+    --on-highlight: #15392F;
+    --mat-sage: #17302A;
+    --mat-peach: #2C2320;
+    --mat-shadow: rgb(0 0 0 / 0.5);
+    --wash-peach: rgb(255 170 140 / 0.10);
+    --wash-sage: rgb(90 160 125 / 0.22);
   }
 }

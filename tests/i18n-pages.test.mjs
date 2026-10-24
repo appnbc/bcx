@@ -34,3 +34,11 @@ for (const lang of ['es', 'it']) {
     for (const label of facts[lang]) assert.match(html, new RegExp(`<dt[^>]*>${label}</dt>`), label);
   });
 }
+
+test('official grade names stay in English, marked as English, on translated About pages', () => {
+  for (const lang of ['es', 'it']) {
+    const html = page(`/${lang}/about/`);
+    assert.match(html, /<span lang="en">Very Good<\/span>/, lang);
+    assert.ok(!html.includes('⟦'), `${lang}: no raw markers`);
+  }
+});

@@ -71,3 +71,11 @@ test('language markers never leak into pages', async () => {
   const { allPages } = await import('./helpers.mjs');
   for (const file of allPages()) assert.ok(!/[⟦⟧]/.test(readFileSync(file, 'utf8')), file);
 });
+
+test('Spanish pages use neutral Latin American Spanish', () => {
+  const spainOnly = /\b(vídeos?|alumnado|profesorado|ordenador(es)?|patatas|tarta|máster|deberes|en remoto|pulsa[r]?)\b/i;
+  for (const route of ['/es/', '/es/about/', '/es/archive/', '/es/work/descubre/', '/es/work/ladwp-turf-replacement/', '/es/work/the-burger-queen/', '/es/work/526-lowcountry-corridor/']) {
+    const text = page(route).replace(/<style[\s\S]*?<\/style>|<script[\s\S]*?<\/script>/g, '').replace(/<[^>]+>/g, ' ');
+    assert.ok(!spainOnly.test(text), `${route}: ${text.match(spainOnly)?.[0]}`);
+  }
+});

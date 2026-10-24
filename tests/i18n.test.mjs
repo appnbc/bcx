@@ -53,11 +53,12 @@ test('internal links on es/it pages stay in their language', () => {
 test('switcher and hreflang render when languages are public', { timeout: 240000 }, () => {
   const out = 'dist-public-test';
   rmSync(out, { recursive: true, force: true });
-  execSync('npx astro build', { env: { ...process.env, LANGUAGES_PUBLIC: '1', OUT_DIR: out }, stdio: 'pipe' });
+  execSync('npx astro build', { env: { ...process.env, LANGUAGES_PUBLIC: '1', OUT_DIR: out, SITE_URL: 'https://example.org' }, stdio: 'pipe' });
   try {
     const html = readFileSync(join(out, 'work', 'descubre', 'index.html'), 'utf8');
     assert.ok(html.includes('class="lang-switcher'), 'switcher');
-    assert.match(html, /hreflang="es"[^>]*href="\/es\/work\/descubre\/"|href="\/es\/work\/descubre\/"[^>]*hreflang="es"/, 'hreflang es');
+    assert.match(html, /hreflang="es"[^>]*href="https:\/\/example\.org\/es\/work\/descubre\/"/, 'hreflang es is an absolute URL');
+    assert.match(html, /hreflang="x-default"[^>]*href="https:\/\/example\.org\/work\/descubre\/"/, 'x-default is an absolute URL');
     assert.ok(!readFileSync(join(out, 'es', 'index.html'), 'utf8').includes('content="noindex"'), 'es indexable when public');
   } finally {
     rmSync(out, { recursive: true, force: true });

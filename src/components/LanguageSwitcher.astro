@@ -14,7 +14,7 @@ const { lang, path } = Astro.props;
   <ul>
     {locales.map((l) => (
       <li>
-        <a href={href(l, path)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined}>{localeNames[l]}</a>
+        <a href={href(l, path)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined}><span class="lang-switcher__name">{localeNames[l]}</span><span class="lang-switcher__code" aria-hidden="true">{l.toUpperCase()}</span></a>
       </li>
     ))}
   </ul>
@@ -34,4 +34,11 @@ const { lang, path } = Astro.props;
   }
   .lang-switcher a:hover { color: var(--ink); }
   .lang-switcher a[aria-current] { background: var(--highlight); color: var(--on-highlight); }
+  .lang-switcher__code { display: none; }
+  /* On phones the full names stay for screen readers; sighted readers get EN / ES / IT. */
+  @media (max-width: 699px) {
+    .lang-switcher a { padding: 0.3em 0.7em; }
+    .lang-switcher__code { display: inline; }
+    .lang-switcher__name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  }
 </style>

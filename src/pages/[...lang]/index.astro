@@ -1,14 +1,20 @@
 ---
 import { getCollection } from 'astro:content';
 import { Picture, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { widthsFor, IMAGE_QUALITY } from '../../components/image-widths';
 import Base from '../../layouts/Base.astro';
 import EditView from '../../components/EditView.astro';
+import Mixed from '../../components/Mixed.astro';
 import HeroArt from '../../components/HeroArt.astro';
 import { site } from '../../config';
 import { img } from '../../data/images';
 import { types } from '../../data/taxonomy';
 import { href, langOf, getLangPaths } from '../../i18n/locales';
 import { homeCopy } from '../../i18n/pages/home';
+import { sunnyvaleCopy } from '../../i18n/pages/sunnyvale-cleanwater';
+import { descubreCopy } from '../../i18n/pages/descubre';
+import { alfredoCopy } from '../../i18n/pages/alfredo-voice-services';
 import { ui } from '../../i18n/ui';
 import { localized, titleLangAttr } from '../../data/localized';
 
@@ -34,6 +40,7 @@ const selected = [
   {
     id: 'ladwp-turf-replacement',
     image: { src: img('ladwp-turf-replacement', 'LA_WP_dept_7.png') },
+    back: img('ladwp-turf-replacement', 'LA_WP_dept_6.png'),
   },
   { id: 'alfredo-voice-services' },
   {
@@ -44,18 +51,44 @@ const selected = [
   {
     id: 'the-burger-queen',
     image: { src: img('the-burger-queen', 'Alexa_Hotel_13.png') },
+    back: img('the-burger-queen', 'Alexa_Hotel_12.png'),
   },
-].map((s) => {
+].map((s: { id: string; image?: { src: ImageMetadata }; back?: ImageMetadata }) => {
   const entry = byId(s.id);
   const p = localized(entry, lang);
   const d = entry.data.disciplines;
   const kinds = [d.includes('UX Design') && 'design', (d.includes('UX Writing') || d.includes('Content Strategy')) && 'writing'].filter(Boolean);
   return { ...s, p, focus: c.focus[s.id], alt: c.alts[s.id] ?? '', kinds: kinds.join(' ') };
 });
-const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getImage({ src: s.image.src, width: Math.min(2000, s.image.src.width), format: 'webp' })).src : undefined)));
+const sv = sunnyvaleCopy[lang];
+const ds = descubreCopy[lang];
+const al = alfredoCopy[lang];
+const samples = [
+  {
+    id: 'sunnyvale-cleanwater',
+    section: 'microcopy',
+    where: sv.microcopy.subtitleTitle,
+    parts: [{ t: 'Meeting ' }, { del: 'Service and Environment Goals' }, { ins: 'service and environment goals' }, { t: ' ' }, { del: 'now' }, { ins: 'today' }, { t: ' and for ' }, { del: 'the' }, { ins: 'our' }, { t: ' future' }],
+  },
+  {
+    id: 'descubre',
+    section: 'digital',
+    where: ds.digital.title,
+    parts: [{ t: '“' }, { del: 'circle' }, { ins: 'select' }, { t: ' the word”' }],
+  },
+  {
+    id: 'alfredo-voice-services',
+    section: 'sms',
+    where: al.sms.cancel,
+    lang: 'es',
+    parts: [{ del: 'STOP' }, { ins: 'NO' }],
+  },
+].map((x) => ({ ...x, p: localized(byId(x.id), lang) }));
+const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getImage({ src: s.image.src, width: Math.min(2400, s.image.src.width), format: 'webp', quality: IMAGE_QUALITY })).src : undefined)));
 
 ---
-<Base lang={lang} title={site.name} description={c.description}>
+<Base lang={lang} title={site.name} description={c.description} overlayHeader>
+  <div class="hero-wash" aria-hidden="true"></div>
   <div class="wrap calm">
     <header class="grid intro">
       <h1 class="col-wide hero">
@@ -81,10 +114,11 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
       </div>
       {selected.map((s, i) => (
         <article class:list={['grid selected', { 'selected--flip': i % 2 === 1 }]} data-kinds={s.kinds}>
-          <div class="selected__visual">
+          <div class:list={['selected__visual mat', i % 2 === 0 ? 'mat--sage' : 'mat--peach']}>
             {s.image ? (
-              <a class="zoom" href={fulls[i]} data-alt={s.alt} data-caption={s.p.title}>
-                <Picture class="selected__image" src={s.image.src} alt={s.alt} formats={['avif', 'webp']} widths={[480, 800, 1200].filter((w) => w <= s.image!.src.width)} sizes="(min-width: 900px) 50vw, 100vw" loading={i === 0 ? 'eager' : 'lazy'} />
+              <a class:list={['zoom mat__item', { mat__stack: s.back }]} href={fulls[i]} data-alt={s.alt} data-caption={s.p.title}>
+                {s.back && <Picture class="mat__back" src={s.back} alt="" formats={['avif', 'webp']} widths={widthsFor(s.back)} quality={IMAGE_QUALITY} sizes="(min-width: 900px) 40vw, 80vw" loading="lazy" style={`--w: ${s.back.width}px`} />}
+                <Picture class="mat__front" src={s.image.src} alt={s.alt} formats={['avif', 'webp']} widths={widthsFor(s.image.src)} quality={IMAGE_QUALITY} sizes="(min-width: 900px) 50vw, 100vw" loading={i === 0 ? 'eager' : 'lazy'} style={`--w: ${s.image.src.width}px`} />
                 <span class="visually-hidden">{t.lightbox.opens}</span>
               </a>
             ) : s.id === 'alfredo-voice-services' ? (
@@ -108,6 +142,29 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
           </div>
         </article>
       ))}
+    </section>
+
+    <section class="block" aria-labelledby="samples-title">
+      <div class="block__head">
+        <h2 id="samples-title">{c.samplesTitle}</h2>
+      </div>
+      <p class="block__lead">{c.samplesLead}</p>
+      <ul class="three-up samples">
+        {samples.map((x) => (
+          <li class="sample">
+            <p class="label-text"><span lang={titleLangAttr(x.p, lang)}>{x.p.title}</span>: {x.where}</p>
+            <EditView size="small" verbatim lang={x.lang} parts={x.parts} />
+            {x.id === 'sunnyvale-cleanwater' ? (
+              <ul class="sample__why">{sv.microcopy.changes.map((ch) => <li><strong><Mixed text={ch.term} /></strong>{ch.rest}</li>)}</ul>
+            ) : x.id === 'descubre' ? (
+              <p>{c.samplesDescubreWhy}</p>
+            ) : (
+              <p><Mixed text={al.sms.stop} /></p>
+            )}
+            <p><a class="more" href={href(lang, `/work/${x.id}/#${x.section}`)}>{c.samplesLink}<span class="visually-hidden">: {x.p.title}</span></a></p>
+          </li>
+        ))}
+      </ul>
     </section>
 
     <section class="block" aria-labelledby="practice-title">
@@ -199,6 +256,30 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
   @media (prefers-reduced-motion: reduce) { mark { animation: none; } }
   @media (prefers-color-scheme: dark) { mark { color: var(--on-highlight); background-size: 100% 0.95em; background-position: 0 70%; } }
 
+  /* A still wash of the two brand colours behind the (transparent) header and the hero;
+     it fades out before the work. */
+  .hero-wash {
+    --glow-a: rgb(255 201 181 / 0.55);
+    --glow-b: rgb(196 224 205 / 0.6);
+    --glow-c: rgb(255 201 181 / 0.2);
+    position: absolute;
+    inset: 0 0 auto;
+    height: clamp(720px, 105vh, 1100px);
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(min(760px, 90vw) 620px at 80% 40%, var(--glow-a), transparent 70%),
+      radial-gradient(min(820px, 110vw) 640px at 10% 16%, var(--glow-b), transparent 70%),
+      radial-gradient(min(620px, 80vw) 420px at 40% 80%, var(--glow-c), transparent 70%);
+    mask-image: linear-gradient(to bottom, #000 60%, transparent);
+  }
+  @media (prefers-color-scheme: dark) {
+    .hero-wash {
+      --glow-a: rgb(255 170 140 / 0.10);
+      --glow-b: rgb(90 160 125 / 0.22);
+      --glow-c: rgb(255 201 181 / 0.04);
+    }
+  }
   .intro { padding-top: var(--space-7); row-gap: var(--space-5); }
   .hero {
     font-size: clamp(2.25rem, 1.2rem + 4.2vw, 5.5rem);
@@ -250,17 +331,46 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
 
   .selected { padding-block: var(--space-6); row-gap: var(--space-4); align-items: center; border-bottom: 1px solid var(--rule); }
   .selected:last-of-type { border-bottom: 0; }
-  .selected__image :global(img), :global(.selected__image) {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-height: 30rem;
-    object-fit: cover;
-    object-position: top;
-    border: 1px solid var(--rule);
-    background: #fff;
+  /* Work sits on a tinted panel, never larger than the real file: small originals
+     read as deliberate, and two-screen piles sit like papers on a desk. */
+  .mat {
+    display: grid;
+    grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+    place-items: center;
+    aspect-ratio: 4 / 3;
+    padding: clamp(var(--space-4), 6%, var(--space-6));
+    background: var(--mat-bg);
   }
-  .selected__type { border: 1px solid var(--rule); padding: clamp(var(--space-4), 4vw, var(--space-6)); }
+  .mat--sage { --mat-bg: var(--mat-sage); }
+  .mat--peach { --mat-bg: var(--mat-peach); }
+  .mat__item {
+    display: grid;
+    grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+    place-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  .mat :global(picture) { display: contents; }
+  .mat :global(.mat__front), .mat :global(.mat__back) {
+    grid-area: 1 / 1;
+    width: auto;
+    height: auto;
+    max-width: min(100%, var(--w));
+    max-height: 100%;
+    object-fit: contain;
+    background: #fff;
+    box-shadow: 0 18px 36px -18px var(--mat-shadow), 0 2px 6px -2px var(--mat-shadow);
+  }
+  .mat__stack :global(.mat__front) { max-width: min(88%, var(--w)); max-height: 88%; rotate: 2deg; translate: 5% 6%; }
+  .mat__stack :global(.mat__back) { max-width: min(88%, var(--w)); max-height: 88%; rotate: -3deg; translate: -5% -6%; }
+  .selected__type { justify-self: stretch; }
+
+  .samples { margin-top: var(--space-5); }
+  .sample { background: var(--mat-sage); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3); }
+  .sample :global(.edit-view) { margin: 0; }
+  .sample p, .sample__why { margin: 0; font-size: var(--step--1); color: var(--ink-muted); }
+  .sample__why { padding-left: 1.1em; }
+  .sample p:last-child { margin-top: auto; padding-top: var(--space-2); font-size: var(--step-0); color: var(--ink); }
   .selected__type :global(.edit-view--large .edit-view__line) { font-size: var(--step-3); }
   .selected__issues { list-style: none; margin: var(--space-3) 0 0; padding: 0; font-size: var(--step-2); line-height: 1.25; }
   .selected__issues li { padding: var(--space-2) 0; border-top: 1px solid var(--rule); }

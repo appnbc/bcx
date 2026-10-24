@@ -93,28 +93,28 @@ const en = {
 const es: typeof en = {
   context: {
     title: 'Contexto',
-    p1: 'El agua escasea en Los Ángeles, y buena parte se destina a céspedes de plantas que no son nativas de California. El Departamento de Agua y Energía de Los Ángeles (LADWP) quiere reducirlo.',
-    p2: 'El sitio web Turf Replacement Design permite a los residentes inscribirse para recibir ayuda y sustituir su césped por plantas nativas de California, que de forma natural necesitan menos agua.',
+    p1: 'El agua escasea en Los Ángeles, y buena parte se destina a céspedes de plantas que no son autóctonas de California. El Departamento de Agua y Energía de Los Ángeles (LADWP) quiere reducir ese consumo.',
+    p2: 'El sitio web Turf Replacement Design permite a los residentes inscribirse para recibir ayuda y sustituir su césped por plantas autóctonas de California, que de forma natural necesitan menos agua.',
     noteLabel: 'Antes del lanzamiento',
     note: 'Trabajé en el sitio antes de su lanzamiento. Parte del contenido del sitio en línea ha cambiado desde entonces.',
   },
   persona: {
-    title: 'Persona',
+    title: 'Perfil de usuario',
     monica: {
       status: 'Casada',
       occupation: 'Artista visual',
       location: 'Los Ángeles, California',
-      quote: '¡Me encanta inscribirme y ya está! El proceso ya ha empezado.',
-      bio: 'Le encanta el color. Trabaja a menudo desde casa y cuida su jardín. Quiere mantener los gastos bajos con una casa tan artística como ella.',
-      needs: 'Una persona experta en diseño que le sugiera plantas nativas sin rebajar sus exigencias sobre el aspecto del jardín.',
-      pains: 'La información contradictoria: un proceso en el sitio web, otro en un folleto y un tercero en otro sitio. No quiere ir detrás de la información.',
+      quote: '¡Me encanta cuando me inscribo y listo! El proceso ya está en marcha.',
+      bio: 'Le encanta el color. Trabaja a menudo desde casa y cuida su jardín. Quiere gastar poco sin renunciar a una casa tan artística como ella.',
+      needs: 'Un profesional del diseño que le sugiera plantas autóctonas sin rebajar sus exigencias sobre el aspecto del jardín.',
+      pains: 'La información contradictoria: un proceso en el sitio web, otro en un folleto y un tercero en otro sitio. No quiere tener que ir buscándola.',
     },
-    connectionLabel: 'Relación',
+    connectionLabel: 'Conexión',
     connection: 'El problema de Monica coincide con uno de los cambios de abajo: en la página ⟦Program Steps⟧ eliminé información que ya estaba en otra parte del sitio o en la solicitud.',
   },
   global: {
     title: 'Cambios generales',
-    p: 'El sitio partía de una plantilla creada para un fin similar. Cuando empecé a trabajar en el sitio y sus actualizaciones, hice estos cambios en todo él.',
+    p: 'El sitio partía de una plantilla creada para un fin similar. Cuando empecé a trabajar en el sitio y sus actualizaciones, apliqué estos cambios en todo el sitio.',
     caption: 'Cambios aplicados en todo el sitio',
     headers: ['Aspecto', 'Qué cambié'],
     rows: [
@@ -129,12 +129,12 @@ const es: typeof en = {
   },
   hyperlinking: {
     title: 'Enlaces',
-    p: 'Muchas frases enlazaban solo de una a tres palabras, normalmente un sustantivo. Extendí cada enlace a toda la frase. Un enlace más largo explica por qué se te envía a otra página y es más fácil de pulsar.',
+    p: 'Muchas frases enlazaban solo de una a tres palabras, normalmente un sustantivo. Extendí cada enlace a toda la frase. Un enlace más largo explica por qué se te envía a otra página y es más fácil hacer clic en él.',
   },
   steps: {
     title: 'Pasos del programa',
     p1: '⟦Program Steps⟧ es donde la gente descubre en qué consiste solicitar y cómo se desarrolla el proceso de diseño del jardín. En varias iteraciones, el equipo redujo el número de pasos, lo que simplificó el proceso para todos.',
-    p2: 'Añadí un enlace a un vídeo y le di el centro de la página, con un texto más grande. Eliminé la información que ya estaba en otras partes del sitio o en la solicitud, di a los títulos de los pasos un formato uniforme y usé imágenes y espacio en blanco para que los pasos se leyeran como una secuencia.',
+    p2: 'Añadí un enlace a un video y lo coloqué en el centro de la página, con un texto más grande. Eliminé la información que ya estaba en otras partes del sitio o en la solicitud, di a los títulos de los pasos un formato uniforme y usé imágenes y espacio en blanco para que los pasos se leyeran como una secuencia.',
     alt: 'Página Program Steps, en inglés: 1) Submit Your Application, 2) Receive Approval and Request for Design Preferences, 3) Meet with the Designer, 4) Receive the Design Plans, cada uno con un párrafo breve y una foto de jardín.',
   },
   application: {
@@ -155,10 +155,10 @@ const es: typeof en = {
   },
   email: {
     title: 'Correo de confirmación',
-    kicker: 'Escritura · HTML',
-    p: 'Tras enviar la solicitud, la persona recibe un correo con su número de confirmación y una copia de sus respuestas. Era texto plano. Lo rehíce en HTML y cambié el asunto.',
-    subjectCaption: 'Asunto, en inglés, con una persona solicitante de prueba',
-    subjectNote: 'El nombre de la persona solicitante y su número de confirmación aparecen ahora antes del nombre del programa, para que se vean antes en la bandeja de entrada.',
+    kicker: 'Redacción · HTML',
+    p: 'Tras enviar la solicitud, se recibe un correo con el número de confirmación y una copia de las respuestas. Era texto plano. Lo rehíce en HTML y cambié el asunto.',
+    subjectCaption: 'Asunto, en inglés, con un solicitante de prueba',
+    subjectNote: 'El nombre del solicitante y su número de confirmación aparecen ahora antes del nombre del programa, para que se vean antes en la bandeja de entrada.',
     before: { label: 'Antes: texto plano', alt: 'Correo de confirmación en texto plano: párrafos seguidos de las respuestas en líneas sin formato como "Are you an LADWP customer? yes".' },
     after: { label: 'Después: HTML', alt: 'Correo de confirmación en HTML: logotipo de LADWP, encabezado "Application Confirmation Receipt" y luego datos de contacto y respuestas en tablas de dos columnas con filas sombreadas alternas.' },
     changes: [
@@ -170,7 +170,7 @@ const es: typeof en = {
   },
   retrospective: {
     title: 'Retrospectiva',
-    p1: 'Conseguir que la gente siguiera las instrucciones fue un reto, y los cambios continuos obligaban a actualizar todo el sitio. Me habría gustado escribir también las redes sociales del programa. Aun así, la gente se inscribió para el rediseño de su jardín y valoró que fuera sencillo y estuviera casi todo en un mismo lugar.',
+    p1: 'Conseguir que la gente siguiera las instrucciones fue un reto, y los cambios continuos obligaban a actualizar todo el sitio. Me habría gustado encargarme también de las redes sociales del programa. Aun así, la gente se inscribió para el rediseño de su jardín y valoró que fuera sencillo y estuviera casi todo en un mismo lugar.',
     p2: 'Disfruté con la localización; siempre trabajo a gusto en traducción y en las necesidades de personas de otras culturas. También disfruté del trabajo en HTML y CSS, sobre todo del antes y después del correo de confirmación, donde el marcado cambió de verdad la experiencia de quien lo recibe.',
   },
 };
@@ -178,20 +178,20 @@ const es: typeof en = {
 const it: typeof en = {
   context: {
     title: 'Contesto',
-    p1: 'A Los Angeles l’acqua è scarsa, e molta finisce su prati di piante non native della California. Il Dipartimento dell’Acqua e dell’Energia di Los Angeles (LADWP) vuole ridurre questo consumo.',
-    p2: 'Il sito Turf Replacement Design permette ai residenti di iscriversi per ricevere aiuto nel sostituire il prato con piante native della California, che per natura richiedono meno acqua.',
+    p1: 'A Los Angeles l’acqua è scarsa, e molta finisce su prati di piante non autoctone della California. Il Dipartimento dell’Acqua e dell’Energia di Los Angeles (LADWP) vuole ridurre questo consumo.',
+    p2: 'Il sito Turf Replacement Design permette ai residenti di iscriversi per ricevere aiuto nel sostituire il prato con piante autoctone della California, che per natura richiedono meno acqua.',
     noteLabel: 'Prima del lancio',
     note: 'Ho lavorato al sito prima del lancio. Da allora parte dei contenuti online è cambiata.',
   },
   persona: {
-    title: 'Persona',
+    title: 'Profilo utente',
     monica: {
       status: 'Sposata',
       occupation: 'Artista visiva',
       location: 'Los Angeles, California',
       quote: 'Adoro quando mi iscrivo e ho finito! Il processo è già partito.',
-      bio: 'Ama il colore. Lavora spesso da casa e si prende cura del suo giardino. Vuole contenere le spese mantenendo una casa artistica quanto lei.',
-      needs: 'Una persona esperta di design che le suggerisca piante native senza abbassare i suoi standard estetici per il giardino.',
+      bio: 'Ama il colore. Lavora spesso da casa e si prende cura del suo giardino. Vuole contenere le spese senza rinunciare a una casa artistica quanto lei.',
+      needs: 'Un professionista del design che le suggerisca piante autoctone senza abbassare i suoi standard estetici per il giardino.',
       pains: 'Le informazioni contraddittorie: un processo sul sito, un altro su un opuscolo, un terzo su un altro sito. Non vuole rincorrere le informazioni.',
     },
     connectionLabel: 'Collegamento',
@@ -219,12 +219,12 @@ const it: typeof en = {
   steps: {
     title: 'Fasi del programma',
     p1: '⟦Program Steps⟧ è la pagina in cui si scopre come funziona la domanda e come si svolge il processo di progettazione del giardino. In diverse iterazioni il team ha ridotto il numero di fasi, semplificando il processo per tutti.',
-    p2: 'Ho aggiunto un link a un video e gli ho dato il centro della pagina, con un testo più grande. Ho tolto le informazioni già presenti altrove nel sito o nella domanda, ho dato ai titoli delle fasi un formato uniforme e ho usato immagini e spazio bianco perché le fasi si leggessero come una sequenza.',
+    p2: 'Ho aggiunto un link a un video e l’ho messo al centro della pagina, con un testo più grande. Ho tolto le informazioni già presenti altrove nel sito o nella domanda, ho dato ai titoli delle fasi un formato uniforme e ho usato immagini e spazio bianco perché le fasi si leggessero come una sequenza.',
     alt: 'Pagina Program Steps, in inglese: 1) Submit Your Application, 2) Receive Approval and Request for Design Preferences, 3) Meet with the Designer, 4) Receive the Design Plans, ognuna con un breve paragrafo e una foto di giardino.',
   },
   application: {
     title: 'Domanda',
-    p1: 'Come team abbiamo rivisto la domanda chiedendoci cosa servisse davvero per completarla. È passata da cinque pagine a quattro, e quasi tutte si sono accorciate. Ho aggiunto foto che mostrano quali prati hanno i requisiti.',
+    p1: 'Insieme al team abbiamo rivisto la domanda chiedendoci cosa servisse davvero per completarla. È passata da cinque pagine a quattro, e quasi tutte si sono accorciate. Ho aggiunto foto che mostrano quali prati hanno i requisiti.',
     p2: 'Ho anche scritto messaggi di avviso che spiegano perché non si può proseguire: una domanda senza risposta, una risposta nel formato sbagliato o una risposta che esclude dalla partecipazione.',
     galleryLabel: 'Schermate della domanda',
     shots: [
@@ -242,8 +242,8 @@ const it: typeof en = {
     title: 'Email di conferma',
     kicker: 'Scrittura · HTML',
     p: 'Dopo aver inviato la domanda, si riceve un’email con il numero di conferma e una copia delle risposte. Era in testo semplice. L’ho rifatta in HTML e ho cambiato l’oggetto.',
-    subjectCaption: 'Oggetto, in inglese, con una persona di prova',
-    subjectNote: 'Il nome di chi fa domanda e il numero di conferma ora vengono prima del nome del programma, così si vedono prima nella casella di posta.',
+    subjectCaption: 'Oggetto, in inglese, con un richiedente di prova',
+    subjectNote: 'Il nome del richiedente e il numero di conferma ora vengono prima del nome del programma, così si vedono prima nella casella di posta.',
     before: { label: 'Prima: testo semplice', alt: 'Email di conferma in testo semplice: paragrafi seguiti dalle risposte in righe non formattate come "Are you an LADWP customer? yes".' },
     after: { label: 'Dopo: HTML', alt: 'Email di conferma in HTML: logo di LADWP, titolo "Application Confirmation Receipt", poi dati di contatto e risposte in tabelle a due colonne con righe a sfondo alternato.' },
     changes: [
@@ -255,7 +255,7 @@ const it: typeof en = {
   },
   retrospective: {
     title: 'Retrospettiva',
-    p1: 'Far seguire le istruzioni alle persone è stata una sfida, e i cambiamenti continui richiedevano aggiornamenti su tutto il sito. Mi sarebbe piaciuto scrivere anche i social del programma. Comunque le persone si sono iscritte per riprogettare il giardino e hanno apprezzato che fosse semplice e quasi tutto in un unico posto.',
+    p1: 'Far seguire le istruzioni alle persone è stata una sfida, e i cambiamenti continui richiedevano aggiornamenti su tutto il sito. Mi sarebbe piaciuto curare anche i social del programma. Comunque le persone si sono iscritte per riprogettare il giardino e hanno apprezzato che fosse semplice e quasi tutto in un unico posto.',
     p2: 'Mi è piaciuta la localizzazione; lavoro sempre volentieri sulla traduzione e sui bisogni di persone di altre culture. Mi è piaciuto anche il lavoro su HTML e CSS, soprattutto il prima e dopo dell’email di conferma, dove il markup ha davvero cambiato l’esperienza di chi la riceve.',
   },
 };
