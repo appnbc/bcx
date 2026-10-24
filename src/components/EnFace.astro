@@ -1,0 +1,99 @@
+---
+/**
+ * Facing-language table, like a bilingual edition. Columns marked `strike`
+ * hold the version to avoid and render as deletions. A row can override a
+ * column's language with `<key>Lang` (e.g. `useLang: 'es'`).
+ */
+export interface EnFaceColumn {
+  key: string;
+  label: string;
+  lang?: string;
+  strike?: boolean;
+  muted?: boolean;
+}
+interface Props {
+  columns: EnFaceColumn[];
+  rows: Record<string, string | undefined>[];
+  caption: string;
+}
+const { columns, rows, caption } = Astro.props;
+---
+<div class="enface col-wide">
+  <table>
+    <caption class="meta">{caption}</caption>
+    <thead>
+      <tr>{columns.map((c) => <th scope="col">{c.label}</th>)}</tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr>
+          {columns.map((c, i) => {
+            const value = row[c.key];
+            const Cell = i === 0 ? 'th' : 'td';
+            return (
+              <Cell scope={i === 0 ? 'row' : undefined} data-label={c.label} lang={value ? (row[`${c.key}Lang`] ?? c.lang) : undefined} class:list={{ muted: c.muted }}>
+                {!value ? <span aria-hidden="true">—</span> : c.strike ? (
+                  <del><span class="visually-hidden">avoid: </span>{value}</del>
+                ) : value}
+              </Cell>
+            );
+          })}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .enface { margin-block: var(--space-3); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--step-0);
+  }
+  caption {
+    text-align: left;
+    caption-side: top;
+    padding-bottom: var(--space-2);
+  }
+  th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: var(--space-3) var(--space-3) var(--space-3) 0;
+    border-top: 1px solid var(--rule);
+  }
+  thead th {
+    font-family: var(--sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    border-top: 1px solid var(--ink);
+    padding-block: var(--space-2);
+  }
+  tbody th {
+    font-family: var(--sans);
+    font-size: var(--step--1);
+    font-weight: 500;
+    width: 24%;
+  }
+  td[lang='es'] { font-style: italic; }
+  .muted { color: var(--ink-muted); }
+  del {
+    text-decoration: line-through;
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 2px;
+    color: var(--ink-muted);
+  }
+  @media (max-width: 720px) {
+    thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    tr { display: block; border-top: 1px solid var(--ink); padding-block: var(--space-2); }
+    th, td, tbody th { display: block; border: 0; padding: var(--space-1) 0; width: auto; }
+    td::before {
+      content: attr(data-label);
+      display: block;
+      font-family: var(--sans);
+      font-style: normal;
+      font-size: var(--step--2);
+      color: var(--ink-muted); font-weight: 600;
+    }
+  }
+</style>

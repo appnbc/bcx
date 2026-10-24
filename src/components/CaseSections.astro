@@ -1,0 +1,95 @@
+---
+/**
+ * Wraps a case study's sections and adds an "On this page" bar built from
+ * their headings at build time, so it works without JS. JS only marks the
+ * section currently being read. Pages with fewer than three sections skip it.
+ */
+const html = await Astro.slots.render('default');
+const items = [...html.matchAll(/<section\b[^>]*\bid="([^"]+)"[\s\S]*?<h2\b[^>]*>([\s\S]*?)<\/h2>/g)].map(([, id, title]) => ({
+  id,
+  title: title.replace(/<[^>]+>/g, '').trim(),
+}));
+---
+{items.length >= 3 && (
+  <nav class="toc" aria-label="On this page">
+    <p class="toc__label">On this page</p>
+    <ol class="toc__list">
+      {items.map((item) => <li><a href={`#${item.id}`} set:html={item.title} /></li>)}
+    </ol>
+  </nav>
+)}
+<Fragment set:html={html} />
+
+<script>
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('nav.toc a')];
+  const sections = links.map((a) => document.getElementById(a.hash.slice(1))).filter(Boolean) as HTMLElement[];
+  const mark = () => {
+    // The current section is the last one whose top has passed a line a third of the way down the screen.
+    const line = window.innerHeight / 3;
+    let current = sections[0];
+    for (const s of sections) if (s.getBoundingClientRect().top <= line) current = s;
+    for (const a of links) {
+      const on = a.hash === `#${current?.id}`;
+      if (on) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    }
+    const active = links.find((a) => a.hasAttribute('aria-current'));
+    const list = active?.closest('ol');
+    if (active && list && list.scrollWidth > list.clientWidth) {
+      list.scrollTo({ left: active.offsetLeft - 16, behavior: 'auto' });
+    }
+  };
+  if (links.length) {
+    mark();
+    window.addEventListener('scroll', mark, { passive: true });
+    window.addEventListener('resize', mark);
+  }
+</script>
+
+<style>
+  .toc {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: var(--space-2) 0;
+  }
+  .toc__label {
+    flex: none;
+    margin: 0;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: var(--step--2);
+    color: var(--ink-muted);
+  }
+  .toc__list {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 2px;
+    display: flex;
+    gap: var(--space-1);
+    overflow-x: auto;
+    scrollbar-width: thin;
+    min-width: 0;
+  }
+  .toc__list a {
+    display: block;
+    white-space: nowrap;
+    font-family: var(--sans);
+    font-size: var(--step--1);
+    text-decoration: none;
+    padding: 0.3em 0.75em;
+    border-radius: 999px;
+    color: var(--ink-muted);
+  }
+  .toc__list a:hover { color: var(--ink); background: var(--paper-sunk); }
+  .toc__list a[aria-current] { color: var(--on-highlight); background: var(--highlight); font-weight: 600; }
+  @media (max-width: 640px) { .toc__label { display: none; } }
+
+  /* Keep jumped-to headings clear of the sticky bar. */
+  :global(.section) { scroll-margin-top: 4rem; }
+</style>

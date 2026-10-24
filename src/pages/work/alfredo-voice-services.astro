@@ -1,0 +1,216 @@
+---
+import { withBase } from '../../data/url';
+import { getEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import CaseHeader from '../../components/CaseHeader.astro';
+import CaseSections from '../../components/CaseSections.astro';
+import Section from '../../components/Section.astro';
+import MarginNote from '../../components/MarginNote.astro';
+import EditView from '../../components/EditView.astro';
+import EnFace from '../../components/EnFace.astro';
+import Persona from '../../components/Persona.astro';
+import Pager from '../../components/Pager.astro';
+
+const project = (await getEntry('projects', 'alfredo-voice-services'))!;
+
+const styleGuide = [
+  { rule: 'Say the time of day in long form.', en: 'It’s ten a.m.', es: 'Son las diez de la mañana.', no: 'Son las diez a.m.' },
+  { rule: 'Use non-colloquial language.', en: 'Go ahead and enter that number.', es: 'Continúa e ingresa ese número.', no: 'Dale ahora y pon ese número.' },
+  { rule: 'Capture emotion the way the original does.', en: 'That worked!', es: '¡Funcionó!', no: 'Eso fue bueno.' },
+  { rule: 'The subject must be clear from the phrase alone.', en: 'Savvy choice.', es: 'Buena elección.', no: 'Muy sensato.' },
+];
+---
+<Base title={project.data.title} description={project.data.summary} current="work">
+  <article class="wrap alfredo">
+    <CaseHeader project={project} />
+    <CaseSections>
+
+    <Section id="context" title="Context">
+      <div class="col-text prose">
+        <p>
+          Interactive voice response (IVR) systems are standard for customer service in the U.S. Most are in English, with a growing
+          number in Spanish.
+        </p>
+        <p>
+          Twenty percent of this service’s users had already chosen Spanish, through their online account or the app. The job was to
+          give them, in Spanish, the same experience the IVR gave English speakers.
+        </p>
+      </div>
+      <MarginNote label="About the 20%">That figure is the share of users who already preferred Spanish. It describes the audience, not a result of this project.</MarginNote>
+    </Section>
+
+    <Section id="personas" title="Personas">
+      <div class="col-wide two-up">
+        <Persona
+          name="José"
+          age={38}
+          status="Married"
+          occupation="Architect"
+          location="Houston, Texas"
+          quote="When I hear there is a Spanish option, it’s a sigh of relief! I can be myself for the whole conversation."
+          bio="Costa Rican; moved to Texas for work. Has a wife and three kids in Texas; the rest of his family is in San José. Travels around the city for work and keeps in touch with coworkers by calls and texts."
+          needs="Reliable contact with family in both countries, and with colleagues."
+          pains="Waiting forever in customer service lines, and miscommunication, since English is his second language."
+        />
+        <Persona
+          kind="Product persona: the voice"
+          name="Alfredo"
+          age={35}
+          status="Single"
+          occupation="Customer service representative"
+          location="Miami, Florida"
+          quote="How may we help you today?"
+          bio="A Latin American customer service agent, ready to help. He understands how much communication matters to Spanish speakers, especially when family is far away."
+        />
+      </div>
+    </Section>
+
+    <Section id="brainstorming" title="Brainstorming">
+      <div class="col-text prose">
+        <p>
+          As a team we went to the whiteboard to pin down who the English voice was. Through a lot of mapping, and by going back to the
+          original English documentation from the early 2000s, we created Alfredo.
+        </p>
+        <p>
+          The call flows also had to change for what Spanish speakers asked for. They requested long-distance international service
+          significantly more often than English speakers did, for example.
+        </p>
+      </div>
+    </Section>
+
+    <Section id="voice" title="Voice and tone" kicker="Voice design">
+      <dl class="col-wide voice-attrs">
+        <div>
+          <dt>Latin American accent</dt>
+          <dd>Specifically a Miami accent. Miami is a major U.S. city with a large Spanish-speaking population, and the accent is neutral and intelligible to Spanish speakers everywhere.</dd>
+        </div>
+        <div>
+          <dt>North American vocabulary</dt>
+          <dd>Alfredo tells time on the 12-hour clock, knows all 50 states and their best-known cities, and uses U.S. dollars.</dd>
+        </div>
+        <div>
+          <dt>Minimal slang</dt>
+          <dd>Neutral vocabulary, as you’d expect from someone living in North America. Any slang must be understood across the wider Spanish-speaking world, never local.</dd>
+        </div>
+        <div>
+          <dt>Informal</dt>
+          <dd>Alfredo uses <span lang="es"><em>tú</em></span> (with <span lang="es"><em>tu, tus, tuyo</em></span>…), which makes him friendly and approachable.</dd>
+        </div>
+      </dl>
+    </Section>
+
+    <Section id="style-guide" title="Style guide" kicker="Writing">
+      <div class="col-text prose">
+        <p>
+          The voice and tone went into the style guide, along with cases that needed more guidance. Time of day, for example, has
+          specific words for noon and midnight.
+        </p>
+      </div>
+      <EnFace
+        caption="Style guide examples"
+        columns={[
+          { key: 'rule', label: 'Standard' },
+          { key: 'en', label: 'Original English', lang: 'en', muted: true },
+          { key: 'es', label: 'Correct Spanish', lang: 'es' },
+          { key: 'no', label: 'Incorrect', lang: 'es', strike: true },
+        ]}
+        rows={styleGuide}
+      />
+      <div class="col-text prose">
+        <p>
+          The guide also lists English words accepted in Spanish interactions: technology terms like <em>hotspot</em>, <em>wireless</em> and <em>Wi-Fi</em>, and proper names of places (Houston) and brands (Apple). It follows the company’s
+          branding too, including the names of services, such as <span lang="es"><em>hotspot móvil</em></span>.
+        </p>
+      </div>
+    </Section>
+
+    <Section id="sms" title="SMS" kicker="Writing">
+      <div class="col-text prose">
+        <p>
+          I edited the text messages so they follow the same style as the audio, fixing misspellings and awkward phrasing.
+          Here are the individual edits.
+        </p>
+      </div>
+      <ol class="col-wide sms-edits">
+        <li>
+          <p class="meta sms-edits__where">Cancel notifications</p>
+          <EditView size="small" parts={[{ del: 'STOP' }, { ins: 'NO' }]} lang="es" />
+          <p class="sms-edits__why">The client wanted a Spanish version of “STOP” in fewer characters. “NO” is the shortest word. To subscribe again, people can text “SI” or “SÍ”.</p>
+        </li>
+        <li>
+          <p class="meta sms-edits__where">Cancel notifications</p>
+          <EditView size="small" parts={[{ del: 'Mande texto' }, { ins: 'enviar' }]} lang="es" />
+          <p class="sms-edits__why">“Mande texto” sounds odd and formal. I made the line informal and used a form of <span lang="es"><em>enviar</em></span>, which fits texting better.</p>
+        </li>
+        <li>
+          <p class="meta sms-edits__where">Registration</p>
+          <EditView size="small" parts={[{ t: 'JUAN …' }]} lang="es" caption="Moved to the start" />
+          <p class="sms-edits__why">The customer’s name moved to the start, to address the person first and then let them focus on registering.</p>
+        </li>
+        <li>
+          <p class="meta sms-edits__where">Registration</p>
+          <EditView size="small" parts={[{ del: 'haga clic' }]} lang="es" />
+          <p class="sms-edits__why">Removed: it’s formal, and people don’t click on a phone.</p>
+        </li>
+        <li>
+          <p class="meta sms-edits__where">Registration</p>
+          <EditView size="small" parts={[{ del: 'vinculo' }, { ins: 'enlace' }]} lang="es" />
+          <p class="sms-edits__why"><span lang="es"><em>Enlace</em></span> is the more widely accepted word for “link”, and with the link right there the word was redundant. The original was also missing its accent (<span lang="es"><em>vínculo</em></span>).</p>
+        </li>
+        <li>
+          <p class="meta sms-edits__where">Registration</p>
+          <EditView size="small" parts={[{ ins: 'aquí' }]} lang="es" />
+          <p class="sms-edits__why">Added to point to the link below.</p>
+        </li>
+      </ol>
+    </Section>
+
+    <Section id="retrospective" title="Retrospective">
+      <div class="col-text prose">
+        <p>
+          People have chosen the Spanish IVR, and it gives them an experience as close as possible to what English speakers get.
+          The project was still in progress at the time, but it was already a reminder that localization belongs at the start
+          of a product: it changes flows, content length and any structure that works differently in another language.
+        </p>
+        <p>
+          Personally, I enjoyed coaching the voice actors, seeing the SMS and the IVR work hand in hand, and using SSML to change the
+          prosody of the recordings.
+        </p>
+        <p>
+          Related: my 2021 talk <a href={withBase("/archive/#talk-chatbot-summit")}>“Localization and Latin America”</a> at the Ibero-American
+          Chatbot Summit.
+        </p>
+      </div>
+      <MarginNote label="No screens">This is an audio and text product, so the examples above stand in for screenshots.</MarginNote>
+    </Section>
+    </CaseSections>
+  </article>
+  <Pager id={project.id} />
+</Base>
+
+<style>
+  .voice-attrs {
+    margin: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0 var(--gutter);
+  }
+  @media (min-width: 760px) { .voice-attrs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .voice-attrs div { border-top: 1px solid var(--rule); padding: var(--space-3) 0 var(--space-4); }
+  .voice-attrs dt { font-size: var(--step-2); line-height: 1.15; margin-bottom: var(--space-2); }
+  .voice-attrs dd { margin: 0; font-size: var(--step--1); max-width: 44ch; }
+
+  .sms-edits {
+    list-style: none;
+    margin: var(--space-3) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0 var(--gutter);
+  }
+  @media (min-width: 760px) { .sms-edits { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .sms-edits li { border-top: 1px solid var(--rule); padding: var(--space-3) 0 var(--space-4); }
+  .sms-edits :global(.edit-view) { margin: var(--space-2) 0; }
+  .sms-edits__where { margin: 0; }
+  .sms-edits__why { font-size: var(--step--1); margin: 0; }
+</style>

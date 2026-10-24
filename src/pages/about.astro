@@ -1,0 +1,191 @@
+---
+import Base from '../layouts/Base.astro';
+import { withBase } from '../data/url';
+import { site } from '../config';
+
+type Link = { href: string; label: string };
+type Item = { when: string; title: string; where: string; text?: string; links?: Link[] };
+
+const work = (id: string, label: string): Link => ({ href: withBase(`/work/${id}/`), label });
+const entry = (id: string, label: string): Link => ({ href: withBase(`/archive/#${id}`), label });
+
+const experience: Item[] = [
+  { when: '2024–2026', title: 'AI UX Consultant', where: 'Red Trig · Remote / Ottawa, ON', text: 'Investigated platform governance, algorithmic transparency and user retention across AI products; advised product teams on interface trust and long-term usability.', links: [entry('red-trig', 'Details in the Index')] },
+  { when: '2023–2024', title: 'UX Analyst, Marketing Intelligence', where: 'Europeana Foundation · Remote / The Hague, NL', text: 'Comparative qualitative research across European digital cultural heritage repositories: metadata discoverability, access barriers and participatory user pathways.', links: [entry('europeana', 'Details in the Index')] },
+  { when: '2022–2024', title: 'Interactive Designer and Researcher', where: 'J. Sales Immigration Law · Remote / Boston, MA', text: 'Accessible multilingual information systems and service pathways that turn federal immigration statutes into clear digital tools.', links: [entry('j-sales-immigration', 'Details in the Index')] },
+  { when: '2021–2023', title: 'Multicultural Conversational UX Strategist', where: 'Versay Solutions · Remote / Chicago, IL', text: 'Bilingual voice interface design and localization: usability testing, dialogue flows and multimodal interaction.', links: [work('alfredo-voice-services', 'Alfredo Voice Services')] },
+  { when: '2019–2021', title: 'UX Designer and Writer', where: 'CDM Smith · Boston, MA', text: 'Accessible civic engagement websites and technical communication for municipal infrastructure and transportation projects.', links: [work('sunnyvale-cleanwater', 'Sunnyvale Cleanwater'), work('ladwp-turf-replacement', 'LADWP Turf Replacement'), work('526-lowcountry-corridor', '526 Lowcountry Corridor')] },
+  { when: '2017–2019', title: 'Machine Learning Data Linguist; Language Specialist (Skills Kit)', where: 'Amazon Alexa AI · Boston and Cambridge, MA', text: 'NLU training data and localization workflows for Alexa’s first Spanish and Italian launches: mapping regional colloquialisms to standard intents and auditing model performance.', links: [entry('alexa-nlu-launches', 'Details in the Index'), work('the-burger-queen', 'The Burger Queen')] },
+  { when: '2014–2016', title: 'Developmental Editor, World Languages', where: 'Vista Higher Learning · Boston, MA', text: 'Editorial lifecycle of print and digital language curricula: thematic modules, teaching sequences and interactive multimedia.', links: [entry('themes', 'Thèmes'), work('descubre', 'Descubre'), work('mosaik', 'Mosaik')] },
+  { when: '2010–2012', title: 'Academic Literary Research Assistant', where: 'Suffolk University, Department of Modern Languages (Spanish) · Boston, MA', text: 'Archival retrieval, bibliographies and literature reviews on border studies, historical memory and post-exile narratives, supporting faculty publications.' },
+];
+
+const education: Item[] = [
+  { when: '2026–', title: 'Advanced Program in Contemporary Public Art', where: 'Accademia di Arti Contemporanee Unidee – Fondazione Pistoletto · Biella, Italy', links: [entry('biella-atap', 'Studio research')] },
+  { when: '2024', title: 'MA, Media Arts Cultures (Erasmus Mundus Joint Master’s)', where: 'University of Łódź · University for Continuing Education Krems · Aalborg University', text: 'Distinction: Very Good. Thesis grade 5.0 / 5.0.', links: [entry('thesis-pokemon', 'Thesis')] },
+  { when: '2023', title: 'Visiting Graduate Fellow, FOUNDING LAB', where: 'IT:U Interdisciplinary Transformation University Austria × Ars Electronica · Linz', text: 'Graduate summer school: creative robotics, entertainment, AI and entrepreneurship, storytelling for the future.' },
+  { when: '2019', title: 'Master’s Degree in Digital Information', where: 'Pompeu Fabra University · Barcelona', text: 'Specialization in usability, interaction design and user experience, with an integrated Postgraduate Certificate in User Experience.' },
+  { when: '2013', title: 'BS, Business Administration', where: 'Suffolk University · Boston', text: 'Interdisciplinary Business Studies; minor in History, Transatlantic. Magna cum laude.' },
+];
+
+const talks: Item[] = [
+  { when: '2024', title: 'Pokémon Phenomenon: Game Mechanics and its Effect on Narratives', where: 'Master’s thesis', links: [entry('thesis-pokemon', 'Details in the Index')] },
+  { when: '2021', title: 'Localization and Latin America: Linguistic Constraints and Cultural Considerations in Conversational AI', where: 'Ibero-American Chatbot Summit · Glasgow', links: [entry('talk-chatbot-summit', 'Details in the Index')] },
+  { when: '2021', title: 'Voice and Device UX: Multimodal Interaction Design and Accessibility', where: 'UXPA Boston Annual Conference', links: [entry('talk-uxpa-boston', 'Details in the Index')] },
+];
+
+const teaching: Item[] = [
+  { when: '2025–2026', title: 'Regional Juror, Scholastic Art and Writing Awards', where: 'Tufts University · Medford, MA', text: 'Adjudicated regional student portfolios in jewelry, digital art, participatory art, mixed media and experimental media.' },
+  { when: '2024–2026', title: 'Public Engagement Facilitator', where: 'MIT Museum · Cambridge, MA', text: 'Hands-on public conversations about AI, robotics and biotechnology exhibitions, adapting technical explanations to each visitor.' },
+  { when: '2013–2014', title: 'Spanish Teacher, Foreign Languages', where: 'Lexington Public Schools · Lexington, MA', text: 'Secondary-level Spanish: daily curricula, assessment rubrics and immersive language activities.' },
+  { when: '2010–2012', title: 'Teaching Assistant and Lead Modern Language Tutor', where: 'Suffolk University · Boston', text: 'Assisted in undergraduate Business Spanish and ran peer tutoring in the language lab.' },
+];
+
+const honors = [
+  ['2026–2027', 'Latin American Scholarship, Accademia Unidee – Fondazione Pistoletto'],
+  ['2026', 'DPOE-N Professional Development Scholarship, Digital Preservation Outreach & Education Network (Pratt Institute / Mellon Foundation)'],
+  ['2026', 'Honorable Mention, Community Hack, MIT Reality Hack (Kynd)'],
+  ['2023', 'FOUNDING LAB Graduate Summer School Fellowship, IT:U × Ars Electronica'],
+  ['2023', 'Tropical Lab Residency Fellowship, LASALLE College of the Arts, Singapore'],
+  ['2022–2024', 'Erasmus Mundus Joint Master’s Scholarship, European Commission'],
+  ['2010–2013', 'Donna Gelormini Merit Scholarship, Suffolk University'],
+];
+
+const training = [
+  'Archival and Digital Stewardship Training (DPOE-N Scholar Track, 2026)',
+  'Professional Certificate in Digital Asset Management, University of Wisconsin',
+  'Professional Certificate: From Database to Dashboard, Davidson College',
+  'Professional Certificate in Museology, Universidad del Rosario',
+  'UX Design and Digital Archives, Society of American Archivists',
+  'AI, Chatbots, and Large Language Models in Libraries, American Library Association',
+];
+
+const languages = [
+  ['English', 'Native'],
+  ['Spanish', 'Native'],
+  ['Italian', 'Professional working proficiency'],
+  ['French', 'Intermediate'],
+  ['German', 'Basic'],
+];
+
+const sections: { id: string; title: string; items: Item[] }[] = [
+  { id: 'experience', title: 'Experience', items: experience },
+  { id: 'education', title: 'Education', items: education },
+  { id: 'talks', title: 'Talks & writing', items: talks },
+  { id: 'teaching', title: 'Teaching & jury', items: teaching },
+];
+---
+<Base title="About" description="Brian Contreras: experience, education, talks, teaching and languages." current="about">
+  <div class="wrap about">
+    <header class="grid about-head">
+      <h1 class="col-text">About</h1>
+      <div class="col-text prose lede">
+        <p>
+          I’m {site.name}, a UX designer and writer from Boston. Most of my work happens between English and Spanish:
+          I taught Spanish, edited language textbooks, prepared training data for Alexa’s Spanish and Italian launches,
+          helped design a Spanish phone system at Versay, and built public websites for infrastructure programs at CDM Smith.
+        </p>
+      </div>
+      <div class="col-text prose">
+        <p>
+          Alongside UX, I work in research and media art: an Erasmus Mundus MA in Media Arts Cultures,
+          work shown at Ars Electronica, and now the Advanced Program in Contemporary Public Art in Biella, Italy.
+        </p>
+      </div>
+      <aside class="col-margin about-areas">
+        <h2 class="about-areas__title meta">Research areas</h2>
+        <p>Human-computer interaction, tangible and spatial interfaces, critical data and AI studies, participatory civic design, digital cultural heritage, and the sociotechnical governance of urban infrastructure.</p>
+      </aside>
+    </header>
+
+    {sections.map((s) => (
+      <section class="cv grid" aria-labelledby={`${s.id}-title`}>
+        <h2 class="cv__title" id={`${s.id}-title`}>{s.title}</h2>
+        <ol class="cv__list">
+          {s.items.map((item) => (
+            <li class="cv__item">
+              <p class="cv__when meta">{item.when}</p>
+              <div class="cv__body">
+                <h3 class="cv__role">{item.title}</h3>
+                <p class="cv__where label">{item.where}</p>
+                {item.text && <p class="cv__text">{item.text}</p>}
+                {item.links && (
+                  <p class="cv__links meta">
+                    {item.links.map((l, i) => <>{i > 0 && ' · '}<a href={l.href}>{l.label}</a></>)}
+                  </p>
+                )}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))}
+
+    <section class="cv grid" aria-labelledby="honors-title">
+      <h2 class="cv__title" id="honors-title">Honors</h2>
+      <ol class="cv__list">
+        {honors.map(([when, what]) => (
+          <li class="cv__item"><p class="cv__when meta">{when}</p><p class="cv__body">{what}</p></li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="cv grid" aria-labelledby="training-title">
+      <h2 class="cv__title" id="training-title">Training</h2>
+      <ul class="cv__list cv__list--plain">
+        {training.map((t) => <li>{t}</li>)}
+      </ul>
+    </section>
+
+    <section class="cv grid" aria-labelledby="methods-title">
+      <h2 class="cv__title" id="methods-title">Methods &amp; tools</h2>
+      <dl class="cv__list cv__dl">
+        <div><dt class="meta">Research methods</dt><dd>Ethnographic observation, participatory mapping, semi-structured interviews, micro-phenomenology, interaction walkthroughs, usability testing, Wizard-of-Oz prototyping.</dd></div>
+        <div><dt class="meta">Tools</dt><dd>Figma, Sketch, Adobe Creative Cloud, Canva, HTML and CSS, SSML, spatial-audio production, projection mapping, physical computing and LED integration, generative-AI workflows.</dd></div>
+      </dl>
+    </section>
+
+    <section class="cv grid" aria-labelledby="languages-title">
+      <h2 class="cv__title" id="languages-title">Languages</h2>
+      <dl class="cv__list cv__langs">
+        {languages.map(([lang, level]) => <div><dt>{lang}</dt><dd class="meta">{level}</dd></div>)}
+      </dl>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .about-head { padding-top: var(--space-6); row-gap: var(--space-4); margin-bottom: var(--space-6); }
+  .about-areas { border-left: 3px solid var(--highlight); padding-left: var(--space-3); align-self: start; font-size: var(--step--1); }
+  .about-areas__title { font-size: var(--step--2); font-weight: 400; font-weight: 600; margin-bottom: var(--space-2); }
+  @media (min-width: 900px) { .about-areas { grid-row: 2 / span 2; } }
+
+  .cv { padding-top: var(--space-5); row-gap: var(--space-3); }
+  .cv__title { font-size: var(--step-2); border-top: 1px solid var(--ink); padding-top: var(--space-3); }
+  .cv__list { list-style: none; margin: 0; padding: 0; }
+  @media (min-width: 900px) {
+    .cv__title { grid-column: 1 / 4; }
+    .cv__list { grid-column: 4 / 13; border-top: 1px solid var(--ink); }
+  }
+  .cv__item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1) var(--gutter);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  @media (min-width: 640px) { .cv__item { grid-template-columns: 8rem minmax(0, 1fr); } }
+  .cv__when { margin: 0; padding-top: 0.3em; }
+  .cv__body { margin: 0; max-width: var(--measure); }
+  .cv__role { font-size: var(--step-1); font-weight: 500; }
+  .cv__where { color: var(--ink-muted); font-weight: 400; margin: var(--space-1) 0 var(--space-2); }
+  .cv__text { font-size: var(--step--1); margin-bottom: var(--space-1); }
+  .cv__links { margin: 0; }
+  .cv__list--plain li { padding: var(--space-2) 0; border-bottom: 1px solid var(--rule); font-size: var(--step--1); }
+  .cv__dl, .cv__langs { margin: 0; }
+  .cv__dl div, .cv__langs div { padding: var(--space-3) 0; border-bottom: 1px solid var(--rule); }
+  .cv__dl dd { margin: var(--space-1) 0 0; font-size: var(--step--1); max-width: var(--measure); }
+  .cv__langs div { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); }
+  .cv__langs dt { font-size: var(--step-1); }
+  .cv__langs dd { margin: 0; }
+</style>

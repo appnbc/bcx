@@ -1,0 +1,94 @@
+---
+/**
+ * Decorative line illustration for the homepage hero: English, Spanish and
+ * Italian speech bubbles flowing into an interface that's being edited.
+ * Drawn in the site's ink + highlighter palette; hidden from assistive tech.
+ */
+---
+<svg class="hero-art" viewBox="0 0 460 470" aria-hidden="true" focusable="false">
+  <!-- voice: sound waves -->
+  <g class="ink-line">
+    <path d="M44 64 q 9 14 0 28" />
+    <path d="M30 54 q 15 24 0 48" />
+    <path d="M16 44 q 21 34 0 68" />
+  </g>
+
+  <!-- English bubble -->
+  <g class="bubble bubble--en">
+    <path class="paper-fill ink-line" d="M82 30 h156 a22 22 0 0 1 22 22 v52 a22 22 0 0 1 -22 22 h-110 l-34 30 l6 -30 h-18 a22 22 0 0 1 -22 -22 v-52 a22 22 0 0 1 22 -22 z" />
+    <text x="160" y="91" class="bubble__text">Hello</text>
+  </g>
+
+  <!-- Spanish bubble -->
+  <g class="bubble bubble--es">
+    <path class="hl-fill ink-line" d="M242 100 h156 a22 22 0 0 1 22 22 v52 a22 22 0 0 1 -22 22 h-16 l8 30 l-36 -30 h-112 a22 22 0 0 1 -22 -22 v-52 a22 22 0 0 1 22 -22 z" />
+    <text x="320" y="161" class="bubble__text bubble__text--on-hl">Hola</text>
+  </g>
+
+  <!-- Italian bubble -->
+  <g class="bubble bubble--it">
+    <path class="ink-fill-shape" d="M28 176 h96 a18 18 0 0 1 18 18 v38 a18 18 0 0 1 -18 18 h-26 l4 24 l-30 -24 h-44 a18 18 0 0 1 -18 -18 v-38 a18 18 0 0 1 18 -18 z" />
+    <text x="76" y="225" class="bubble__text bubble__text--on-ink">Ciao</text>
+  </g>
+
+  <!-- the words flow into the interface -->
+  <g class="flow">
+    <path d="M118 158 C 160 196, 178 240, 196 280" />
+    <path d="M390 228 C 396 252, 372 280, 348 282" />
+    <path d="M82 276 C 86 304, 104 318, 122 326" />
+  </g>
+
+  <!-- interface being edited -->
+  <g class="window">
+    <rect class="paper-fill ink-line" x="120" y="280" width="260" height="172" rx="14" />
+    <path class="ink-line" d="M120 310 H380" />
+    <circle class="ink-dot" cx="140" cy="295" r="4" />
+    <circle class="ink-dot" cx="154" cy="295" r="4" />
+    <circle class="ink-dot" cx="168" cy="295" r="4" />
+
+    <rect class="ink-fill" x="146" y="330" width="150" height="11" rx="5.5" />
+    <rect class="ink-soft" x="146" y="354" width="208" height="8" rx="4" />
+    <rect class="ink-soft" x="146" y="376" width="62" height="8" rx="4" />
+    <path class="strike" d="M142 380 H212" />
+    <rect class="hl-fill" x="218" y="370" width="74" height="20" rx="3" />
+    <rect class="ink-fill" x="226" y="377" width="58" height="6" rx="3" />
+
+    <rect class="hl-fill ink-line" x="146" y="404" width="104" height="30" rx="15" />
+    <text x="198" y="424" class="button__text">Enviar</text>
+  </g>
+
+  <!-- pointer -->
+  <path class="paper-fill ink-line pointer" d="M236 418 l0 30 l8 -8 l7 14 l6 -3 l-7 -14 l11 0 z" />
+</svg>
+
+<style>
+  .hero-art { width: 100%; height: auto; overflow: visible; color: var(--ink); }
+  .ink-line { fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .paper-fill { fill: var(--paper); }
+  .hl-fill { fill: var(--highlight); }
+  .ink-fill { fill: currentColor; }
+  .ink-fill-shape { fill: currentColor; stroke: currentColor; stroke-width: 2.5; stroke-linejoin: round; }
+  .ink-soft { fill: currentColor; opacity: 0.3; }
+  .ink-dot { fill: currentColor; opacity: 0.5; }
+  .strike { stroke: var(--red); stroke-width: 2.5; stroke-linecap: round; }
+  .flow path { fill: none; stroke: currentColor; stroke-width: 2; stroke-dasharray: 2 7; stroke-linecap: round; opacity: 0.55; }
+  .bubble__text { font-family: var(--serif); font-size: 40px; text-anchor: middle; fill: currentColor; letter-spacing: -0.02em; }
+  .bubble--it .bubble__text { font-size: 32px; }
+  .bubble__text--on-hl { fill: var(--on-highlight); }
+  .bubble__text--on-ink { fill: var(--paper); }
+  .button__text { font-family: var(--sans); font-size: 14px; font-weight: 600; text-anchor: middle; fill: var(--on-highlight); }
+  .hl-fill.ink-line { fill: var(--highlight); }
+  .paper-fill.ink-line { fill: var(--paper); }
+
+  /* Enters once, after the headline highlights. */
+  .bubble, .window, .pointer { animation: rise 600ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
+  .bubble--en { animation-delay: 500ms; }
+  .bubble--es { animation-delay: 800ms; }
+  .bubble--it { animation-delay: 1100ms; }
+  .window { animation-delay: 1400ms; }
+  .pointer { animation-delay: 1750ms; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+  @media (prefers-reduced-motion: reduce) {
+    .bubble, .window, .pointer { animation: none; }
+  }
+</style>

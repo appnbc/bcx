@@ -1,0 +1,204 @@
+---
+import { withBase } from '../data/url';
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { assertInventory } from '../data/projects-check';
+import { disciplines, capabilities, types, typeLabels } from '../data/taxonomy';
+
+const entries = await getCollection('projects');
+assertInventory(entries);
+
+const rows = [...entries].sort((a, b) => b.data.sortYear - a.data.sortYear || a.data.title.localeCompare(b.data.title));
+const used = {
+  c: capabilities.filter((c) => entries.some((e) => e.data.capabilities.includes(c))),
+};
+const groups = [
+  { key: 'd', label: 'Discipline', values: disciplines.map((v) => ({ value: v, label: v })) },
+  { key: 'c', label: 'Capability', values: used.c.map((v) => ({ value: v, label: v })) },
+  { key: 't', label: 'Type', values: types.map((v) => ({ value: v, label: typeLabels[v] })) },
+];
+---
+<Base title="Index" description={`All ${entries.length} projects by Brian Contreras: UX design, UX writing, conversation design, research and creative practice.`} current="archive">
+  <div class="wrap archive">
+    <header class="grid archive-head">
+      <h1 class="col-text">Index</h1>
+      <p class="col-text lede">
+        All {entries.length} projects in one list: case studies, professional work, exhibitions, talks and writing.
+        Case studies <span class="archive-row__swatch" aria-hidden="true"></span>open as their own pages; the rest <span class="archive-row__swatch archive-row__swatch--entry" aria-hidden="true"></span>expand in place.
+      </p>
+    </header>
+
+    <div class="archive-filters" data-filters>
+      {groups.map((g) => (
+        <div class="filter-group" role="group" aria-labelledby={`fg-${g.key}`}>
+          <p class="filter-group__label meta" id={`fg-${g.key}`}>{g.label}</p>
+          <ul>
+            {g.values.map((v) => (
+              <li><button type="button" class="filter" data-key={g.key} data-value={v.value} aria-pressed="false">{v.label}</button></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <div class="archive-status">
+        <p class="meta" role="status" aria-live="polite" data-result-count>{entries.length} projects</p>
+        <button type="button" class="filter filter--clear" data-clear hidden>Clear filters</button>
+        <button type="button" class="filter filter--sort" data-sort aria-pressed="false">Oldest first</button>
+      </div>
+    </div>
+
+    <p class="archive-empty" data-empty hidden>No projects match these filters. Try removing one.</p>
+
+    <div class="archive-cols meta" aria-hidden="true">
+      <span>Year</span><span>Project</span><span>Discipline</span><span>Form</span>
+    </div>
+    <ol class="archive-list" data-list>
+      {rows.map((e) => {
+        const p = e.data;
+        const meta = (
+          <>
+            <span class="archive-row__year meta">{p.years}</span>
+            <span class="archive-row__disc label">{p.disciplines.join(', ')}</span>
+            <span class="archive-row__type meta">{typeLabels[p.type]}</span>
+          </>
+        );
+        return (
+          <li class="archive-row" id={e.id} data-d={p.disciplines.join('|')} data-c={p.capabilities.join('|')} data-t={p.type} data-year={p.sortYear}>
+            {p.form === 'page' ? (
+              <a class="archive-row__line" href={withBase(`/work/${e.id}/`)}>
+                {meta}
+                <span class="archive-row__main">
+                  <span class="archive-row__title"><span class="archive-row__swatch" aria-hidden="true"></span>{p.title}</span>
+                  <span class="archive-row__org">{p.org}</span>
+                </span>
+              </a>
+            ) : (
+              <details>
+                <summary class="archive-row__line">
+                  {meta}
+                  <span class="archive-row__main">
+                    <span class="archive-row__title"><span class="archive-row__swatch archive-row__swatch--entry" aria-hidden="true"></span>{p.title} <span class="archive-row__go" aria-hidden="true">+</span></span>
+                    <span class="archive-row__org">{p.org}</span>
+                  </span>
+                </summary>
+                <div class="archive-row__detail">
+                  <div class="archive-row__text">
+                    <p>{p.detail}</p>
+                  </div>
+                  <dl class="archive-row__facts">
+                    <div><dt>Role</dt><dd>{p.role}</dd></div>
+                    {p.context && <div><dt>Where</dt><dd>{p.context}</dd></div>}
+                    {p.capabilities.length > 0 && <div><dt>Capabilities</dt><dd>{p.capabilities.join(', ')}</dd></div>}
+                    {p.notes?.map((n) => <div><dt>Note</dt><dd>{n}</dd></div>)}
+                  </dl>
+                </div>
+              </details>
+            )}
+          </li>
+        );
+      })}
+    </ol>
+  </div>
+</Base>
+
+<script>
+  import { initArchiveFilter } from '../scripts/archive-filter';
+  initArchiveFilter();
+</script>
+
+<style>
+  .archive-head { padding-top: var(--space-6); row-gap: var(--space-3); margin-bottom: var(--space-5); }
+
+  .archive-filters { display: none; border-top: 1px solid var(--ink); padding-top: var(--space-3); }
+  :global(.js) .archive-filters { display: grid; gap: var(--space-3); }
+  @media (min-width: 900px) {
+    :global(.js) .archive-filters { grid-template-columns: 1.1fr 1.4fr 1fr; column-gap: var(--gutter); }
+    .archive-status { grid-column: 1 / -1; }
+  }
+  .filter-group ul { list-style: none; margin: var(--space-1) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .filter {
+    font-family: var(--sans);
+    font-size: var(--step--1);
+    background: none;
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 0.35em 0.85em;
+    cursor: pointer;
+    transition: border-color 150ms ease, background-color 150ms ease;
+  }
+  .filter:hover { border-color: var(--ink); }
+  .filter[aria-pressed='true'] { background: var(--highlight); border-color: var(--on-highlight); color: var(--on-highlight); font-weight: 600; }
+  .filter--clear, .filter--sort { border-style: dashed; }
+  .archive-status { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); padding-top: var(--space-2); }
+  .archive-status .meta { margin: 0 auto 0 0; }
+
+  .archive-empty { font-size: var(--step-1); padding: var(--space-5) 0; border-top: 1px solid var(--rule); margin-top: var(--space-4); }
+
+  .archive-cols { display: none; }
+  .archive-list { list-style: none; margin: var(--space-4) 0 0; padding: 0; border-bottom: 1px solid var(--rule); }
+  .archive-row { border-top: 1px solid var(--rule); scroll-margin-top: var(--space-4); }
+  .archive-row:target { background: var(--paper-sunk); }
+  .archive-row__swatch {
+    display: inline-block;
+    width: 0.62em;
+    height: 0.62em;
+    border-radius: 50%;
+    background: var(--ink);
+    margin-right: 0.45em;
+    vertical-align: 0.08em;
+  }
+  .archive-row__swatch--entry { background: transparent; box-shadow: inset 0 0 0 2px var(--ink-muted); }
+
+  .archive-row__line {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: 'year type' 'main main' 'disc disc';
+    gap: var(--space-1) var(--space-3);
+    padding: var(--space-3) 0;
+    text-decoration: none;
+    cursor: pointer;
+    list-style: none;
+  }
+  .archive-row__line::-webkit-details-marker { display: none; }
+  .archive-row__year { grid-area: year; }
+  .archive-row__type { grid-area: type; text-align: right; }
+  .archive-row__main { grid-area: main; display: flex; flex-direction: column; }
+  .archive-row__disc { grid-area: disc; color: var(--ink-muted); font-weight: 400; }
+  .archive-row__title { font-size: var(--step-1); line-height: 1.25; }
+  .archive-row__org { font-size: var(--step--1); color: var(--ink-muted); }
+  .archive-row__go { color: var(--ink-muted); font-family: var(--sans); display: inline-block; transition: transform 150ms ease; }
+  details[open] .archive-row__go { transform: rotate(45deg); }
+  .archive-row__line:hover .archive-row__title { text-decoration: underline var(--highlight); text-decoration-thickness: 4px; text-underline-offset: 0.18em; }
+
+  @media (min-width: 900px) {
+    .archive-cols {
+      display: grid;
+      grid-template-columns: 7rem minmax(0, 1fr) 15rem 9rem;
+      gap: var(--gutter);
+      margin-top: var(--space-5);
+    }
+    .archive-list { margin-top: var(--space-2); }
+    .archive-row__line {
+      grid-template-columns: 7rem minmax(0, 1fr) 15rem 9rem;
+      grid-template-areas: 'year main disc type';
+      gap: var(--gutter);
+      align-items: baseline;
+    }
+    .archive-row__type { text-align: left; }
+  }
+
+  .archive-row__detail {
+    display: grid;
+    gap: var(--space-3) var(--gutter);
+    padding: 0 0 var(--space-4);
+  }
+  @media (min-width: 900px) {
+    .archive-row__detail { grid-template-columns: 7rem minmax(0, 1fr) minmax(0, 20rem); }
+    .archive-row__text { grid-column: 2; }
+    .archive-row__facts { grid-column: 3; }
+  }
+  .archive-row__text { max-width: var(--measure); }
+  .archive-row__facts { margin: 0; font-family: var(--sans); font-size: var(--step--2); display: grid; gap: var(--space-2); border-left: 3px solid var(--highlight); padding-left: var(--space-3); align-self: start; }
+  .archive-row__facts dt { font-weight: 600; color: var(--ink-muted); }
+  .archive-row__facts dd { margin: 0; overflow-wrap: anywhere; }
+</style>

@@ -1,0 +1,59 @@
+---
+import { Picture, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+/** Two images side by side, labeled (e.g. Before / After). Stacks on narrow screens. */
+interface Side {
+  src: ImageMetadata;
+  alt: string;
+  label: string;
+}
+interface Props {
+  a: Side;
+  b: Side;
+  caption?: string;
+}
+const { a, b, caption } = Astro.props;
+const fullOf = async (src: ImageMetadata) => (await getImage({ src, width: Math.min(2000, src.width), format: 'webp' })).src;
+const sides = await Promise.all([a, b].map(async (side) => ({ ...side, full: await fullOf(side.src) })));
+const widthsFor = (src: ImageMetadata) => {
+  const w = [480, 800, 1200].filter((n) => n <= src.width);
+  return w.length ? w : [src.width];
+};
+---
+<figure class="compare col-wide">
+  <div class="compare__pair">
+    {sides.map((side, i) => (
+      <div class="compare__side">
+        <p class:list={['compare__label label', { 'compare__label--after': i === 1 }]}>{side.label}</p>
+        <a class="zoom" href={side.full} data-alt={side.alt} data-caption={side.label}>
+          <Picture src={side.src} alt={side.alt} formats={['avif', 'webp']} widths={widthsFor(side.src)} sizes="(min-width: 900px) 40vw, 100vw" loading="lazy" decoding="async" />
+          <span class="visually-hidden">(opens full size)</span>
+        </a>
+      </div>
+    ))}
+  </div>
+  {caption && <figcaption class="meta">{caption}</figcaption>}
+</figure>
+
+<style>
+  .compare { margin: var(--space-3) 0; }
+  .compare__pair {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4) var(--gutter);
+    align-items: start;
+  }
+  @media (min-width: 700px) {
+    .compare__pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .compare__label {
+    margin: 0 0 var(--space-2);
+    padding-top: var(--space-1);
+    border-top: 1px solid var(--ink-muted);
+    color: var(--ink-muted);
+  }
+  .compare__label--after { border-top: 2px solid var(--ink); color: var(--ink); }
+  .compare :global(img) { width: 100%; height: auto; border: 1px solid var(--rule); background: #fff; }
+  figcaption { margin-top: var(--space-3); max-width: 60ch; }
+</style>

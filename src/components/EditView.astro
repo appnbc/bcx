@@ -1,0 +1,77 @@
+---
+/** Copy before → after as proofreader marks. Only real before/after pairs from the sources. */
+export type EditPart = { t: string } | { del: string } | { ins: string };
+interface Props {
+  parts: EditPart[];
+  lang?: string;
+  caption?: string;
+  note?: string;
+  size?: 'large' | 'small';
+}
+const { parts, lang, caption, note, size = 'large' } = Astro.props;
+---
+<figure class:list={['edit-view col-text', `edit-view--${size}`]}>
+  <p class="edit-view__line" lang={lang}>
+    {parts.map((p) =>
+      'del' in p ? (
+        <del><span class="visually-hidden">deleted: </span>{p.del}</del>
+      ) : 'ins' in p ? (
+        <ins><span class="visually-hidden">inserted: </span>{p.ins}</ins>
+      ) : (
+        p.t
+      ),
+    )}
+  </p>
+  {(caption || note) && (
+    <figcaption>
+      {caption && <span class="meta">{caption}</span>}
+      {note && <span class="edit-view__note">{note}</span>}
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .edit-view { margin: var(--space-3) 0; }
+  .edit-view__line {
+    font-family: var(--serif);
+    line-height: 1.5;
+    margin: 0;
+  }
+  .edit-view--large .edit-view__line { font-size: var(--step-2); line-height: 1.35; }
+  .edit-view--small .edit-view__line { font-size: var(--step-1); }
+  del {
+    text-decoration: line-through;
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 2px;
+    color: var(--ink-muted);
+  }
+  del + ins { margin-left: 0.2em; }
+  /* Insertions are highlighted, the way an editor marks new copy. */
+  ins {
+    text-decoration: none;
+    background: var(--highlight);
+    color: var(--on-highlight);
+    padding: 0 0.12em;
+    border-radius: 0.15em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    position: relative;
+  }
+  ins::before {
+    content: '‸';
+    position: absolute;
+    left: -0.2em;
+    bottom: -0.85em;
+    font-family: var(--sans);
+    font-size: 0.6em;
+    color: var(--ink-muted);
+    line-height: 1;
+  }
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    margin-top: var(--space-3);
+  }
+  .edit-view__note { font-size: var(--step--1); font-family: var(--sans); }
+</style>

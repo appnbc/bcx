@@ -1,0 +1,118 @@
+---
+import { withBase } from '../data/url';
+import '@fontsource-variable/newsreader/opsz.css';
+import '@fontsource-variable/newsreader/opsz-italic.css';
+import '@fontsource-variable/public-sans/wght.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/layout.css';
+import { site, hasContact } from '../config';
+
+interface Props {
+  title: string;
+  description: string;
+  current?: 'work' | 'archive' | 'about';
+  /** Keep this page out of search results (e.g. design previews). */
+  noindex?: boolean;
+}
+
+const { title, description, current, noindex = false } = Astro.props;
+const fullTitle = title === site.name ? `${site.name} — ${site.role}` : `${title} — ${site.name}`;
+const nav = [
+  { href: '/#work', label: 'Work', key: 'work' },
+  { href: '/archive/', label: 'Index', key: 'archive' },
+  { href: '/about/', label: 'About', key: 'about' },
+  { href: '#contact', label: 'Contact', key: 'contact' },
+];
+const { email, linkedin, other = [] } = site.contact;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={site.name} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="color-scheme" content="light dark" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" href={withBase("/favicon.svg")} type="image/svg+xml" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="site-name" href={withBase("/")}>{site.name} <span>{site.role}</span></a>
+        <nav class="site-nav" aria-label="Primary">
+          <ul>
+            {nav.map((item) => (
+              <li>
+                <a href={item.href.startsWith('/') ? withBase(item.href) : item.href} aria-current={item.key === current ? 'page' : undefined}>{item.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+
+    <footer class="site-footer" id="contact">
+      <div class="wrap contact">
+        <h2 class="contact__title">Contact</h2>
+        {hasContact ? (
+          <>
+            <p class="contact__lead">Hiring, collaborating, or curious about a project? Write to me.</p>
+            {email && (
+              <>
+                <a class="contact-big" href={`mailto:${email}`}>{email}</a>
+                <p class="contact__copy">
+                  <button type="button" data-copy={email}>Copy email</button>
+                  <span class="contact__status" data-copy-status role="status"></span>
+                </p>
+              </>
+            )}
+            {(linkedin || other.length > 0) && (
+              <ul class="contact-list label">
+                {linkedin && <li><a href={linkedin}>LinkedIn</a></li>}
+                {other.map((o) => <li><a href={o.href}>{o.label}</a></li>)}
+              </ul>
+            )}
+          </>
+        ) : (
+          <p class="label">Contact details coming soon.</p>
+        )}
+      </div>
+    </footer>
+
+    <dialog id="lightbox" class="lightbox" aria-label="Enlarged screenshot">
+      <div class="lightbox__bar"><button type="button" class="label" data-close>Close</button></div>
+      <figure class="lightbox__figure"><figcaption></figcaption></figure>
+    </dialog>
+    <script>
+      import { initLightbox } from '../scripts/lightbox';
+      initLightbox();
+
+      // Copy email: many visitors have no mail app set up for mailto links.
+      document.querySelectorAll<HTMLButtonElement>('button[data-copy]').forEach((btn) => {
+        const status = btn.parentElement?.querySelector<HTMLElement>('[data-copy-status]');
+        btn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(btn.dataset.copy!);
+            if (status) status.textContent = 'Copied';
+          } catch {
+            if (status) status.textContent = 'Copy didn’t work. Select the address above instead.';
+          }
+          window.setTimeout(() => status && (status.textContent = ''), 4000);
+        });
+      });
+    </script>
+  </body>
+</html>

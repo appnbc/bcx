@@ -1,0 +1,54 @@
+---
+interface Props {
+  name: string;
+  age?: number;
+  status?: string;
+  occupation: string;
+  location: string;
+  quote?: string;
+  bio?: string;
+  needs?: string;
+  pains?: string;
+  kind?: string;
+}
+const { name, age, status, occupation, location, quote, bio, needs, pains, kind = 'User persona' } = Astro.props;
+const facts = [age && `${age}`, status, occupation, location].filter(Boolean).join(' · ');
+---
+<figure class="persona">
+  <p class="persona__kind meta">{kind}</p>
+  <h3 class="persona__name">{name}</h3>
+  <p class="persona__facts label">{facts}</p>
+  {quote && <blockquote class="persona__quote"><p>“{quote}”</p></blockquote>}
+  {(bio || needs || pains) && (
+    <dl class="persona__dl">
+      {bio && <><dt>Background</dt><dd>{bio}</dd></>}
+      {needs && <><dt>Needs</dt><dd>{needs}</dd></>}
+      {pains && <><dt>Pain points</dt><dd>{pains}</dd></>}
+    </dl>
+  )}
+</figure>
+
+<style>
+  .persona {
+    margin: 0;
+    padding: var(--space-4) 0 0;
+    border-top: 1px solid var(--rule);
+  }
+  .persona__kind { margin-bottom: var(--space-1); }
+  .persona__name { font-size: var(--step-2); font-weight: 400; }
+  .persona__facts { color: var(--ink-muted); margin: var(--space-1) 0 var(--space-3); }
+  .persona__quote {
+    margin: 0 0 var(--space-3);
+    font-style: italic;
+    font-size: var(--step-1);
+    line-height: 1.35;
+  }
+  .persona__dl { margin: 0; font-size: var(--step--1); line-height: 1.5; }
+  .persona__dl dt {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: var(--step--2); font-weight: 600;
+    margin-top: var(--space-3);
+  }
+  .persona__dl dd { margin: var(--space-1) 0 0; }
+</style>

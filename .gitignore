@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.astro/
+test-results/
+playwright-report/
+.superpowers/
+# source materials stay local (private CV, large originals); imported copies live in src/assets
+pics/
+*.docx
+*.xlsx
+*.pdf
+dist-base-test/

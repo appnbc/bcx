@@ -1,0 +1,88 @@
+---
+import { withBase } from '../data/url';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const p = project.data;
+---
+<header class="case-band">
+  <div class="grid case-band__inner">
+    <p class="col-wide case-band__kicker">
+      <a href={withBase("/archive/")}>Index</a>
+      <span aria-hidden="true">/</span>
+      {p.disciplines.join(', ')}
+    </p>
+    <h1 class="col-wide case-band__title">{p.title}</h1>
+    <p class="col-text case-band__summary">{p.summary}</p>
+    <dl class="col-margin case-band__facts">
+      <div><dt>Role</dt><dd>{p.role}</dd></div>
+      <div>
+        <dt>Where</dt>
+        <dd>{p.org}{p.context && <>, {p.context}</>}</dd>
+      </div>
+      <div>
+        <dt>When</dt>
+        <dd>{p.years}{p.yearsNote && <span class="case-band__note">{p.yearsNote}</span>}</dd>
+      </div>
+      {p.team && p.team.length > 0 && (
+        <div>
+          <dt>Team</dt>
+          <dd><ul>{p.team.map((m) => <li>{m.name}, {m.role.toLowerCase()}</li>)}</ul></dd>
+        </div>
+      )}
+      {p.liveUrl && (
+        <div>
+          <dt>Live site</dt>
+          <dd><ul>{p.liveUrl.map((u) => <li><a href={u} rel="noopener">{u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</a></li>)}</ul></dd>
+        </div>
+      )}
+      {p.notes && p.notes.length > 0 && (
+        <div>
+          <dt>Note</dt>
+          <dd>{p.notes.map((n) => <p>{n}</p>)}</dd>
+        </div>
+      )}
+    </dl>
+  </div>
+</header>
+
+<style>
+  /* Same header for every case study: paper, a large ink title, the facts beside it. */
+  .case-band { padding-block: var(--space-6) var(--space-5); border-bottom: 2px solid var(--ink); }
+  .case-band__inner { row-gap: var(--space-3); }
+  .case-band__kicker { font-family: var(--sans); font-size: var(--step--1); font-weight: 600; color: var(--ink-muted); display: flex; gap: var(--space-2); flex-wrap: wrap; margin: 0; }
+  .case-band__kicker a { color: inherit; }
+  .case-band__title {
+    font-size: clamp(2.6rem, 1.4rem + 5vw, 6.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    max-width: 14ch;
+    margin-bottom: var(--space-4);
+  }
+  .case-band__summary { font-size: var(--step-1); line-height: 1.4; }
+  .case-band__facts {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--step--2);
+    line-height: 1.5;
+    display: grid;
+    gap: var(--space-3);
+    align-self: start;
+    padding: var(--space-4);
+    border: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  .case-band__facts a { color: var(--ink); }
+  @media (min-width: 900px) {
+    .case-band__summary { grid-row: 3; }
+    .case-band__facts { grid-row: 3 / span 2; }
+  }
+  .case-band__facts dt { font-weight: 600; color: var(--ink); }
+  .case-band__facts dd { margin: 0; color: var(--ink-muted); }
+  .case-band__facts ul { list-style: none; padding: 0; margin: 0; }
+  .case-band__facts p { margin: 0 0 0.4em; }
+  .case-band__note { display: block; font-style: italic; }
+</style>

@@ -1,0 +1,659 @@
+[
+  {
+    "id": "sunnyvale-cleanwater",
+    "title": "Sunnyvale Cleanwater",
+    "form": "page",
+    "weight": "major",
+    "org": "CDM Smith",
+    "context": "for the City of Sunnyvale, California",
+    "years": "2019–2021",
+    "yearsNote": "During my time at CDM Smith.",
+    "disciplines": [
+      "UX Design",
+      "UX Writing",
+      "Content Strategy"
+    ],
+    "capabilities": [
+      "Information Architecture"
+    ],
+    "type": "case-study",
+    "role": "UX Designer and UX Writer",
+    "team": [
+      {
+        "name": "Erin",
+        "role": "Subject matter expert and water scientist"
+      },
+      {
+        "name": "Elizabeth",
+        "role": "Program manager and community contact"
+      }
+    ],
+    "summary": "A public website for the program rebuilding Sunnyvale's wastewater treatment plant. I restructured the information architecture, wrote the microcopy, and turned plant processes into plain-language diagrams for residents and contractors.",
+    "sources": [
+      "UX Writing Portfolio (PDF)",
+      "UX Portfolio 2023 (Word)",
+      "Portfolio Map (spreadsheet)",
+      "User confirmation, Oct 2026"
+    ],
+    "evidence": "Full write-up and 18 images",
+    "featured": "selected",
+    "liveUrl": [
+      "https://sunnyvalecleanwater.com"
+    ],
+    "sortYear": 2020
+  },
+  {
+    "id": "ladwp-turf-replacement",
+    "title": "LADWP Turf Replacement Design",
+    "form": "page",
+    "weight": "major",
+    "org": "CDM Smith",
+    "context": "for the Los Angeles Department of Water and Power",
+    "years": "2019–2021",
+    "yearsNote": "During my time at CDM Smith.",
+    "disciplines": [
+      "UX Writing",
+      "UX Design"
+    ],
+    "capabilities": [
+      "Localization",
+      "Accessibility",
+      "Front-end"
+    ],
+    "type": "case-study",
+    "role": "UX Designer and UX Writer",
+    "team": [
+      {
+        "name": "David",
+        "role": "Civil engineer"
+      },
+      {
+        "name": "Eric",
+        "role": "Head digital developer"
+      }
+    ],
+    "summary": "A sign-up site for Los Angeles residents replacing thirsty lawns with California-native gardens. I rewrote and restructured the content, added a Spanish version of the site, helped cut the application from five pages to four, and redesigned the confirmation email.",
+    "sources": [
+      "UX Writing Portfolio (PDF)",
+      "UX Portfolio 2023 (Word)",
+      "Portfolio Map (spreadsheet)",
+      "User confirmation, Oct 2026"
+    ],
+    "evidence": "Full write-up and 11 images",
+    "notes": [
+      "The program’s website is no longer online."
+    ],
+    "featured": "selected",
+    "sortYear": 2020
+  },
+  {
+    "id": "descubre",
+    "title": "Descubre",
+    "form": "page",
+    "weight": "major",
+    "org": "Vista Higher Learning",
+    "context": "Spanish language curriculum for U.S. and Canadian schools",
+    "years": "©2017",
+    "yearsNote": "Developmental Editor, World Languages, 2014–2016.",
+    "disciplines": [
+      "Content Strategy",
+      "UX Writing",
+      "Conversation & Voice"
+    ],
+    "capabilities": [
+      "Editorial",
+      "Localization"
+    ],
+    "type": "case-study",
+    "role": "Editor and UX Liaison",
+    "team": [
+      {
+        "name": "Hillary",
+        "role": "Program manager"
+      },
+      {
+        "name": "George",
+        "role": "Software engineer lead"
+      }
+    ],
+    "summary": "A Spanish textbook program moving from print to digital. I helped write the editorial guidelines, wrote conversation activities for partner and virtual chats, and adapted print instructions to work on screen.",
+    "sources": [
+      "UX Writing Portfolio (PDF)",
+      "UX Portfolio 2023 (Word)",
+      "Résumé"
+    ],
+    "evidence": "Full write-up and 18 images",
+    "featured": "selected",
+    "sortYear": 2016
+  },
+  {
+    "id": "alfredo-voice-services",
+    "title": "Alfredo Voice Services",
+    "form": "page",
+    "weight": "major",
+    "org": "Versay Solutions",
+    "context": "Spanish phone system (IVR) and text messages for a U.S. customer-service line",
+    "years": "2021–2023",
+    "yearsNote": "During my time at Versay.",
+    "disciplines": [
+      "Conversation & Voice",
+      "UX Writing"
+    ],
+    "capabilities": [
+      "Localization"
+    ],
+    "type": "case-study",
+    "role": "Voice UX Designer and Content Designer",
+    "team": [
+      {
+        "name": "Sarah",
+        "role": "Voice UX designer"
+      },
+      {
+        "name": "Frank",
+        "role": "Software engineer lead"
+      }
+    ],
+    "summary": "A Spanish version of an English customer-service phone system (IVR). The team created a voice persona, Alfredo, and a style guide for him. I edited the Spanish text messages, coached voice actors, and adjusted prosody with SSML.",
+    "sources": [
+      "UX Writing Portfolio (PDF)",
+      "Portfolio Map (spreadsheet)",
+      "User confirmation, Oct 2026"
+    ],
+    "evidence": "Full write-up. This is an audio product, so there are no screens.",
+    "featured": "selected",
+    "sortYear": 2022
+  },
+  {
+    "id": "526-lowcountry-corridor",
+    "title": "526 Lowcountry Corridor",
+    "form": "page",
+    "weight": "medium",
+    "org": "CDM Smith",
+    "context": "public website for the 526 Lowcountry Corridor project, South Carolina",
+    "years": "2019–2021",
+    "yearsNote": "During my time at CDM Smith.",
+    "disciplines": [
+      "UX Design"
+    ],
+    "capabilities": [
+      "Accessibility",
+      "Front-end",
+      "Localization"
+    ],
+    "type": "case-study",
+    "role": "UX Designer, CMS developer and accessibility lead",
+    "team": [
+      {
+        "name": "Alyssa",
+        "role": "Community manager"
+      },
+      {
+        "name": "Amy",
+        "role": "Project manager"
+      }
+    ],
+    "summary": "The public website for a highway corridor project. I designed it, built it in the CMS, and led its accessibility work: color contrast, keyboard navigation, the Spanish menu, alt text and video scripts. The site shipped and is still live.",
+    "sources": [
+      "Portfolio Map (spreadsheet)",
+      "User confirmation, Oct 2026"
+    ],
+    "evidence": "Spreadsheet write-up and the live site",
+    "featured": "selected",
+    "liveUrl": [
+      "https://www.526lowcountrycorridor.com/east/",
+      "https://526lcc.com/"
+    ],
+    "sortYear": 2021
+  },
+  {
+    "id": "the-burger-queen",
+    "title": "The Burger Queen",
+    "form": "page",
+    "weight": "medium",
+    "org": "Amazon Alexa",
+    "context": "for a private client: a Las Vegas hotel",
+    "years": "2017–2019",
+    "yearsNote": "During my time at Amazon Alexa.",
+    "disciplines": [
+      "Conversation & Voice",
+      "UX Writing"
+    ],
+    "capabilities": [],
+    "type": "case-study",
+    "role": "UX Writer",
+    "team": [
+      {
+        "name": "Emelyne",
+        "role": "UX designer"
+      },
+      {
+        "name": "Jim",
+        "role": "Engineer"
+      },
+      {
+        "name": "Elena",
+        "role": "Project manager"
+      }
+    ],
+    "summary": "An in-room dining assistant for Alexa devices with screens, built for a Las Vegas hotel. I was the UX writer on the conversation, from the welcome to the order confirmation.",
+    "sources": [
+      "Portfolio Map (spreadsheet)",
+      "9 prototype screens",
+      "User confirmation, Oct 2026"
+    ],
+    "evidence": "9 prototype screens and spreadsheet notes",
+    "sortYear": 2018
+  },
+  {
+    "id": "mosaik",
+    "title": "Mosaik",
+    "form": "page",
+    "weight": "short",
+    "org": "Vista Higher Learning",
+    "context": "German language curriculum",
+    "years": "©2018",
+    "yearsNote": "Developmental Editor, World Languages, 2014–2016.",
+    "disciplines": [
+      "Content Strategy"
+    ],
+    "capabilities": [
+      "Editorial",
+      "Localization"
+    ],
+    "type": "case-study",
+    "role": "Developmental Editor",
+    "summary": "Vista Higher Learning's German program. The editorial guidelines and digital features developed for Descubre were applied to this collection the following year.",
+    "sources": [
+      "UX Writing Portfolio (PDF)",
+      "Résumé",
+      "Cover images"
+    ],
+    "evidence": "Cover images and the Descubre write-up",
+    "sortYear": 2017
+  },
+  {
+    "id": "themes",
+    "title": "Thèmes",
+    "form": "entry",
+    "weight": "entry",
+    "org": "Vista Higher Learning",
+    "context": "French language curriculum",
+    "years": "©2016",
+    "disciplines": [
+      "Content Strategy"
+    ],
+    "capabilities": [
+      "Editorial"
+    ],
+    "type": "professional",
+    "role": "Developmental Editor",
+    "summary": "Vista Higher Learning's French program, one of three curricula in my editorial work there.",
+    "detail": "As developmental editor I managed the editorial lifecycle of print and digital language curricula: Thèmes (©2016), Descubre (©2017) and Mosaik (©2018). The work covered thematic modules, teaching sequences and interactive multimedia for advanced language learners.",
+    "sources": [
+      "Résumé"
+    ],
+    "evidence": "Résumé only",
+    "sortYear": 2015
+  },
+  {
+    "id": "alexa-nlu-launches",
+    "title": "Alexa Spanish and Italian launches",
+    "form": "entry",
+    "weight": "entry",
+    "org": "Amazon Alexa AI",
+    "context": "Boston and Cambridge, MA",
+    "years": "2017–2019",
+    "disciplines": [
+      "Conversation & Voice"
+    ],
+    "capabilities": [
+      "Data & NLU",
+      "Localization"
+    ],
+    "type": "professional",
+    "role": "Machine Learning Data Linguist; Language Specialist (Skills Kit)",
+    "summary": "Training data and localization for Alexa's first Spanish and Italian launches.",
+    "detail": "I structured natural language understanding (NLU) training data and localization workflows for Alexa's first Spanish and Italian launches. The work included mapping regional colloquialisms to standard intent categories and auditing model performance.",
+    "sources": [
+      "Résumé"
+    ],
+    "evidence": "Résumé only",
+    "sortYear": 2018
+  },
+  {
+    "id": "red-trig",
+    "title": "AI UX consulting",
+    "form": "entry",
+    "weight": "entry",
+    "org": "Red Trig",
+    "context": "Remote / Ottawa, ON",
+    "years": "2024–2026",
+    "disciplines": [
+      "Research",
+      "UX Design"
+    ],
+    "capabilities": [],
+    "type": "professional",
+    "role": "AI UX Consultant",
+    "summary": "Advising product teams on interface trust and long-term usability in AI products.",
+    "detail": "I investigated platform governance, algorithmic transparency and user retention mechanics across AI ecosystems, and advised product teams on interface trust and long-term usability.",
+    "sources": [
+      "Résumé"
+    ],
+    "evidence": "Résumé only",
+    "sortYear": 2025
+  },
+  {
+    "id": "europeana",
+    "title": "Cultural heritage discoverability research",
+    "form": "entry",
+    "weight": "entry",
+    "org": "Europeana Foundation",
+    "context": "Remote / The Hague, NL",
+    "years": "2023–2024",
+    "disciplines": [
+      "Research"
+    ],
+    "capabilities": [],
+    "type": "professional",
+    "role": "UX Analyst, Marketing Intelligence",
+    "summary": "Comparative research on how people find things in European digital heritage collections.",
+    "detail": "I ran comparative qualitative research across European digital cultural heritage repositories, evaluating metadata discoverability, institutional access barriers and participatory user pathways.",
+    "sources": [
+      "Résumé"
+    ],
+    "evidence": "Résumé only",
+    "sortYear": 2023
+  },
+  {
+    "id": "j-sales-immigration",
+    "title": "Multilingual immigration information",
+    "form": "entry",
+    "weight": "entry",
+    "org": "J. Sales Immigration Law",
+    "context": "Remote / Boston, MA",
+    "years": "2022–2024",
+    "disciplines": [
+      "UX Design",
+      "UX Writing"
+    ],
+    "capabilities": [
+      "Localization",
+      "Accessibility",
+      "Information Architecture"
+    ],
+    "type": "professional",
+    "role": "Interactive Designer and Researcher",
+    "summary": "Plain, multilingual digital tools that explain federal immigration rules.",
+    "detail": "I designed accessible, multilingual information systems and service pathways, translating complex federal immigration statutes into clear digital tools for vulnerable populations.",
+    "sources": [
+      "Résumé"
+    ],
+    "evidence": "Résumé only",
+    "sortYear": 2023
+  },
+  {
+    "id": "kynd",
+    "title": "Kynd: Assisted Reality for Cognitive Dignity",
+    "form": "entry",
+    "weight": "entry",
+    "org": "MIT Reality Hack",
+    "context": "Cambridge, MA · Honorable Mention, Community Hack",
+    "years": "2026",
+    "disciplines": [
+      "Creative Practice",
+      "UX Design"
+    ],
+    "capabilities": [
+      "AR & Spatial",
+      "Accessibility"
+    ],
+    "type": "exhibition",
+    "role": "Co-designer",
+    "summary": "An augmented-reality prototype that helps people with memory loss stay oriented, using familiar, localized audio whispers.",
+    "detail": "Co-designed on the Ray-Ban Meta platform. The prototype pairs facial recognition triggers with localized, familiar audio whispers. We treated spatial sound and acoustic timing as the main interaction materials, supporting orientation while leaving the wearer in control.",
+    "sources": [
+      "Résumé"
+    ],
+    "evidence": "Résumé only",
+    "featured": "practice",
+    "sortYear": 2026
+  },
+  {
+    "id": "off-the-gaze",
+    "title": "OF(F) THE GAZE: The Algorithmic Mirror",
+    "form": "entry",
+    "weight": "entry",
+    "org": "Ars Electronica Festival",
+    "context": "Linz, Austria",
+    "years": "2023",
+    "disciplines": [
+      "Creative Practice"
+    ],
+    "capabilities": [
+      "AR & Spatial"
+    ],
+    "type": "exhibition",
+    "role": "Concept lead and installation architect",
+    "summary": "A spatial installation that split visitors' reflections between human and robot sightlines.",
+    "detail": "Multi-angle optical and point-cloud footage from a Boston Dynamics Spot robot played on a base monitor, with mirrored stainless-steel panels mounted under scaffolding. Live visitor reflections fractured across human and machine points of view.",
+    "sources": [
+      "Résumé"
+    ],
+    "evidence": "Résumé only",
+    "featured": "practice",
+    "sortYear": 2023
+  },
+  {
+    "id": "the-agent",
+    "title": "The Agent",
+    "form": "entry",
+    "weight": "entry",
+    "org": "Ars Electronica Festival",
+    "context": "Linz, Austria",
+    "years": "2023",
+    "disciplines": [
+      "Creative Practice",
+      "Conversation & Voice"
+    ],
+    "capabilities": [],
+    "type": "exhibition",
+    "role": "Co-creator, co-director and solo performer",
+    "summary": "A site-specific performance setting a synthesized voice against an unamplified human one.",
+    "detail": "A multimedia performance contrasting algorithmic voice synthesis with the unamplified biological voice, ending in a solo spoken-word piece I performed. I co-directed the scenography, fashion styling and reactive DMX lighting.",
+    "sources": [
+      "Résumé"
+    ],
+    "evidence": "Résumé only",
+    "featured": "practice",
+    "sortYear": 2023
+  },
+  {
+    "id": "re-create",
+    "title": "Re-CREATE",
+    "form": "entry",
+    "weight": "entry",
+    "org": "Art & Science Symposium, Aalborg University",
+    "context": "Aalborg, Denmark",
+    "years": "2023",
+    "disciplines": [
+      "Creative Practice"
+    ],
+    "capabilities": [],
+    "type": "exhibition",
+    "role": "Co-director",
+    "summary": "A participatory installation where visitors built miniature rooms and negotiated a shared tower of them.",
+    "detail": "Visitors staged miniature domestic interiors inside a wooden enclosure using physical objects, AI-painted backdrops and adjustable desk lamps. Their designs were compiled into a shared pixelated tower interface to negotiate collective living space.",
+    "sources": [
+      "Résumé"
+    ],
+    "evidence": "Résumé only",
+    "sortYear": 2023
+  },
+  {
+    "id": "touch-grass",
+    "title": "Touch Grass: A Nostalgic Picnic",
+    "form": "entry",
+    "weight": "entry",
+    "org": "Tropical Lab, LASALLE College of the Arts",
+    "context": "Singapore",
+    "years": "2023",
+    "disciplines": [
+      "Creative Practice"
+    ],
+    "capabilities": [],
+    "type": "exhibition",
+    "role": "Artist",
+    "summary": "Synthetic turf, gingham and handwritten social-media tags, testing how domestic materials and digital labels change a shared space.",
+    "detail": "A spatial media installation combining synthetic turf, gingham textiles and handwritten social-media metadata tags, to test how tactile domestic materials and digital overlays change the way people read a shared space.",
+    "sources": [
+      "Résumé"
+    ],
+    "evidence": "Résumé only",
+    "sortYear": 2023
+  },
+  {
+    "id": "amerihcc-licc",
+    "title": "Amerihcc Licc",
+    "form": "entry",
+    "weight": "entry",
+    "org": "TTTLabs",
+    "context": "Crete, Greece",
+    "years": "2024",
+    "disciplines": [
+      "Creative Practice"
+    ],
+    "capabilities": [],
+    "type": "exhibition",
+    "role": "Artist",
+    "summary": "A projection-mapped video installation on genetic identity and bioethics.",
+    "detail": "A single-channel, projection-mapped video installation examining genetic identity, bioethics, and the threshold between organic biomaterials and maternity.",
+    "sources": [
+      "Résumé"
+    ],
+    "evidence": "Résumé only",
+    "sortYear": 2024
+  },
+  {
+    "id": "ar-neighborhood",
+    "title": "AR Neighborhood",
+    "form": "entry",
+    "weight": "entry",
+    "org": "MIT Reality Virtually Hackathon",
+    "context": "Cambridge, MA",
+    "years": "2017",
+    "disciplines": [
+      "Creative Practice",
+      "UX Design"
+    ],
+    "capabilities": [
+      "AR & Spatial"
+    ],
+    "type": "exhibition",
+    "role": "Prototype designer",
+    "summary": "An augmented-reality prototype that anchored archival stories to physical locations across Boston.",
+    "detail": "A location-based augmented-reality prototype that anchored archival historical narratives to physical coordinates across Boston.",
+    "sources": [
+      "Résumé"
+    ],
+    "evidence": "Résumé only",
+    "sortYear": 2017
+  },
+  {
+    "id": "biella-atap",
+    "title": "Biella bus network installation",
+    "form": "entry",
+    "weight": "entry",
+    "org": "Accademia Unidee – Fondazione Pistoletto",
+    "context": "Biella, Italy · in progress",
+    "years": "2026–",
+    "disciplines": [
+      "Creative Practice"
+    ],
+    "capabilities": [],
+    "type": "exhibition",
+    "role": "Artist-researcher",
+    "summary": "In progress: wool and light that turn local bus routes and timetables into something you can touch.",
+    "detail": "Studio research for the Advanced Program in Contemporary Public Art. A site-responsive installation weaving Biellese wool fibers with illuminated LED tubing, translating route geography and timetable logs from the local ATAP bus network into a tactile civic interface.",
+    "sources": [
+      "Résumé"
+    ],
+    "evidence": "Résumé only",
+    "notes": [
+      "Work in progress."
+    ],
+    "sortYear": 2026
+  },
+  {
+    "id": "thesis-pokemon",
+    "title": "Pokémon Phenomenon",
+    "form": "entry",
+    "weight": "entry",
+    "org": "MA Media Arts Cultures (Erasmus Mundus)",
+    "context": "University of Łódź, University for Continuing Education Krems, Aalborg University",
+    "years": "2024",
+    "disciplines": [
+      "Research"
+    ],
+    "capabilities": [],
+    "type": "talk-writing",
+    "role": "Author",
+    "summary": "Master's thesis on how game mechanics shape narrative across the Pokémon media universe.",
+    "detail": "Full title: “Pokémon Phenomenon: Game Mechanics and its Effect on Narratives and Entertainment Ludology Across Media Universes.” Thesis grade 5.0 / 5.0.",
+    "sources": [
+      "Résumé"
+    ],
+    "evidence": "Résumé only",
+    "sortYear": 2024
+  },
+  {
+    "id": "talk-chatbot-summit",
+    "title": "Localization and Latin America",
+    "form": "entry",
+    "weight": "entry",
+    "org": "Ibero-American Chatbot Summit",
+    "context": "Glasgow, Scotland",
+    "years": "2021",
+    "disciplines": [
+      "Conversation & Voice",
+      "Research"
+    ],
+    "capabilities": [
+      "Localization"
+    ],
+    "type": "talk-writing",
+    "role": "Speaker",
+    "summary": "Talk on the linguistic and cultural constraints of localizing conversational AI for Latin America.",
+    "detail": "Full title: “Localization and Latin America: Linguistic Constraints and Cultural Considerations in Conversational AI.”",
+    "sources": [
+      "Résumé"
+    ],
+    "evidence": "Résumé only",
+    "sortYear": 2021
+  },
+  {
+    "id": "talk-uxpa-boston",
+    "title": "Voice and Device UX",
+    "form": "entry",
+    "weight": "entry",
+    "org": "UXPA Boston Annual Conference",
+    "context": "Boston, MA",
+    "years": "2021",
+    "disciplines": [
+      "Conversation & Voice"
+    ],
+    "capabilities": [
+      "Accessibility"
+    ],
+    "type": "talk-writing",
+    "role": "Speaker",
+    "summary": "Talk on multimodal interaction design and accessibility for voice devices.",
+    "detail": "Full title: “Voice and Device UX: Multimodal Interaction Design and Accessibility.” Presented at the User Experience Professionals Association (UXPA) Boston Annual Conference.",
+    "sources": [
+      "Résumé"
+    ],
+    "evidence": "Résumé only",
+    "sortYear": 2021
+  }
+]
