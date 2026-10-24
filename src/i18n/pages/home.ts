@@ -165,7 +165,7 @@ const it: typeof en = {
   },
   alfredoLabel: 'Dalla guida di stile: l’ora del giorno si dice per esteso.',
   alfredoCaption: 'Originale in inglese: “⟦It’s ten a.m.⟧”',
-  lccLabel: 'Interventi di accessibilità pubblicati',
+  lccLabel: 'Interventi di accessibilità messi online',
   lccIssues: ['Contrasto dei colori nella palette del marchio', 'Navigazione da tastiera e il menu in spagnolo', 'Testo alternativo e script dei video', 'Accesso linguistico coerente'],
   readCase: 'Leggi il caso di studio',
   samplesTitle: 'Prima e dopo',

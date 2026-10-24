@@ -29,7 +29,7 @@ const p = localized(project, lang);
         <p>{c.p1Before} <a href={href(lang, "/work/descubre/")}>Descubre</a>{c.p1After}</p>
         <p>{c.p2}</p>
       </div>
-      <MarginNote label={c.noteLabel}>{c.noteBefore} <a href={href(lang, "/work/descubre/")}>{c.noteLink}</a>{c.noteAfter}</MarginNote>
+      <MarginNote label={c.noteLabel}>{c.noteBefore}{' '}<a href={href(lang, "/work/descubre/")}>{c.noteLink}</a>{c.noteAfter}</MarginNote>
       <Figure src={img('mosaik', 'VHL_GermanCovers.png')} alt={c.coversAlt} caption={c.coversCaption} size="wide" frame={false} />
     </Section>
     </CaseSections>

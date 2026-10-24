@@ -22,6 +22,7 @@ const en = {
   edit: { deleted: 'deleted:', inserted: 'inserted:', avoid: 'avoid:' },
   lightbox: { label: 'Enlarged screenshot', close: 'Close', opens: '(opens full size)' },
   heroArt: { send: 'Send' },
+  ledger: { number: 'Number' },
   facts: { role: 'Role', where: 'Where', when: 'When', team: 'Team', liveSite: 'Live site', note: 'Note', capabilities: 'Capabilities' },
   disciplines: {
     'UX Design': 'UX Design',
@@ -71,6 +72,7 @@ const es: UI = {
   edit: { deleted: 'eliminado:', inserted: 'insertado:', avoid: 'evitar:' },
   lightbox: { label: 'Captura ampliada', close: 'Cerrar', opens: '(se abre a tamaño completo)' },
   heroArt: { send: 'Enviar' },
+  ledger: { number: 'Número' },
   facts: { role: 'Rol', where: 'Dónde', when: 'Cuándo', team: 'Equipo', liveSite: 'Sitio publicado', note: 'Nota', capabilities: 'Capacidades' },
   disciplines: {
     'UX Design': 'Diseño UX',
@@ -118,6 +120,7 @@ const it: UI = {
   edit: { deleted: 'eliminato:', inserted: 'inserito:', avoid: 'da evitare:' },
   lightbox: { label: 'Schermata ingrandita', close: 'Chiudi', opens: '(si apre a dimensione intera)' },
   heroArt: { send: 'Invia' },
+  ledger: { number: 'Numero' },
   facts: { role: 'Ruolo', where: 'Dove', when: 'Quando', team: 'Team', liveSite: 'Sito online', note: 'Nota', capabilities: 'Competenze' },
   disciplines: {
     'UX Design': 'UX design',

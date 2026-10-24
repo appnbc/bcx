@@ -1,17 +1,20 @@
 ---
 /** Numbered two-column ledger: what was wrong → what changed. */
+import { langFromUrl } from '../i18n/locales';
+import { ui } from '../i18n/ui';
 interface Props {
   rows: { issue: string; response: string }[];
   headers?: [string, string];
   caption: string;
 }
 const { rows, headers = ['Issue', 'What changed'], caption } = Astro.props;
+const t = ui[langFromUrl(Astro.url)];
 ---
 <div class="ledger col-wide">
   <table>
     <caption class="meta">{caption}</caption>
     <thead>
-      <tr><th scope="col"><span class="visually-hidden">Number</span></th><th scope="col">{headers[0]}</th><th scope="col">{headers[1]}</th></tr>
+      <tr><th scope="col"><span class="visually-hidden">{t.ledger.number}</span></th><th scope="col">{headers[0]}</th><th scope="col">{headers[1]}</th></tr>
     </thead>
     <tbody>
       {rows.map((row, i) => (

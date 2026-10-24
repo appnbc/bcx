@@ -79,3 +79,17 @@ test('Spanish pages use neutral Latin American Spanish', () => {
     assert.ok(!spainOnly.test(text), `${route}: ${text.match(spainOnly)?.[0]}`);
   }
 });
+
+test('ledger tables name their number column in the page language', () => {
+  const words = { '': 'Number', '/es': 'Número', '/it': 'Numero' };
+  for (const [prefix, word] of Object.entries(words)) {
+    const html = page(`${prefix}/work/ladwp-turf-replacement/`);
+    assert.match(html, new RegExp(`<span class="visually-hidden"[^>]*>${word}</span>`), prefix || '/');
+  }
+});
+
+test('Mosaik keeps a space before its link to the Descubre case study', () => {
+  for (const [prefix, before] of [['', 'in the'], ['/es', 'en el'], ['/it', 'nel']]) {
+    assert.match(page(`${prefix}/work/mosaik/`), new RegExp(`${before} <a`), prefix || '/');
+  }
+});

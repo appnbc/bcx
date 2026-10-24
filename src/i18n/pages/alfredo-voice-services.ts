@@ -204,7 +204,7 @@ const it: typeof en = {
   brainstorming: {
     title: 'Brainstorming',
     p1: 'Con il team ci siamo messi alla lavagna per definire chi fosse la voce inglese. Con molto lavoro di mappatura, e tornando alla documentazione originale in inglese dei primi anni 2000, abbiamo creato Alfredo.',
-    p2: 'Anche i flussi delle chiamate hanno dovuto cambiare in base a ciò che chiedeva chi parlava spagnolo. Per esempio, il servizio di chiamate internazionali veniva richiesto molto più spesso che da chi parlava inglese.',
+    p2: 'Anche i flussi delle chiamate sono stati adattati a ciò che chiedeva chi parlava spagnolo. Per esempio, questi utenti richiedevano il servizio di chiamate internazionali molto più spesso di chi parlava inglese.',
   },
   voice: {
     title: 'Voce e tono',
@@ -240,7 +240,7 @@ const it: typeof en = {
     stop: 'Il cliente voleva una versione spagnola di “⟦STOP⟧” con meno caratteri. “⟦es:NO⟧” è la parola più corta. Per iscriversi di nuovo, si può inviare “⟦es:SI⟧” o “⟦es:SÍ⟧”.',
     mandeBefore: '“⟦es:Mande texto⟧” suona strano e formale. Ho reso la frase informale e ho usato una forma di',
     mandeAfter: ', più adatta ai messaggi di testo.',
-    juan: 'Il nome del cliente è passato all’inizio, per rivolgersi prima alla persona e lasciarle poi seguire la registrazione.',
+    juan: 'Il nome del cliente è passato all’inizio, per rivolgersi prima alla persona e lasciare che poi si concentri sulla registrazione.',
     clic: 'Eliminato: è formale, e sul telefono non si clicca.',
     enlaceBefore: 'è la parola più accettata per “⟦link⟧”, e con il link proprio lì la parola era superflua. All’originale mancava anche l’accento (',
     enlaceAfter: ').',

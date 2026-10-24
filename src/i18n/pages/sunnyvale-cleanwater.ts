@@ -107,7 +107,7 @@ const es: typeof en = {
   context: {
     title: 'Contexto',
     p1: 'El Sunnyvale Cleanwater Program es un conjunto de proyectos que reconstruyen la infraestructura que depura las aguas residuales de la ciudad para un uso público seguro, sobre todo la propia planta de tratamiento. Ya existía un sitio web del programa, pero era difícil de usar y no daba a conocer el programa como hacía falta.',
-    p2: 'El nuevo sitio tenía dos públicos. Los residentes necesitaban entender qué hacía Sunnyvale con sus aguas residuales. Los profesionales necesitaban consultar documentos técnicos y contactar con el programa para optar a contratos.',
+    p2: 'El nuevo sitio tenía dos públicos. Los residentes necesitaban entender qué hacía Sunnyvale con sus aguas residuales. Los profesionales necesitaban consultar documentos técnicos y comunicarse con el programa para optar a contratos.',
     noteLabel: 'Antes del lanzamiento',
     note: 'Trabajé en el sitio antes de su lanzamiento. Parte del contenido del sitio en línea ha cambiado desde entonces.',
   },
@@ -131,7 +131,7 @@ const es: typeof en = {
       occupation: 'Científico del agua',
       location: 'Santa Clara, California',
       quote: 'Hay mucho movimiento en las obras de Sunnyvale. Ojalá hubiera un sitio donde leer datos de libre acceso.',
-      bio: 'Un científico que quiere aprender algo nuevo cada día. Sigue cómo gestionan las ciudades cercanas su agua y sus estudios sobre el agua.',
+      bio: 'Un científico que quiere aprender algo nuevo cada día. Sigue cómo gestionan el agua las ciudades cercanas y qué estudios hacen al respecto.',
       needs: 'Investigación para mejorar la depuración del agua, idealmente datos públicos que pueda leer sin tener que pedirlos.',
       pains: 'Muchos sitios tienen una navegación anticuada y documentos mal organizados, si es que están organizados.',
     },
@@ -162,7 +162,7 @@ const es: typeof en = {
   ia: {
     title: 'Arquitectura de la información',
     kicker: 'Diseño',
-    p1: 'El sitio original tenía pocas páginas, cada una con muchas secciones. El rediseño tiene más páginas, cada una con menos información y más específica.',
+    p1: 'El sitio original tenía pocas páginas, cada una con muchas secciones. El rediseño tiene más páginas, cada una con menos información, pero más específica.',
     before: { label: 'Sitio existente', alt: 'Mapa del sitio existente: la página de inicio se ramifica en Why the Community Needs This Program, About the Existing Plant (con nueve subpáginas), Water Pollution Control Master Plan, Program Environmental Impact Report, News and Updates y Projects.' },
     after: { label: 'Rediseño', alt: 'Mapa del sitio nuevo: la página de inicio se ramifica en Learn More, Get Involved, Program Info, Updates, Contact Us y Contractors, cada una con subpáginas específicas.' },
     caption: 'Mapas del sitio antes y después. El nuevo primer nivel se organiza según lo que los visitantes vienen a hacer.',
@@ -171,14 +171,14 @@ const es: typeof en = {
   },
   navigation: {
     title: 'Navegación',
-    p: 'Tras las pruebas, algunas partes del sitio se ajustaron a lo que la gente más buscaba. Muchos visitantes querían contactar con el programa y su responsable más que leer novedades. Tras un test A/B, ⟦Contact Us⟧ pasó por encima de ⟦Updates⟧ en el menú ⟦Get Involved⟧.',
+    p: 'Tras las pruebas, algunas partes del sitio se ajustaron a lo que la gente más buscaba. Muchos visitantes querían comunicarse con el programa y su responsable más que leer novedades. Tras un test A/B, ⟦Contact Us⟧ pasó por encima de ⟦Updates⟧ en el menú ⟦Get Involved⟧.',
     before: { label: 'Antes', alt: 'Menú de navegación: en Get Involved, Updates aparece por encima de Contact Us.' },
     after: { label: 'Después', alt: 'Menú de navegación: en Get Involved, Contact Us aparece por encima de Updates.' },
   },
   layout: {
     title: 'Disposición del contenido',
     faqTitle: 'Preguntas frecuentes',
-    faqP: 'La página de preguntas frecuentes era nueva y su disposición mejoró en sucesivas iteraciones. Empezó como una simple lista de preguntas y respuestas. La versión final abre con “⟦On this page⟧”, una lista de las preguntas enlazadas a sus respuestas. Cada respuesta tiene un enlace “⟦Back to Questions⟧”, y las respuestas más largas se acompañan de una imagen para leerlas en partes más pequeñas.',
+    faqP: 'La página de preguntas frecuentes era nueva y su disposición mejoró en sucesivas iteraciones. Empezó como una simple lista de preguntas y respuestas. La versión final abre con “⟦On this page⟧”, una lista de las preguntas enlazadas a sus respuestas. Cada respuesta tiene un enlace “⟦Back to Questions⟧”, y las respuestas más largas se acompañan de una imagen para que se lean en partes más pequeñas.',
     faqBefore: { label: 'Primera versión', alt: 'Primera versión de la página de preguntas frecuentes: preguntas como títulos, cada una seguida de un párrafo de respuesta.' },
     faqAfter: { label: 'Versión final', alt: 'Versión final de la página de preguntas frecuentes: una lista «On this page» de preguntas enlazadas junto a la foto de un científico.' },
     longAlt: 'Una respuesta larga junto a la foto de una tubería con la etiqueta "Digested sludge", con un enlace "Back to Questions".',
@@ -191,7 +191,7 @@ const es: typeof en = {
   process: {
     title: 'Simplificación de procesos',
     p1: 'Parte del trabajo de la planta es complejo: la generación de energía, la producción de biosólidos y el reciclaje de agua en la página ⟦Benefits, Value, Community⟧, y el proceso del calendario del programa en la página de proyectos.',
-    p2: 'Expliqué cada uno con iconos, flechas y lenguaje claro. Los iconos representan los sustantivos del texto que un visitante reconocería. Cada flecha lleva una frase breve con la acción que hace avanzar el proceso. El reciclaje de agua tiene además un resumen de dos frases. Los expertos en la materia aprobaron tanto el texto como las imágenes.',
+    p2: 'Expliqué cada uno con iconos, flechas y lenguaje claro. Los iconos representan los sustantivos del texto que un visitante reconocería. Cada flecha va acompañada de una frase breve con la acción que hace avanzar el proceso. El reciclaje de agua tiene además un resumen de dos frases. Los expertos en la materia aprobaron tanto el texto como las imágenes.',
   },
   retrospective: {
     title: 'Retrospectiva',
@@ -228,7 +228,7 @@ const it: typeof en = {
       occupation: 'Scienziato dell’acqua',
       location: 'Santa Clara, California',
       quote: 'C’è un gran movimento nei cantieri di Sunnyvale. Vorrei un posto dove leggere dati liberamente accessibili.',
-      bio: 'Uno scienziato che vuole imparare qualcosa di nuovo ogni giorno. Segue come le città vicine gestiscono la loro acqua e i loro studi sull’acqua.',
+      bio: 'Uno scienziato che vuole imparare qualcosa di nuovo ogni giorno. Segue come le città vicine gestiscono l’acqua e quali studi conducono in materia.',
       needs: 'Ricerche per migliorare la depurazione dell’acqua, idealmente dati pubblici da leggere senza doverli chiedere.',
       pains: 'Molti siti hanno una navigazione antiquata e documenti mal organizzati, sempre che siano organizzati.',
     },
@@ -259,11 +259,11 @@ const it: typeof en = {
   ia: {
     title: 'Architettura dell’informazione',
     kicker: 'Design',
-    p1: 'Il sito originale aveva poche pagine, ognuna con molte sezioni. Il nuovo design ha più pagine, ognuna con meno informazioni e più specifiche.',
+    p1: 'Il sito originale aveva poche pagine, ognuna con molte sezioni. Il nuovo design ha più pagine, ognuna con meno informazioni, ma più mirate.',
     before: { label: 'Sito esistente', alt: 'Mappa del sito esistente: la home si dirama in Why the Community Needs This Program, About the Existing Plant (con nove sottopagine), Water Pollution Control Master Plan, Program Environmental Impact Report, News and Updates e Projects.' },
     after: { label: 'Nuovo design', alt: 'Mappa del nuovo sito: la home si dirama in Learn More, Get Involved, Program Info, Updates, Contact Us e Contractors, ognuna con sottopagine mirate.' },
     caption: 'Mappe del sito prima e dopo. Il nuovo primo livello è organizzato in base a ciò che i visitatori vengono a fare.',
-    p2: 'La pagina dei progetti mostra meglio il cambiamento. Prima era un’unica pagina con una colonna che elencava ogni progetto, la sua descrizione e il suo stato. Ora rimanda a una pagina per ogni progetto, e ogni pagina di progetto rimanda all’elenco.',
+    p2: 'È la pagina dei progetti a mostrare meglio il cambiamento. Prima era un’unica pagina con una colonna che elencava ogni progetto, la sua descrizione e il suo stato. Ora rimanda a una pagina per ogni progetto, e ogni pagina di progetto rimanda all’elenco.',
     projectsAlt: 'Pagina Active Projects: un elenco di cinque link a progetti accanto a una foto di attrezzature in cantiere.',
   },
   navigation: {
@@ -275,7 +275,7 @@ const it: typeof en = {
   layout: {
     title: 'Impaginazione dei contenuti',
     faqTitle: 'Domande frequenti',
-    faqP: 'La pagina delle domande frequenti era nuova e la sua impaginazione è migliorata nelle iterazioni. È nata come un semplice elenco di domande e risposte. La versione finale si apre con “⟦On this page⟧”, un elenco delle domande collegate alle risposte. Ogni risposta ha un link “⟦Back to Questions⟧”, e le risposte più lunghe sono affiancate da un’immagine per leggerle a pezzi più piccoli.',
+    faqP: 'La pagina delle domande frequenti era nuova e la sua impaginazione è migliorata nelle iterazioni. È nata come un semplice elenco di domande e risposte. La versione finale si apre con “⟦On this page⟧”, un elenco delle domande collegate alle risposte. Ogni risposta ha un link “⟦Back to Questions⟧”, e le risposte più lunghe sono affiancate da un’immagine, così si leggono a piccoli blocchi.',
     faqBefore: { label: 'Prima versione', alt: 'Prima versione della pagina delle domande frequenti: domande come titoli, ognuna seguita da un paragrafo di risposta.' },
     faqAfter: { label: 'Versione finale', alt: 'Versione finale della pagina delle domande frequenti: un elenco «On this page» di domande con link accanto alla foto di uno scienziato al lavoro.' },
     longAlt: 'Una risposta lunga accanto alla foto di un tubo con l’etichetta "Digested sludge", con un link "Back to Questions".',
@@ -288,7 +288,7 @@ const it: typeof en = {
   process: {
     title: 'Semplificazione dei processi',
     p1: 'Parte del lavoro dell’impianto è complessa: la produzione di energia, la produzione di biosolidi e il riciclo dell’acqua nella pagina ⟦Benefits, Value, Community⟧, e il processo del calendario del programma nella pagina dei progetti.',
-    p2: 'Ho spiegato ciascuno con icone, frecce e linguaggio semplice. Le icone rappresentano i sostantivi del testo che un visitatore riconoscerebbe. Ogni freccia porta una breve frase con l’azione che fa avanzare il processo. Il riciclo dell’acqua ha anche un riassunto di due frasi. Gli esperti della materia hanno approvato sia il testo sia le immagini.',
+    p2: 'Ho spiegato ciascuno con icone, frecce e linguaggio semplice. Le icone rappresentano i sostantivi del testo che un visitatore riconoscerebbe. Ogni freccia è accompagnata da una breve frase con l’azione che fa avanzare il processo. Il riciclo dell’acqua ha anche un riassunto di due frasi. Gli esperti della materia hanno approvato sia il testo sia le immagini.',
   },
   retrospective: {
     title: 'Retrospettiva',

@@ -108,7 +108,7 @@ const es: typeof en = {
   ],
   teaching: [
     { where: 'Tufts University · Medford, MA', text: 'Evaluación de portafolios regionales de estudiantes en joyería, arte digital, arte participativo, técnicas mixtas y medios experimentales.' },
-    { where: 'MIT Museum · Cambridge, MA', text: 'Conversaciones prácticas con el público sobre exposiciones de IA, robótica y biotecnología, adaptando las explicaciones técnicas a cada visitante.' },
+    { where: 'MIT Museum · Cambridge, MA', text: 'Encuentros interactivos con el público sobre exposiciones de IA, robótica y biotecnología, adaptando las explicaciones técnicas a cada visitante.' },
     { where: 'Lexington Public Schools · Lexington, MA', text: 'Español de secundaria: programación diaria, rúbricas de evaluación y actividades de inmersión lingüística.' },
     { where: 'Suffolk University · Boston', text: 'Apoyo en cursos universitarios de español para los negocios y coordinación de tutorías entre estudiantes en el laboratorio de idiomas.' },
   ],
@@ -130,7 +130,7 @@ const es: typeof en = {
 const it: typeof en = {
   title: 'Chi sono',
   description: 'Brian Contreras: esperienze, formazione, interventi, insegnamento e lingue.',
-  lede: 'Sono Brian Contreras, UX designer e UX writer di Boston. Quasi tutto il mio lavoro si svolge tra inglese e spagnolo: ho insegnato spagnolo, curato libri di testo di lingue, preparato dati di addestramento per i lanci di Alexa in spagnolo e in italiano, contribuito a progettare un sistema telefonico in spagnolo per Versay e realizzato siti pubblici per programmi infrastrutturali per CDM Smith.',
+  lede: 'Sono Brian Contreras, UX designer e UX writer di Boston. Quasi tutto il mio lavoro si svolge tra inglese e spagnolo: ho insegnato spagnolo, curato libri di testo di lingue, preparato dati di addestramento per i lanci di Alexa in spagnolo e in italiano, contribuito a progettare un sistema telefonico in spagnolo per Versay e realizzato, per CDM Smith, siti pubblici dedicati a programmi infrastrutturali.',
   second: 'Oltre alla UX, lavoro nella ricerca e nella media art: un master Erasmus Mundus in Media Arts Cultures, lavori esposti ad Ars Electronica e ora l’Advanced Program in Contemporary Public Art a Biella.',
   areasTitle: 'Aree di ricerca',
   areas: 'Interazione uomo-macchina, interfacce tangibili e spaziali, studi critici su dati e IA, design civico partecipativo, patrimonio culturale digitale e governance sociotecnica delle infrastrutture urbane.',
@@ -169,8 +169,8 @@ const it: typeof en = {
   ],
   teaching: [
     { where: 'Tufts University · Medford, MA', text: 'Valutazione di portfolio regionali di studenti in gioielleria, arte digitale, arte partecipativa, tecniche miste e media sperimentali.' },
-    { where: 'MIT Museum · Cambridge, MA', text: 'Conversazioni pratiche con il pubblico sulle mostre di IA, robotica e biotecnologie, adattando le spiegazioni tecniche a ogni visitatore.' },
-    { where: 'Lexington Public Schools · Lexington, MA', text: 'Spagnolo per la scuola secondaria: programmazione quotidiana, griglie di valutazione e attività di immersione linguistica.' },
+    { where: 'MIT Museum · Cambridge, MA', text: 'Incontri interattivi con il pubblico sulle mostre di IA, robotica e biotecnologie, adattando le spiegazioni tecniche a ogni visitatore.' },
+    { where: 'Lexington Public Schools · Lexington, MA', text: 'Insegnamento dello spagnolo nella scuola secondaria: programmazione quotidiana, griglie di valutazione e attività di immersione linguistica.' },
     { where: 'Suffolk University · Boston', text: 'Supporto ai corsi universitari di spagnolo commerciale e coordinamento del tutorato tra pari nel laboratorio linguistico.' },
   ],
   methods: {

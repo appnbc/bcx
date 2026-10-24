@@ -171,7 +171,7 @@ const es: typeof en = {
   retrospective: {
     title: 'Retrospectiva',
     p1: 'Conseguir que la gente siguiera las instrucciones fue un reto, y los cambios continuos obligaban a actualizar todo el sitio. Me habría gustado encargarme también de las redes sociales del programa. Aun así, la gente se inscribió para el rediseño de su jardín y valoró que fuera sencillo y estuviera casi todo en un mismo lugar.',
-    p2: 'Disfruté con la localización; siempre trabajo a gusto en traducción y en las necesidades de personas de otras culturas. También disfruté del trabajo en HTML y CSS, sobre todo del antes y después del correo de confirmación, donde el marcado cambió de verdad la experiencia de quien lo recibe.',
+    p2: 'Disfruté mucho el trabajo de localización; siempre trabajo a gusto en traducción y en las necesidades de personas de otras culturas. También disfruté del trabajo en HTML y CSS, sobre todo del antes y después del correo de confirmación, donde el marcado cambió de verdad la experiencia de quien lo recibe.',
   },
 };
 

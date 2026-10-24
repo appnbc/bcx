@@ -48,7 +48,7 @@ export default {
       role: 'Editor e referente UX',
       yearsNote: 'Developmental Editor, World Languages, 2014–2016.',
       teamRoles: ['Responsabile del programma', 'Responsabile dell’ingegneria del software'],
-      summary: 'Un corso di spagnolo su libro di testo che passa dalla carta al digitale. Ho contribuito a scrivere le linee guida editoriali, ho scritto attività di conversazione per chat con un compagno e chat virtuali e ho adattato le istruzioni stampate perché funzionassero sullo schermo.',
+      summary: 'Un corso di spagnolo, nato come libro di testo, che passa dalla carta al digitale. Ho contribuito a scrivere le linee guida editoriali, ho scritto attività di conversazione per chat con un compagno e chat virtuali e ho adattato le istruzioni stampate perché funzionassero sullo schermo.',
     },
   },
   'alfredo-voice-services': {
