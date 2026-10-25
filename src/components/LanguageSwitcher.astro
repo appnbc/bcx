@@ -1,6 +1,6 @@
 ---
 /** Links to the current page in each language. Rendered only when site.languagesPublic is true. */
-import { locales, localeNames, href, type Locale } from '../i18n/locales';
+import { locales, localeNames, betaLocales, href, type Locale } from '../i18n/locales';
 import { ui } from '../i18n/ui';
 
 interface Props {
@@ -14,7 +14,7 @@ const { lang, path } = Astro.props;
   <ul>
     {locales.map((l) => (
       <li>
-        <a href={href(l, path)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined}><span class="lang-switcher__name">{localeNames[l]}</span><span class="lang-switcher__code" aria-hidden="true">{l.toUpperCase()}</span></a>
+        <a href={href(l, path)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined}><span class="lang-switcher__name">{localeNames[l]}</span><span class="lang-switcher__code" aria-hidden="true">{l.toUpperCase()}</span>{betaLocales.includes(l) && <span class="lang-switcher__beta"> {ui[lang].switcher.beta}</span>}</a>
       </li>
     ))}
   </ul>
@@ -35,6 +35,14 @@ const { lang, path } = Astro.props;
   .lang-switcher a:hover { color: var(--ink); }
   .lang-switcher a[aria-current] { background: var(--highlight); color: var(--on-highlight); }
   .lang-switcher__code { display: none; }
+  /* A small-caps tag for translations still in review. */
+  .lang-switcher__beta {
+    margin-left: 0.15em;
+    font-size: 0.78em;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
   /* On phones the full names stay for screen readers; sighted readers get EN / ES / IT. */
   @media (max-width: 699px) {
     .lang-switcher a { padding: 0.3em 0.7em; }

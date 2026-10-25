@@ -71,7 +71,7 @@ To test a subfolder build locally: `BASE_PATH=/portfolio npm run build` (in Git 
 The look follows a small set of rules; keep to them when adding pages.
 
 - **Paper and ink.** Off-white paper, deep green ink. Dark mode swaps to deep green paper with pale ink.
-- **Each language has its own light.** The soft glows behind the hero and the contact section (`--wash-a`, `--wash-b`, `--wash-c` in `src/styles/tokens.css`) are sage and peach in English, apricot-gold and dusty rose in Spanish, pale lemon and sea-glass blue in Italian. Ink, highlighter and panels never change.
+- **Each language has its own light.** The soft glows behind the hero and the contact section (`--wash-a`, `--wash-b`, `--wash-c` in `src/styles/tokens.css`) are sage and peach in English, saffron and rose in Spanish, lemon and Mediterranean blue in Italian. Ink, highlighter and panels never change.
 - **One mark: the highlighter.** Peach marks what matters: headline phrases, inserted copy, active filters, links that lead somewhere. Red appears only on deleted copy.
 - **One shape rule.** Screenshots and panels are square-cornered with a thin border. Rounded pills are only for things you click.
 - **Work sits on panels.** On the homepage each selected project sits on a sage or peach panel, shown no larger than its real file. Small originals can be piled two deep, like papers on a desk.

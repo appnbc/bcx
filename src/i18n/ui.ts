@@ -5,7 +5,7 @@ const en = {
   skipLink: 'Skip to content',
   role: 'UX designer and UX writer',
   nav: { label: 'Primary', work: 'Work', index: 'Index', about: 'About', contact: 'Contact' },
-  switcher: { label: 'Language' },
+  switcher: { label: 'Language', beta: 'Beta' },
   contact: {
     title: 'Contact',
     question: 'Hiring, collaborating, or curious about a project?',
@@ -55,7 +55,7 @@ const es: UI = {
   skipLink: 'Saltar al contenido',
   role: 'diseñador UX y redactor UX',
   nav: { label: 'Principal', work: 'Trabajos', index: 'Índice', about: 'Sobre mí', contact: 'Contacto' },
-  switcher: { label: 'Idioma' },
+  switcher: { label: 'Idioma', beta: 'Beta' },
   contact: {
     title: 'Contacto',
     question: '¿Buscas a alguien para tu equipo, quieres colaborar o te interesa un proyecto?',
@@ -103,7 +103,7 @@ const it: UI = {
   skipLink: 'Vai al contenuto',
   role: 'UX designer e UX writer',
   nav: { label: 'Principale', work: 'Lavori', index: 'Indice', about: 'Chi sono', contact: 'Contatti' },
-  switcher: { label: 'Lingua' },
+  switcher: { label: 'Lingua', beta: 'Beta' },
   contact: {
     title: 'Contatti',
     question: 'Cerchi qualcuno per il tuo team, vuoi collaborare o ti incuriosisce un progetto?',

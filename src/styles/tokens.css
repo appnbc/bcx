@@ -55,16 +55,17 @@
   --measure: 66ch;
 }
 
-/* Spanish: apricot-gold and dusty rose. Italian: pale lemon and sea-glass blue. */
+/* Spanish: saffron and rose. Italian: lemon and Mediterranean blue. Saturated enough
+   to tell apart from the English peach and sage at a glance. */
 :root:lang(es) {
-  --wash-a: rgb(255 207 150 / 0.55);
-  --wash-b: rgb(246 196 204 / 0.55);
-  --wash-c: rgb(255 207 150 / 0.2);
+  --wash-a: rgb(255 178 70 / 0.5);
+  --wash-b: rgb(238 128 162 / 0.42);
+  --wash-c: rgb(255 178 70 / 0.22);
 }
 :root:lang(it) {
-  --wash-a: rgb(250 230 150 / 0.6);
-  --wash-b: rgb(184 218 232 / 0.6);
-  --wash-c: rgb(250 230 150 / 0.22);
+  --wash-a: rgb(255 222 70 / 0.55);
+  --wash-b: rgb(110 184 228 / 0.5);
+  --wash-c: rgb(255 222 70 / 0.25);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -84,15 +85,15 @@
     --wash-b: rgb(90 160 125 / 0.22);
     --wash-c: rgb(255 201 181 / 0.04);
   }
-  /* Spanish: apricot-gold and dusty rose. Italian: pale lemon and sea-glass blue. */
+  /* Spanish: saffron and rose. Italian: lemon and Mediterranean blue. */
   :root:lang(es) {
-    --wash-a: rgb(255 176 100 / 0.12);
-    --wash-b: rgb(196 104 124 / 0.18);
-    --wash-c: rgb(255 196 130 / 0.04);
+    --wash-a: rgb(255 160 50 / 0.17);
+    --wash-b: rgb(222 84 128 / 0.32);
+    --wash-c: rgb(255 170 70 / 0.06);
   }
   :root:lang(it) {
-    --wash-a: rgb(240 214 110 / 0.09);
-    --wash-b: rgb(80 150 180 / 0.22);
-    --wash-c: rgb(240 214 110 / 0.04);
+    --wash-a: rgb(245 208 60 / 0.15);
+    --wash-b: rgb(60 146 214 / 0.32);
+    --wash-c: rgb(245 208 60 / 0.06);
   }
 }

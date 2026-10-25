@@ -10,6 +10,9 @@ export const localeNames: Record<Locale, string> = {
   it: 'Italiano',
 };
 
+/** Languages whose translation is still being reviewed; the switcher tags them "Beta". */
+export const betaLocales: readonly Locale[] = ['it'];
+
 /** "/work/x/" → "/es/work/x/" (English stays at the root). */
 export function localePath(lang: Locale, path: string): string {
   return lang === defaultLocale ? path : `/${lang}${path}`;

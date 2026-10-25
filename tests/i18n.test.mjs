@@ -57,6 +57,8 @@ test('switcher and hreflang render when languages are public', { timeout: 240000
   try {
     const html = readFileSync(join(out, 'work', 'descubre', 'index.html'), 'utf8');
     assert.ok(html.includes('class="lang-switcher'), 'switcher');
+    assert.equal(html.match(/class="lang-switcher__beta"/g)?.length, 1, 'exactly one language tagged Beta');
+    assert.match(html, /hreflang="it"[^>]*>(?:(?!<\/a>).)*lang-switcher__beta/, 'the Beta tag is on Italian');
     assert.match(html, /hreflang="es"[^>]*href="https:\/\/example\.org\/es\/work\/descubre\/"/, 'hreflang es is an absolute URL');
     assert.match(html, /hreflang="x-default"[^>]*href="https:\/\/example\.org\/work\/descubre\/"/, 'x-default is an absolute URL');
     assert.ok(!readFileSync(join(out, 'es', 'index.html'), 'utf8').includes('content="noindex"'), 'es indexable when public');
