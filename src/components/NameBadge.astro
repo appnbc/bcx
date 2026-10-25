@@ -1,0 +1,102 @@
+---
+/**
+ * The About page's portrait, as a conference name badge: the headshot is a small
+ * original, so it is shown at badge scale (never enlarged), with a speech bubble
+ * from the homepage illustration saying hello in the page's language.
+ */
+import { Picture } from 'astro:assets';
+import { widthsFor, IMAGE_QUALITY } from './image-widths';
+import headshot from '../assets/about/headshot.png';
+
+interface Props {
+  name: string;
+  role: string;
+  hello: string;
+  alt: string;
+}
+const { name, role, hello, alt } = Astro.props;
+---
+<figure class="badge">
+  <span class="badge__clip" aria-hidden="true"></span>
+  <p class="badge__hello" aria-hidden="true">{hello}</p>
+  <Picture class="badge__photo" src={headshot} alt={alt} formats={['avif', 'webp']} widths={widthsFor(headshot)} quality={IMAGE_QUALITY} sizes="140px" />
+  <figcaption>
+    <p class="badge__name">{name}</p>
+    <p class="badge__role">{role}</p>
+  </figcaption>
+</figure>
+
+<style>
+  .badge {
+    position: relative;
+    width: 13rem;
+    margin: var(--space-4) 0 0 var(--space-2);
+    padding: var(--space-5) var(--space-4) var(--space-4);
+    border: 2.5px solid var(--ink);
+    border-radius: 18px;
+    background: var(--paper);
+    box-shadow: 0 18px 36px -18px var(--mat-shadow);
+    text-align: center;
+    rotate: -3deg;
+  }
+  /* The peach band at the top, with the slot a lanyard clip goes through. */
+  .badge::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 2.6rem;
+    border-radius: 15px 15px 0 0;
+    background: var(--highlight);
+    border-bottom: 2.5px solid var(--ink);
+  }
+  .badge__clip {
+    position: absolute;
+    top: 0.85rem;
+    left: 50%;
+    width: 2.75rem;
+    height: 0.6rem;
+    translate: -50% 0;
+    border: 2.5px solid var(--ink);
+    border-radius: 999px;
+    background: var(--paper);
+  }
+  .badge :global(.badge__photo) {
+    position: relative;
+    display: block;
+    width: 140px;
+    height: auto;
+    max-width: 100%;
+    margin: var(--space-2) auto var(--space-3);
+    border: 2.5px solid var(--ink);
+    border-radius: 10px;
+    background: var(--paper-sunk);
+  }
+  figcaption { position: relative; }
+  .badge__name { font-family: var(--serif); font-size: var(--step-1); line-height: 1.15; margin: 0; }
+  .badge__role { font-family: var(--serif); font-style: italic; font-size: var(--step--1); color: var(--ink-muted); margin: var(--space-1) 0 0; }
+  /* The hero's speech bubble, saying hello off the badge's corner. */
+  .badge__hello {
+    position: absolute;
+    z-index: 1;
+    top: 2.2rem;
+    right: -2.4rem;
+    margin: 0;
+    padding: 0.2em 0.6em 0.25em;
+    font-family: var(--serif);
+    font-size: var(--step-1);
+    line-height: 1.1;
+    border: 2.5px solid var(--ink);
+    border-radius: 14px;
+    background: var(--mat-sage);
+    rotate: 6deg;
+  }
+  .badge__hello::before, .badge__hello::after {
+    content: '';
+    position: absolute;
+    left: 0.7em;
+    border-style: solid;
+    border-color: transparent;
+  }
+  .badge__hello::before { bottom: -15px; border-width: 15px 15px 0 0; border-top-color: var(--ink); }
+  .badge__hello::after { bottom: -10.5px; left: calc(0.7em + 2.5px); border-width: 11px 11px 0 0; border-top-color: var(--mat-sage); }
+</style>

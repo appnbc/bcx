@@ -259,26 +259,16 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
   /* A still wash of the two brand colours behind the (transparent) header and the hero;
      it fades out before the work. */
   .hero-wash {
-    --glow-a: rgb(255 201 181 / 0.55);
-    --glow-b: rgb(196 224 205 / 0.6);
-    --glow-c: rgb(255 201 181 / 0.2);
     position: absolute;
     inset: 0 0 auto;
     height: clamp(720px, 105vh, 1100px);
     z-index: -1;
     pointer-events: none;
     background:
-      radial-gradient(min(760px, 90vw) 620px at 80% 40%, var(--glow-a), transparent 70%),
-      radial-gradient(min(820px, 110vw) 640px at 10% 16%, var(--glow-b), transparent 70%),
-      radial-gradient(min(620px, 80vw) 420px at 40% 80%, var(--glow-c), transparent 70%);
+      radial-gradient(min(760px, 90vw) 620px at 80% 40%, var(--wash-a), transparent 70%),
+      radial-gradient(min(820px, 110vw) 640px at 10% 16%, var(--wash-b), transparent 70%),
+      radial-gradient(min(620px, 80vw) 420px at 40% 80%, var(--wash-c), transparent 70%);
     mask-image: linear-gradient(to bottom, #000 60%, transparent);
-  }
-  @media (prefers-color-scheme: dark) {
-    .hero-wash {
-      --glow-a: rgb(255 170 140 / 0.10);
-      --glow-b: rgb(90 160 125 / 0.22);
-      --glow-c: rgb(255 201 181 / 0.04);
-    }
   }
   .intro { padding-top: var(--space-7); row-gap: var(--space-5); }
   .hero {

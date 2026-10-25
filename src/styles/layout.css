@@ -98,8 +98,8 @@ main:focus { outline: none; }
   padding-block: var(--space-7);
   border-top: 1px solid var(--rule);
   background:
-    radial-gradient(min(760px, 90vw) 560px at 88% 35%, var(--wash-peach), transparent 70%),
-    radial-gradient(min(820px, 110vw) 600px at 4% 100%, var(--wash-sage), transparent 70%);
+    radial-gradient(min(760px, 90vw) 560px at 88% 35%, var(--wash-a), transparent 70%),
+    radial-gradient(min(820px, 110vw) 600px at 4% 100%, var(--wash-b), transparent 70%);
 }
 .contact { display: grid; justify-items: start; gap: var(--space-4); }
 .contact__title {

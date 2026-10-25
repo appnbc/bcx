@@ -17,8 +17,12 @@
   --mat-sage: #E4EFE7;
   --mat-peach: #FCE9E0;
   --mat-shadow: rgb(21 57 47 / 0.28);
-  --wash-peach: rgb(255 201 181 / 0.5);
-  --wash-sage: rgb(196 224 205 / 0.6);
+  /* The soft glows behind the hero and the contact section: a warm one (a), a cool
+     one (b) and a faint accent (c). Each language gets its own light; ink and
+     highlighter stay the same everywhere. */
+  --wash-a: rgb(255 201 181 / 0.55);
+  --wash-b: rgb(196 224 205 / 0.6);
+  --wash-c: rgb(255 201 181 / 0.2);
 
   --serif: 'Newsreader Variable', 'Iowan Old Style', Georgia, serif;
   --sans: 'Public Sans Variable', system-ui, sans-serif;
@@ -51,6 +55,18 @@
   --measure: 66ch;
 }
 
+/* Spanish: apricot-gold and dusty rose. Italian: pale lemon and sea-glass blue. */
+:root:lang(es) {
+  --wash-a: rgb(255 207 150 / 0.55);
+  --wash-b: rgb(246 196 204 / 0.55);
+  --wash-c: rgb(255 207 150 / 0.2);
+}
+:root:lang(it) {
+  --wash-a: rgb(250 230 150 / 0.6);
+  --wash-b: rgb(184 218 232 / 0.6);
+  --wash-c: rgb(250 230 150 / 0.22);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --paper: #0E1F1A;
@@ -64,7 +80,19 @@
     --mat-sage: #17302A;
     --mat-peach: #2C2320;
     --mat-shadow: rgb(0 0 0 / 0.5);
-    --wash-peach: rgb(255 170 140 / 0.10);
-    --wash-sage: rgb(90 160 125 / 0.22);
+    --wash-a: rgb(255 170 140 / 0.10);
+    --wash-b: rgb(90 160 125 / 0.22);
+    --wash-c: rgb(255 201 181 / 0.04);
+  }
+  /* Spanish: apricot-gold and dusty rose. Italian: pale lemon and sea-glass blue. */
+  :root:lang(es) {
+    --wash-a: rgb(255 176 100 / 0.12);
+    --wash-b: rgb(196 104 124 / 0.18);
+    --wash-c: rgb(255 196 130 / 0.04);
+  }
+  :root:lang(it) {
+    --wash-a: rgb(240 214 110 / 0.09);
+    --wash-b: rgb(80 150 180 / 0.22);
+    --wash-c: rgb(240 214 110 / 0.04);
   }
 }

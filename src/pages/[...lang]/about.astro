@@ -1,6 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Mixed from '../../components/Mixed.astro';
+import NameBadge from '../../components/NameBadge.astro';
+import { site } from '../../config';
+import { ui } from '../../i18n/ui';
 import { href, langOf, getLangPaths } from '../../i18n/locales';
 import { aboutCopy } from '../../i18n/pages/about';
 
@@ -87,6 +90,9 @@ const sections: { id: string; title: string; items: Item[] }[] = [
   <div class="wrap about">
     <header class="grid about-head">
       <h1 class="col-text">{c.title}</h1>
+      <div class="col-margin about-badge">
+        <NameBadge name={site.name} role={ui[lang].role} hello={c.hello} alt={c.photoAlt} />
+      </div>
       <div class="col-text prose lede">
         <p>{c.lede}</p>
       </div>
@@ -159,7 +165,11 @@ const sections: { id: string; title: string; items: Item[] }[] = [
   .about-head { padding-top: var(--space-6); row-gap: var(--space-4); margin-bottom: var(--space-6); }
   .about-areas { border-left: 3px solid var(--highlight); padding-left: var(--space-3); align-self: start; font-size: var(--step--1); }
   .about-areas__title { font-size: var(--step--2); font-weight: 400; font-weight: 600; margin-bottom: var(--space-2); }
-  @media (min-width: 900px) { .about-areas { grid-row: 2 / span 2; } }
+  .about-badge { justify-self: start; }
+  @media (min-width: 900px) {
+    .about-badge { grid-row: 1 / span 3; align-self: start; }
+    .about-areas { grid-row: 4; }
+  }
 
   .cv { padding-top: var(--space-5); row-gap: var(--space-3); }
   .cv__title { font-size: var(--step-2); border-top: 1px solid var(--ink); padding-top: var(--space-3); }

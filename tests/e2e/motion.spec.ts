@@ -72,3 +72,31 @@ test('jump links land below the sticky header', async ({ page }) => {
   const targetTop = await page.locator(`[id="${id}"]`).evaluate((el) => el.getBoundingClientRect().top);
   expect(targetTop).toBeGreaterThanOrEqual(headerBottom);
 });
+
+test('each language gets its own subtle wash, in the hero and the contact section', async ({ page }) => {
+  const look = async (url: string) => {
+    await page.goto(url);
+    return Promise.all(['.hero-wash', '.site-footer'].map((s) => page.locator(s).evaluate((el) => getComputedStyle(el).backgroundImage)));
+  };
+  const [en, es, it] = [await look('/'), await look('/es/'), await look('/it/')];
+  for (const i of [0, 1]) {
+    expect(new Set([en[i], es[i], it[i]]).size, i ? 'footer' : 'hero').toBe(3);
+    for (const v of [en[i], es[i], it[i]]) expect(v).toContain('radial-gradient');
+  }
+});
+
+test('each language keeps its own wash in dark mode, distinct from its light one', async ({ browser }) => {
+  const washA = async (scheme: 'light' | 'dark', url: string) => {
+    const ctx = await browser.newContext({ colorScheme: scheme });
+    const p = await ctx.newPage();
+    await p.goto(url);
+    const v = await p.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--wash-a').trim());
+    await ctx.close();
+    return v;
+  };
+  const urls = ['/', '/es/', '/it/'];
+  const dark = await Promise.all(urls.map((u) => washA('dark', u)));
+  const light = await Promise.all(urls.map((u) => washA('light', u)));
+  expect(new Set(dark).size).toBe(3);
+  urls.forEach((u, i) => expect(dark[i], u).not.toBe(light[i]));
+});

@@ -7,6 +7,8 @@ type Line = { where: string; text?: string };
 
 const en = {
   title: 'About',
+  hello: 'Hi!',
+  photoAlt: 'Brian Contreras, smiling, in an iridescent jacket.',
   description: 'Brian Contreras: experience, education, talks, teaching and languages.',
   lede: 'I’m Brian Contreras, a UX designer and writer from Boston. Most of my work happens between English and Spanish: I taught Spanish, edited language textbooks, prepared training data for Alexa’s Spanish and Italian launches, helped design a Spanish phone system at Versay, and built public websites for infrastructure programs at CDM Smith.',
   second: 'Alongside UX, I work in research and media art: an Erasmus Mundus MA in Media Arts Cultures, work shown at Ars Electronica, and now the Advanced Program in Contemporary Public Art in Biella, Italy.',
@@ -68,6 +70,8 @@ const en = {
 
 const es: typeof en = {
   title: 'Sobre mí',
+  hello: '¡Hola!',
+  photoAlt: 'Brian Contreras, sonriente, con una chaqueta iridiscente.',
   description: 'Brian Contreras: experiencia, formación, charlas, docencia e idiomas.',
   lede: 'Soy Brian Contreras, diseñador y redactor UX de Boston. Casi todo mi trabajo ocurre entre el inglés y el español: di clases de español, edité libros de texto de idiomas, preparé datos de entrenamiento para los lanzamientos de Alexa en español e italiano, ayudé a diseñar un sistema telefónico en español en Versay y creé sitios web públicos para programas de infraestructura en CDM Smith.',
   second: 'Además de UX, trabajo en investigación y arte de los medios: una maestría Erasmus Mundus en Media Arts Cultures, obra expuesta en Ars Electronica y ahora el Advanced Program in Contemporary Public Art en Biella, Italia.',
@@ -129,6 +133,8 @@ const es: typeof en = {
 
 const it: typeof en = {
   title: 'Chi sono',
+  hello: 'Ciao!',
+  photoAlt: 'Brian Contreras, sorridente, con una giacca iridescente.',
   description: 'Brian Contreras: esperienze, formazione, interventi, insegnamento e lingue.',
   lede: 'Sono Brian Contreras, UX designer e UX writer di Boston. Quasi tutto il mio lavoro si svolge tra inglese e spagnolo: ho insegnato spagnolo, curato libri di testo di lingue, preparato dati di addestramento per i lanci di Alexa in spagnolo e in italiano, contribuito a progettare un sistema telefonico in spagnolo per Versay e realizzato, per CDM Smith, siti pubblici dedicati a programmi infrastrutturali.',
   second: 'Oltre alla UX, lavoro nella ricerca e nella media art: un master Erasmus Mundus in Media Arts Cultures, lavori esposti ad Ars Electronica e ora l’Advanced Program in Contemporary Public Art a Biella.',
