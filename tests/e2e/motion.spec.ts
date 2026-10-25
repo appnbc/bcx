@@ -50,7 +50,7 @@ test('on the homepage the header blends into the hero, then turns solid and stic
   expect(atTop.bg).toBe('rgba(0, 0, 0, 0)');
   expect(atTop.rule).toBe('rgba(0, 0, 0, 0)');
   await page.mouse.wheel(0, 1500);
-  await expect.poll(async () => (await header(page)).bg).toBe('rgb(252, 252, 250)');
+  await expect.poll(async () => (await header(page)).bg).toBe('rgb(23, 27, 34)');
   const scrolled = await header(page);
   expect(scrolled.top).toBe(0);
   expect(scrolled.rule).not.toBe('rgba(0, 0, 0, 0)');
@@ -60,7 +60,7 @@ test('inner pages keep a solid sticky header', async ({ page }) => {
   await page.goto('/about/');
   const h = await header(page);
   expect(h.position).toBe('sticky');
-  expect(h.bg).toBe('rgb(252, 252, 250)');
+  expect(h.bg).toBe('rgb(23, 27, 34)');
 });
 
 test('jump links land below the sticky header', async ({ page }) => {
@@ -87,8 +87,9 @@ test('each language gets its own subtle wash, in the hero and the contact sectio
 
 test('each language keeps its own wash in dark mode, distinct from its light one', async ({ browser }) => {
   const washA = async (scheme: 'light' | 'dark', url: string) => {
-    const ctx = await browser.newContext({ colorScheme: scheme });
+    const ctx = await browser.newContext();
     const p = await ctx.newPage();
+    await p.addInitScript((t) => localStorage.setItem('theme', t), scheme);
     await p.goto(url);
     const v = await p.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--wash-a').trim());
     await ctx.close();
@@ -99,4 +100,77 @@ test('each language keeps its own wash in dark mode, distinct from its light one
   const light = await Promise.all(urls.map((u) => washA('light', u)));
   expect(new Set(dark).size).toBe(3);
   urls.forEach((u, i) => expect(dark[i], u).not.toBe(light[i]));
+});
+
+const accentA = (page: Page) => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--accent-a').trim());
+
+test('arriving from the language switcher, the accents ease over from the previous palette', async ({ page }) => {
+  await page.goto('/');
+  const english = await accentA(page);
+  await page.evaluate(() => sessionStorage.setItem('lang-from', 'es'));
+  await page.goto('/');
+  await expect.poll(() => page.evaluate(() => document.documentElement.dataset.fromLang ?? null)).toBeNull();
+  await expect.poll(() => accentA(page), { timeout: 3000 }).toBe(english);
+  expect(await page.evaluate(() => sessionStorage.getItem('lang-from'))).toBeNull();
+});
+
+test.describe('reduced motion, language handoff', () => {
+  test.use({ reducedMotion: 'reduce' });
+  test('switching language changes the palette at once', async ({ page }) => {
+    await page.goto('/');
+    await page.evaluate(() => sessionStorage.setItem('lang-from', 'it'));
+    await page.goto('/');
+    expect(await page.evaluate(() => document.documentElement.dataset.fromLang ?? null)).toBeNull();
+    expect(await page.evaluate(() => getComputedStyle(document.documentElement).transitionDuration)).toMatch(/^0s/);
+  });
+});
+
+test('featured work lifts the same way for the keyboard as for the pointer', async ({ page }) => {
+  await page.goto('/');
+  const mat = page.locator('article.selected .mat').first();
+  const before = await mat.evaluate((el) => getComputedStyle(el).backgroundColor);
+  await page.locator('article.selected h3 a').first().focus();
+  await expect.poll(() => mat.evaluate((el) => getComputedStyle(el).translate)).toBe('0px -2px');
+  await expect.poll(() => mat.evaluate((el) => getComputedStyle(el).backgroundColor)).not.toBe(before);
+});
+
+test.describe('theme switch', () => {
+  const paper = (page: Page) => page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+  const choice = (page: Page, theme: string) => page.locator(`[data-theme-choice="${theme}"]`);
+
+  for (const colorScheme of ['light', 'dark'] as const) {
+    test.describe(`on a ${colorScheme} system`, () => {
+      test.use({ colorScheme });
+      test('the site starts dark', async ({ page }) => {
+        await page.goto('/');
+        await expect(choice(page, 'dark')).toHaveAttribute('aria-pressed', 'true');
+        await expect(choice(page, 'light')).toHaveAttribute('aria-pressed', 'false');
+        expect(await paper(page)).toBe('rgb(23, 27, 34)');
+      });
+    });
+  }
+
+  test('choosing Light by keyboard is remembered across pages and languages', async ({ page }) => {
+    await page.goto('/about/');
+    await choice(page, 'light').press('Enter');
+    await expect(choice(page, 'light')).toHaveAttribute('aria-pressed', 'true');
+    expect(await paper(page)).toBe('rgb(244, 242, 236)');
+    await page.goto('/es/');
+    await expect(choice(page, 'light')).toHaveAttribute('aria-pressed', 'true');
+    expect(await paper(page)).toBe('rgb(244, 242, 236)');
+    await choice(page, 'dark').click();
+    expect(await paper(page)).toBe('rgb(23, 27, 34)');
+  });
+
+  test('is labelled in each language, on phones too', async ({ page }) => {
+    for (const width of [1280, 375]) {
+      await page.setViewportSize({ width, height: 800 });
+      for (const [url, group, light, dark] of [['/', 'Theme', 'Light', 'Dark'], ['/es/', 'Tema', 'Claro', 'Oscuro'], ['/it/', 'Tema', 'Chiaro', 'Scuro']]) {
+        await page.goto(url);
+        await expect(page.getByRole('group', { name: group })).toBeVisible();
+        await expect(choice(page, 'light')).toHaveAccessibleName(light);
+        await expect(choice(page, 'dark')).toHaveAccessibleName(dark);
+      }
+    }
+  });
 });

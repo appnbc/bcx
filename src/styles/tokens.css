@@ -1,32 +1,90 @@
 /*
- * An editor's desk: off-white proof paper and deep green ink. The peach
- * highlighter is the one signature mark; red pen appears only on deleted copy.
+ * Graphite ink on warm porcelain, with signal lime as the one signature mark.
+ * Each language brings two accents of its own (EN cobalt and coral, ES violet and
+ * gold, IT terracotta and sage) as coloured light: washes, tints, and fine lines.
+ *
+ * Contrast rules (WCAG 2.2 AA, measured against porcelain #F4F2EC and graphite #171B22):
+ * - The original accents and lime are atmosphere. On porcelain they never carry text,
+ *   focus rings, or essential borders (lime is 1.1:1, cobalt 3.3:1).
+ * - Lines and indicators on porcelain use the darker "-ink" companions (5.4–6.1:1).
+ *   On graphite the originals pass (4.7–13.9:1), so dark mode points "-ink" back at them.
+ * - Selected states are a solid chip (graphite with lime text, or the reverse in dark
+ *   mode), so they never depend on hue alone.
  */
-:root {
-  color-scheme: light dark;
+@property --accent-a { syntax: '<color>'; inherits: true; initial-value: #5B7CFA; }
+@property --accent-b { syntax: '<color>'; inherits: true; initial-value: #E07A6F; }
+@property --accent-a-ink { syntax: '<color>'; inherits: true; initial-value: #3652B8; }
+@property --accent-b-ink { syntax: '<color>'; inherits: true; initial-value: #A4453C; }
 
-  --paper: #FCFCFA;
-  --paper-sunk: #F1F4F0;
-  --ink: #15392F;
-  --ink-muted: #4D6960;
-  --rule: #DCE4DD;
-  --red: #C2412D;
-  --highlight: #FFC9B5;
-  --on-highlight: #15392F;
-  /* Panels that work sits on. */
-  --mat-sage: #E4EFE7;
-  --mat-peach: #FCE9E0;
-  --mat-shadow: rgb(21 57 47 / 0.28);
-  /* The soft glows behind the hero and the contact section: a warm one (a), a cool
-     one (b) and a faint accent (c). Each language gets its own light; ink and
-     highlighter stay the same everywhere. */
-  --wash-a: rgb(255 201 181 / 0.55);
-  --wash-b: rgb(196 224 205 / 0.6);
-  --wash-c: rgb(255 201 181 / 0.2);
+:root {
+  color-scheme: light;
+
+  /* Brand foundation */
+  --graphite: #171B22;
+  --porcelain: #F4F2EC;
+  --slate: #68716D;        /* 4.497:1 on porcelain: graphics only, never small text */
+  --fine-rule: #D9DCD5;    /* decorative dividers only */
+  --lime: #D9F277;
+
+  /* Language accents, and their companions for lines and text on porcelain */
+  --cobalt: #5B7CFA;     --cobalt-ink: #3652B8;      /* 6.14:1 */
+  --coral: #E07A6F;      --coral-ink: #A4453C;       /* 5.37:1 */
+  --violet: #A48BEE;     --violet-ink: #7150B2;      /* 5.37:1 */
+  --gold: #E3B75A;       --gold-ink: #805A12;        /* 5.54:1 */
+  --terracotta: #DF6B5C; --terracotta-ink: #A43D31;  /* 5.70:1 */
+  --sage: #88AA85;       --sage-ink: #496A47;        /* 5.46:1 */
+
+  /* Surfaces and text */
+  --paper: var(--porcelain);
+  --paper-sunk: #EDEAE3;             /* --ink-muted keeps 4.58:1 here */
+  --ink: var(--graphite);
+  --ink-muted: #626B67;              /* 4.91:1 */
+  --ink-muted-on-wash: #474F4C;      /* ≥4.78:1 even where two washes and lime overlap at full strength */
+  --rule: var(--fine-rule);
+  --rule-strong: #858C87;            /* 3.08:1: boundaries of controls */
+  --red: var(--terracotta-ink);      /* the editor's red pen, on deleted copy */
+  --highlight: var(--lime);
+  --on-highlight: var(--graphite);
+  --selected-bg: var(--graphite);
+  --selected-fg: var(--lime);        /* 13.91:1 */
+  /* The current language: graphite chip, accent text (4.69–6.69:1 on graphite). */
+  --lang-chip-bg: var(--graphite);
+  --lang-chip-fg: var(--accent-a);
+  --indicator: var(--graphite);      /* active underlines; lime can't carry them on porcelain */
+  --scrim: rgb(23 27 34 / 0.86);
+  --mat-shadow: rgb(23 27 34 / 0.26);
+  /* The headline highlighter: a band behind the lower part of the words. */
+  --mark-fg: currentColor;
+  --mark-band: 0.72em;
+  --mark-pos: 62%;
+
+  /* This page's language: its signature accent (a: cobalt, violet, sage), its warm
+     accent (b: coral, gold, terracotta), and their companions for lines. */
+  --accent-a: var(--cobalt);
+  --accent-b: var(--coral);
+  --accent-a-ink: var(--cobalt-ink);
+  --accent-b-ink: var(--coral-ink);
+  /* Switching language eases the light from one palette to the next (see Base.astro). */
+  transition: --accent-a 900ms ease, --accent-b 900ms ease, --accent-a-ink 900ms ease, --accent-b-ink 900ms ease;
+
+  /* The soft glows behind the hero and the contact section: the signature accent (a)
+     leads, the warm one (b) answers, plus a breath of lime (c) that stays the same everywhere. */
+  --wash-a: color-mix(in srgb, var(--accent-a) 40%, transparent);
+  --wash-b: color-mix(in srgb, var(--accent-b) 34%, transparent);
+  --wash-c: color-mix(in srgb, var(--lime) 24%, transparent);
+  /* Panels that work sits on, tinted with the same two accents; a little deeper on hover. */
+  --mat-dose: 12%;
+  --mat-dose-hover: 18%;
+  --mat-a: color-mix(in srgb, var(--accent-a) var(--mat-dose), var(--paper));
+  --mat-b: color-mix(in srgb, var(--accent-b) var(--mat-dose), var(--paper));
 
   --serif: 'Newsreader Variable', 'Iowan Old Style', Georgia, serif;
   --sans: 'Public Sans Variable', system-ui, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+
+  /* Micro-interactions share one timing. */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t-quick: 200ms;
 
   /* fluid type scale: 360px → 1440px */
   --step--2: clamp(0.78rem, 0.76rem + 0.10vw, 0.84rem);
@@ -55,45 +113,69 @@
   --measure: 66ch;
 }
 
-/* Spanish: saffron and rose. Italian: lemon and Mediterranean blue. Saturated enough
-   to tell apart from the English peach and sage at a glance. */
-:root:lang(es) {
-  --wash-a: rgb(255 178 70 / 0.5);
-  --wash-b: rgb(238 128 162 / 0.42);
-  --wash-c: rgb(255 178 70 / 0.22);
+/* Spanish: violet and gold. Italian: terracotta and sage. The data-from-lang
+   selectors hold the previous language's palette for one frame after switching. */
+:root:lang(es), html:root[data-from-lang='es'] {
+  --accent-a: var(--violet);
+  --accent-b: var(--gold);
+  --accent-a-ink: var(--violet-ink);
+  --accent-b-ink: var(--gold-ink);
 }
-:root:lang(it) {
-  --wash-a: rgb(255 222 70 / 0.55);
-  --wash-b: rgb(110 184 228 / 0.5);
-  --wash-c: rgb(255 222 70 / 0.25);
+:root:lang(it), html:root[data-from-lang='it'] {
+  --accent-a: var(--sage);
+  --accent-b: var(--terracotta);
+  --accent-a-ink: var(--sage-ink);
+  --accent-b-ink: var(--terracotta-ink);
+}
+html:root[data-from-lang='en'] {
+  --accent-a: var(--cobalt);
+  --accent-b: var(--coral);
+  --accent-a-ink: var(--cobalt-ink);
+  --accent-b-ink: var(--coral-ink);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #0E1F1A;
-    --paper-sunk: #152A23;
-    --ink: #E8F0EB;
-    --ink-muted: #A3BAB0;
-    --rule: #284139;
-    --red: #FF8A73;
-    --highlight: #FFC9B5;
-    --on-highlight: #15392F;
-    --mat-sage: #17302A;
-    --mat-peach: #2C2320;
-    --mat-shadow: rgb(0 0 0 / 0.5);
-    --wash-a: rgb(255 170 140 / 0.10);
-    --wash-b: rgb(90 160 125 / 0.22);
-    --wash-c: rgb(255 201 181 / 0.04);
-  }
-  /* Spanish: saffron and rose. Italian: lemon and Mediterranean blue. */
-  :root:lang(es) {
-    --wash-a: rgb(255 160 50 / 0.17);
-    --wash-b: rgb(222 84 128 / 0.32);
-    --wash-c: rgb(255 170 70 / 0.06);
-  }
-  :root:lang(it) {
-    --wash-a: rgb(245 208 60 / 0.15);
-    --wash-b: rgb(60 146 214 / 0.32);
-    --wash-c: rgb(245 208 60 / 0.06);
-  }
+/* Dark is the default theme, whatever the system setting. The header switch can choose
+   light instead (data-theme="light" on <html>, set in Base.astro and kept in localStorage). */
+:root[data-theme='light'] { color-scheme: light; }
+
+:root:not([data-theme='light']) {
+  color-scheme: dark;
+  /* On graphite the original accents are the readable ones. */
+  --cobalt-ink: var(--cobalt);         /* 4.69:1 */
+  --coral-ink: var(--coral);           /* 5.91:1 */
+  --violet-ink: var(--violet);         /* 6.17:1 */
+  --gold-ink: var(--gold);             /* 9.20:1 */
+  --terracotta-ink: var(--terracotta); /* 5.26:1 */
+  --sage-ink: var(--sage);             /* 6.69:1 */
+
+  --paper: var(--graphite);
+  --paper-sunk: #1E232B;
+  --ink: var(--porcelain);
+  --ink-muted: #A9B3AD;              /* 8.01:1 */
+  --ink-muted-on-wash: #CBD2CE;
+  --rule: #2C323A;
+  --rule-strong: #6B736E;            /* 3.54:1 */
+  --red: var(--terracotta);
+  --highlight: var(--lime);
+  --on-highlight: var(--graphite);
+  --selected-bg: var(--lime);
+  --selected-fg: var(--graphite);
+  --lang-chip-bg: var(--accent-a);     /* graphite text on it: 4.69–6.69:1 */
+  --lang-chip-fg: var(--graphite);
+  --indicator: var(--lime);
+  --scrim: rgb(8 10 13 / 0.86);
+  --mat-shadow: rgb(0 0 0 / 0.5);
+  /* Highlighted words take dark text on a deeper lime band. */
+  --mark-fg: var(--on-highlight);
+  --mark-band: 0.95em;
+  --mark-pos: 70%;
+
+  /* Coloured light reads stronger on a dark surface: lower the dose. */
+  --wash-a: color-mix(in srgb, var(--accent-a) 28%, transparent);
+  --wash-b: color-mix(in srgb, var(--accent-b) 24%, transparent);
+  --wash-c: color-mix(in srgb, var(--lime) 7%, transparent);
+  --mat-dose: 16%;
+  --mat-dose-hover: 22%;
+  --mat-a: color-mix(in srgb, var(--accent-a) var(--mat-dose), var(--paper));
+  --mat-b: color-mix(in srgb, var(--accent-b) var(--mat-dose), var(--paper));
 }

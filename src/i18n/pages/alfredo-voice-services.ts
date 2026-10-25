@@ -78,7 +78,7 @@ const en = {
   },
   retrospective: {
     title: 'Retrospective',
-    p1: 'People have chosen the Spanish IVR, and it gives them an experience as close as possible to what English speakers get. The project was still in progress at the time, but it was already a reminder that localization belongs at the start of a product: it changes flows, content length and any structure that works differently in another language.',
+    p1: 'People have chosen the Spanish IVR, and it gives them an experience as close as possible to what English speakers get. The project was still in progress at the time, but it was already a reminder that localization belongs at the start of a product: it changes flows, content length, and any structure that works differently in another language.',
     p2: 'Personally, I enjoyed coaching the voice actors, seeing the SMS and the IVR work hand in hand, and using SSML to change the prosody of the recordings.',
     relatedBefore: 'Related: my 2021 talk',
     relatedLink: '“Localization and Latin America”',

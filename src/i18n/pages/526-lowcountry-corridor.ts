@@ -30,13 +30,13 @@ const en = {
       { issue: 'Keyboard navigation and a separate Spanish menu', response: 'Keyboard users struggled to move through the menus, and a separate menu for Spanish speakers added confusion. Keyboard navigation was streamlined and language access made consistent across both menus.' },
       { issue: 'Missing alt text and video scripts', response: 'Images without alt text shut out screen reader users, and videos without scripts shut out people who are hard of hearing. Images got alt text and videos got scripts.' },
       { issue: 'Language barrier', response: 'For non-English speakers like Daniel, translation has to be straightforward, without idioms or slang. Language access was made consistent across the site.' },
-      { issue: 'Unlabeled arrow icons', response: 'Arrows mark navigation, external links and downloads. The recommendation: give each one descriptive alt text, so everyone knows what it does.' },
+      { issue: 'Unlabeled arrow icons', response: 'Arrows mark navigation, external links, and downloads. The recommendation: give each one descriptive alt text, so everyone knows what it does.' },
       { issue: 'Limited testing with diverse users', response: 'Testing hadn’t covered a wide range of users, including people with disabilities. That’s the next step.' },
     ] as Row[],
   },
   retrospective: {
     title: 'Retrospective',
-    p1: 'Fixing color contrast, keyboard navigation, the language menus, alt text and video scripts made the site easier to use for more people, especially those with visual or hearing impairments and Spanish speakers.',
+    p1: 'Fixing color contrast, keyboard navigation, the language menus, alt text, and video scripts made the site easier to use for more people, especially those with visual or hearing impairments and Spanish speakers.',
     p2: 'The lesson I took from it: accessibility needs continued attention and testing with a genuinely diverse group of users, including people with disabilities.',
   },
 };

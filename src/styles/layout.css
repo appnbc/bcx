@@ -43,50 +43,85 @@ html { scroll-padding-top: calc(var(--header-h, 72px) + var(--space-3)); }
   background: transparent;
   border-bottom-color: transparent;
 }
+/* Secondary text that sits over the hero and contact washes steps up to a darker slate. */
+.site-header--overlay, .site-footer { --ink-muted: var(--ink-muted-on-wash); }
 @media (prefers-reduced-motion: reduce) { .site-header { transition: none; } }
+/* The header spans the whole window: the name at the page margin on the left,
+   the bar close to the window edge on the right. */
 .site-header .wrap {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-2) var(--space-4);
   padding-block: var(--space-3);
+  max-width: none;
+  padding-left: var(--page-pad);
+  padding-right: clamp(12px, 1.2vw, 20px);
 }
 .site-name {
   font-family: var(--serif);
-  font-size: var(--step-1);
+  font-size: clamp(1.5rem, 1.15rem + 0.9vw, 2.25rem);
   text-decoration: none;
   letter-spacing: -0.01em;
 }
-.site-name span { color: var(--ink-muted); font-style: italic; margin-left: 0.35em; }
-/* Phones: name and language switcher share the first row, the menu takes the second. */
-@media (max-width: 699px) {
-  .site-header .wrap { align-items: center; }
-  .site-header .lang-switcher { order: 2; }
+/* The role sits under the name, a quieter second line. */
+.site-name { line-height: 1.15; }
+.site-name span { display: block; color: var(--ink-muted); font-style: italic; font-size: 0.6em; margin-top: 0.15em; }
+/* Menu, languages, and theme share one bar, a thin rule between each group.
+   Inside it the switchers drop their own outlines. */
+.site-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-left: auto;
+  padding: 6px 12px 6px var(--space-4);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 80%, transparent);
+  backdrop-filter: blur(10px);
+  --switcher-outline: 0;
+  --switcher-pad: 0;
+  /* Type in the bar keeps growing with the window, up to about 1920px. */
+  --nav-size: clamp(1rem, 0.85rem + 0.3vw, 1.2rem);
+  --switcher-size: clamp(0.88rem, 0.75rem + 0.25vw, 1.05rem);
+}
+.site-tools { display: flex; align-items: center; gap: var(--space-3); }
+.site-header .site-bar .lang-switcher,
+.site-header .site-bar .theme-switch { border: 0; border-left: 1px solid var(--rule); border-radius: 0; padding: 0 0 0 var(--space-3); }
+/* Below 900px the bar can't hold everything on one line. Name and switchers share the
+   first row, the menu takes the second; the switchers keep a pill of their own. */
+@media (max-width: 899px) {
+  .site-header .wrap { column-gap: 6px; padding-right: var(--page-pad); }
+  .site-bar { display: contents; --nav-size: var(--step--1); --switcher-size: var(--step--2); }
+  .site-name { font-size: var(--step-1); }
+  .site-header .site-tools { order: 2; gap: 4px; padding: 2px; border: 1px solid var(--rule); border-radius: 999px; }
+  .site-header .site-bar .lang-switcher { border-left: 0; padding-left: 0; }
+  .site-header .site-bar .theme-switch { padding-left: 4px; }
   .site-nav { order: 3; flex-basis: 100%; }
 }
 .site-nav ul {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-1) var(--space-4);
+  gap: var(--space-1) var(--space-3);
   list-style: none;
   margin: 0;
   padding: 0;
 }
 .site-nav a {
   font-family: var(--sans);
-  font-size: var(--step--1);
+  font-size: var(--nav-size, var(--step--1));
   font-weight: 500;
   text-decoration: none;
-  padding-block: var(--space-2);
+  padding-block: var(--space-1);
   display: inline-block;
+  text-decoration: underline 2px transparent;
+  text-underline-offset: 0.35em;
+  transition: text-decoration-color var(--t-quick) ease;
 }
-.site-nav a:hover, .site-nav a[aria-current] {
-  text-decoration: underline;
-  text-decoration-color: var(--highlight);
-  text-decoration-thickness: 4px;
-  text-underline-offset: 0.3em;
-}
+.site-nav a:hover { text-decoration-color: var(--ink-muted); }
+/* The current page keeps a solid underline: graphite on porcelain, signal lime on graphite. */
+.site-nav a[aria-current] { text-decoration-color: var(--indicator); }
 
 main { display: block; }
 main:focus { outline: none; }
@@ -143,14 +178,16 @@ main:focus { outline: none; }
 }
 .contact__bubble::before { bottom: -24px; border-width: 24px 24px 0 0; border-top-color: var(--ink); }
 .contact__bubble::after { bottom: -18.5px; left: calc(1.1em + 2.5px); border-width: 18px 18px 0 0; border-top-color: var(--paper); }
+/* An underline in the language's accent says "link"; lime floods in on hover. */
 .contact-big {
   letter-spacing: -0.02em;
-  text-decoration: none;
   overflow-wrap: anywhere;
-  background: linear-gradient(var(--highlight), var(--highlight)) no-repeat 0 92% / 100% 0.14em;
-  transition: background-size 200ms ease, color 200ms ease;
+  text-decoration: underline 0.06em var(--accent-b-ink);
+  text-underline-offset: 0.14em;
+  background: linear-gradient(var(--highlight), var(--highlight)) no-repeat 0 100% / 100% 0;
+  transition: background-size var(--t-quick) var(--ease-out), color var(--t-quick) ease;
 }
-.contact-big:hover, .contact-big:focus-visible { background-size: 100% 100%; color: var(--on-highlight); text-decoration: none; }
+.contact-big:hover, .contact-big:focus-visible { background-size: 100% 100%; color: var(--on-highlight); text-decoration-color: var(--on-highlight); }
 .contact__copy { display: none; align-items: center; gap: var(--space-3); margin: 0 0 22px; min-height: 2.5rem; }
 .js .contact__copy { display: flex; }
 .contact__copy button {
@@ -163,7 +200,7 @@ main:focus { outline: none; }
   border-radius: 999px;
   padding: 0.5em 1.3em;
   cursor: pointer;
-  transition: background-color 150ms ease, color 150ms ease;
+  transition: background-color var(--t-quick) ease, color var(--t-quick) ease;
 }
 .contact__copy button:hover { background: var(--ink); color: var(--paper); }
 .contact__status { font-family: var(--sans); font-size: var(--step--1); color: var(--ink-muted); }
@@ -200,11 +237,11 @@ main:focus { outline: none; }
   background: var(--paper);
   color: var(--ink);
 }
-.lightbox::backdrop { background: rgb(9 26 21 / 0.82); }
+.lightbox::backdrop { background: var(--scrim); }
 .lightbox__bar { display: flex; justify-content: flex-end; margin-bottom: var(--space-2); }
 .lightbox__bar button {
   background: none;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--rule-strong);
   border-radius: 999px;
   color: var(--ink);
   padding: var(--space-2) var(--space-4);
@@ -217,5 +254,5 @@ main:focus { outline: none; }
 
 /* A screenshot that opens in the lightbox. */
 a.zoom { display: block; cursor: zoom-in; border-radius: var(--radius-s); }
-a.zoom img { transition: transform 150ms ease, box-shadow 150ms ease; }
-a.zoom:hover img { transform: translateY(-2px); box-shadow: 0 10px 28px -12px rgb(21 57 47 / 0.45); }
+a.zoom img { transition: transform var(--t-quick) var(--ease-out), box-shadow var(--t-quick) ease; }
+a.zoom:hover img { transform: translateY(-2px); box-shadow: 0 10px 28px -12px var(--mat-shadow); }

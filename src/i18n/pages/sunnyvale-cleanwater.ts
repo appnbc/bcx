@@ -67,9 +67,9 @@ const en = {
     kicker: 'Design',
     p1: 'The original site had few pages, each holding many sections. The redesign has more pages, each with less, more specific information.',
     before: { label: 'Existing site', alt: 'Site map of the existing site: Home branches to Why the Community Needs This Program, About the Existing Plant (with nine sub-pages), Water Pollution Control Master Plan, Program Environmental Impact Report, News and Updates, and Projects.' } as Side,
-    after: { label: 'Redesign', alt: 'Site map of the new site: Home branches to Learn More, Get Involved, Program Info, Updates, Contact Us and Contractors, each with focused sub-pages.' } as Side,
+    after: { label: 'Redesign', alt: 'Site map of the new site: Home branches to Learn More, Get Involved, Program Info, Updates, Contact Us, and Contractors, each with focused sub-pages.' } as Side,
     caption: 'Site maps before and after. The new top level is organized by what visitors came to do.',
-    p2: 'The Projects page shows the change best. It used to be one page with a column listing every project, its description and its status. Now it links to a page for each project, and each project page links back to the list.',
+    p2: 'The Projects page shows the change best. It used to be one page with a column listing every project, its description, and its status. Now it links to a page for each project, and each project page links back to the list.',
     projectsAlt: 'Active Projects page: a list of five project links beside a photo of equipment on a construction site.',
   },
   navigation: {
@@ -93,8 +93,8 @@ const en = {
   },
   process: {
     title: 'Process simplification',
-    p1: 'Some of the plant’s work is complicated: power generation, biosolids production and water recycling on the Benefits, Value, Community page, and the program schedule process on the Projects page.',
-    p2: 'I explained each one with icons, arrows and plain language. The icons stand for the nouns in the text that a visitor would recognize. Each arrow carries a short phrase for the action that moves the process forward. Water recycling also gets a two-sentence summary. The subject matter experts approved both the text and the imagery.',
+    p1: 'Some of the plant’s work is complicated: power generation, biosolids production, and water recycling on the Benefits, Value, Community page, and the program schedule process on the Projects page.',
+    p2: 'I explained each one with icons, arrows, and plain language. The icons stand for the nouns in the text that a visitor would recognize. Each arrow carries a short phrase for the action that moves the process forward. Water recycling also gets a two-sentence summary. The subject matter experts approved both the text and the imagery.',
   },
   retrospective: {
     title: 'Retrospective',

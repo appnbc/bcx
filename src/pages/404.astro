@@ -25,10 +25,11 @@ import Base from '../layouts/Base.astro';
   .more {
     font-family: var(--sans);
     font-weight: 600;
-    text-decoration: none;
-    background: linear-gradient(var(--highlight), var(--highlight)) no-repeat 0 100% / 100% 0.3em;
+    text-decoration: underline 2px var(--accent-a-ink);
+    text-underline-offset: 0.25em;
+    background: linear-gradient(var(--highlight), var(--highlight)) no-repeat 0 100% / 100% 0;
     padding-inline: 0.1em;
-    transition: background-size 150ms ease;
+    transition: background-size var(--t-quick) var(--ease-out), color var(--t-quick) ease, text-decoration-color var(--t-quick) ease;
   }
-  .more:hover { background-size: 100% 100%; color: var(--on-highlight); }
+  .more:hover, .more:focus-visible { background-size: 100% 100%; color: var(--on-highlight); text-decoration-color: var(--on-highlight); }
 </style>

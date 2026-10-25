@@ -8,7 +8,7 @@ test('every selected project shows its visual on a tinted panel', () => {
   for (const prefix of ['', '/es', '/it']) {
     const v = visuals(page(`${prefix}/`));
     assert.equal(v.length, 6, `${prefix || '/'}: six visuals`);
-    for (const x of v) assert.match(x, /class="selected__visual mat mat--(sage|peach)/);
+    for (const x of v) assert.match(x, /class="selected__visual mat mat--(a|b)/);
   }
 });
 

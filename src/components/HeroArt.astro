@@ -2,7 +2,8 @@
 /**
  * Decorative line illustration for the homepage hero: English, Spanish and
  * Italian speech bubbles flowing into an interface that's being edited.
- * Drawn in the site's ink + highlighter palette; hidden from assistive tech.
+ * Drawn in the site's ink + lime palette; the flowing words take the page's
+ * language accent. Hidden from assistive tech.
  * The button speaks the page's language.
  */
 import { langFromUrl } from '../i18n/locales';
@@ -76,7 +77,7 @@ const t = ui[langFromUrl(Astro.url)];
   .ink-soft { fill: currentColor; opacity: 0.3; }
   .ink-dot { fill: currentColor; opacity: 0.5; }
   .strike { stroke: var(--red); stroke-width: 2.5; stroke-linecap: round; }
-  .flow path { fill: none; stroke: currentColor; stroke-width: 2; stroke-dasharray: 2 7; stroke-linecap: round; opacity: 0.55; }
+  .flow path { fill: none; stroke: var(--accent-a-ink); stroke-width: 2; stroke-dasharray: 2 7; stroke-linecap: round; opacity: 0.8; }
   .bubble__text { font-family: var(--serif); font-size: 40px; text-anchor: middle; fill: currentColor; letter-spacing: -0.02em; }
   .bubble--it .bubble__text { font-size: 32px; }
   .bubble__text--on-hl { fill: var(--on-highlight); }

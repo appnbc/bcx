@@ -2,17 +2,17 @@
 type Segment = { t: string } | { m: string };
 
 const en = {
-  description: 'I design and write interfaces for public programs, language learning and voice, in English and Spanish.',
+  description: 'I design and write interfaces for public programs, language learning, and voice, in English and Spanish.',
   headline: [
     { t: 'I design and write interfaces for ' },
     { m: 'public programs' },
     { t: ', ' },
     { m: 'language learning' },
-    { t: ' and ' },
+    { t: ', and ' },
     { m: 'voice' },
     { t: ', in English and Spanish.' },
   ] as Segment[],
-  sub: 'Civic infrastructure websites, a Spanish textbook program going digital, voice systems for Spanish speakers. Each case study shows the drafts, the struck-through copy and the before-and-after screens, not just the result.',
+  sub: 'Civic infrastructure websites, a Spanish textbook program going digital, voice systems for Spanish speakers. Each case study shows the drafts, the struck-through copy, and the before-and-after screens, not just the result.',
   currentlyLabel: 'Currently',
   currently: 'Advanced Program in Contemporary Public Art at Accademia Unidee – Fondazione Pistoletto, Biella, Italy.',
   selectedTitle: 'Selected work',
@@ -27,7 +27,7 @@ const en = {
   },
   focus: {
     'sunnyvale-cleanwater': 'Information architecture and microcopy',
-    'ladwp-turf-replacement': 'UX writing, localization and email',
+    'ladwp-turf-replacement': 'UX writing, localization, and email',
     'alfredo-voice-services': 'Voice design and Spanish localization',
     descubre: 'Content strategy and conversation design',
     '526-lowcountry-corridor': 'Accessibility and the CMS build',
@@ -36,7 +36,7 @@ const en = {
   alts: {
     'sunnyvale-cleanwater': 'The redesigned Sunnyvale FAQ page: an "On this page" list of linked questions beside a photo of a scientist at work.',
     'ladwp-turf-replacement': 'The redesigned HTML confirmation email: LADWP logo, application receipt heading, and two-column tables of contact details and answers.',
-    descubre: 'Annotated screen of the Descubre "Listening practice: La familia" activity, with magenta boxes marking the title, instructions, due date and next-activity button.',
+    descubre: 'Annotated screen of the Descubre "Listening practice: La familia" activity, with magenta boxes marking the title, instructions, due date, and next-activity button.',
     'the-burger-queen': 'Prototype screen: "We offer American classics. There’s a menu next to your television and I have also sent the menu to the phone linked to your account. Would you like to order now?" beside a photo of a cheeseburger.',
   } as Record<string, string>,
   alfredoLabel: 'From the style guide: say the time of day in long form.',
@@ -49,7 +49,7 @@ const en = {
   samplesLink: 'See it in the case study',
   samplesDescubreWhy: 'On paper you circle a word. On screen you select it, so the instruction has to say so.',
   practiceTitle: 'Research & practice',
-  practiceLead: 'Installations and prototypes from my artistic research: spatial and tangible interfaces, voice, AI and public space.',
+  practiceLead: 'Installations and prototypes from my artistic research: spatial and tangible interfaces, voice, AI, and public space.',
   everythingElse: 'Everything else',
   seeAll: 'See all {n} projects',
   counts: {
@@ -60,7 +60,7 @@ const en = {
   } as Record<string, [string, string]>,
   aboutTitle: 'About',
   aboutText: 'I’m a native speaker of English and Spanish, and I work across both: localization at Amazon Alexa, Spanish voice design at Versay, and plain-language public websites at CDM Smith. I studied UX at Pompeu Fabra University (Master’s in Digital Information) and media art in the Erasmus Mundus MA Media Arts Cultures.',
-  aboutLink: 'Experience, talks and education',
+  aboutLink: 'Experience, talks, and education',
 };
 
 const es: typeof en = {

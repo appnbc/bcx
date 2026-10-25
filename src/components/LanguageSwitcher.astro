@@ -20,32 +20,53 @@ const { lang, path } = Astro.props;
   </ul>
 </nav>
 
+<script>
+  // Remember which palette the visitor is leaving, so the next page can ease from it (see Base.astro).
+  document.querySelectorAll<HTMLAnchorElement>('.lang-switcher a:not([aria-current])').forEach((a) =>
+    a.addEventListener('click', (e) => {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      try { sessionStorage.setItem('lang-from', document.documentElement.lang); } catch {}
+    }),
+  );
+</script>
+
 <style>
-  .lang-switcher ul { list-style: none; margin: 0; padding: 3px; display: inline-flex; gap: 2px; border: 1px solid var(--rule); border-radius: 999px; }
+  /* --switcher-outline lets a container that already draws one (the header bar) turn it off. */
+  .lang-switcher ul { list-style: none; margin: 0; padding: var(--switcher-pad, 3px); display: inline-flex; gap: 2px; border: var(--switcher-outline, 1px solid var(--rule)); border-radius: 999px; }
+  /* Each link wears its own language's accent: hovering Español previews violet, Italiano sage. */
+  .lang-switcher a:lang(en) { --lang-accent: var(--cobalt-ink); }
+  .lang-switcher a:lang(es) { --lang-accent: var(--violet-ink); }
+  .lang-switcher a:lang(it) { --lang-accent: var(--sage-ink); }
   .lang-switcher a {
-    display: block;
+    display: flex;
+    align-items: center;
+    min-height: 24px; /* WCAG 2.5.8 target size */
     font-family: var(--sans);
-    font-size: var(--step--2);
+    font-size: var(--switcher-size, var(--step--2));
     font-weight: 600;
-    text-decoration: none;
+    text-decoration: underline 2px transparent;
+    text-underline-offset: 0.3em;
     padding: 0.3em 0.9em;
     border-radius: 999px;
     color: var(--ink-muted);
+    transition: color var(--t-quick) ease, background-color var(--t-quick) ease, text-decoration-color var(--t-quick) ease;
   }
-  .lang-switcher a:hover { color: var(--ink); }
-  .lang-switcher a[aria-current] { background: var(--highlight); color: var(--on-highlight); }
+  .lang-switcher a:hover { color: var(--ink); text-decoration-color: var(--lang-accent); }
+  /* The current language is a solid chip in its own accent: graphite with coloured text, or the
+     reverse in dark mode. The chip shape carries the state, so it never relies on hue alone. */
+  .lang-switcher a[aria-current] { background: var(--lang-chip-bg); color: var(--lang-chip-fg); text-decoration: none; }
   .lang-switcher__code { display: none; }
   /* A small-caps tag for translations still in review. */
   .lang-switcher__beta {
-    margin-left: 0.15em;
+    margin-left: 0.4em; /* the link is a flex box, which drops the space before the tag */
     font-size: 0.78em;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
-  /* On phones the full names stay for screen readers; sighted readers get EN / ES / IT. */
-  @media (max-width: 699px) {
-    .lang-switcher a { padding: 0.3em 0.7em; }
+  /* Below 1200px the full names stay for screen readers; sighted readers get EN / ES / IT. */
+  @media (max-width: 1199px) {
+    .lang-switcher a { padding: 0.3em 0.4em; }
     .lang-switcher__code { display: inline; }
     .lang-switcher__name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   }

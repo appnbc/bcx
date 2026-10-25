@@ -33,7 +33,7 @@ const en = {
     caption: 'Changes made across the whole site',
     headers: ['Area', 'What I changed'] as [string, string],
     rows: [
-      { issue: 'Hierarchy', response: 'Headings in the HTML didn’t follow an order. I set each heading level by importance, position and size, which also helps screen readers.' },
+      { issue: 'Hierarchy', response: 'Headings in the HTML didn’t follow an order. I set each heading level by importance, position, and size, which also helps screen readers.' },
       { issue: 'Bullet points', response: 'Some “bullets” were characters typed inside a paragraph. I rebuilt them as real list items.' },
       { issue: 'Style', response: 'Some styles were inconsistent; the ® symbol, for example, wasn’t superscripted everywhere. I made them consistent.' },
       { issue: 'Banner', response: 'The hero banner now states the program’s purpose on the homepage, and names the current page everywhere else.' },
@@ -59,7 +59,7 @@ const en = {
     galleryLabel: 'Application screens',
     shots: [
       { alt: 'Application page: terms to agree to, then "What does your Turf Area look like?" with two photo choices, green grass and bare dirt.', caption: 'Photo choices show which lawns qualify.' },
-      { alt: 'Application page "Provide Contact Information" with name, phone, email and address fields.', caption: 'Contact information page.' },
+      { alt: 'Application page "Provide Contact Information" with name, phone, email, and address fields.', caption: 'Contact information page.' },
       { alt: 'A variant of the contact information page with the same fields.', caption: 'Contact information, variant.' },
     ] as Shot[],
   },
@@ -79,7 +79,7 @@ const en = {
     changes: [
       { term: 'Bold', rest: ' for titles and for the questions the applicant answered.' },
       { term: 'A two-column table', rest: ', question and answer, with alternating row colors for legibility.' },
-      { term: 'Dividers', rest: ' between header, tables and footer.' },
+      { term: 'Dividers', rest: ' between header, tables, and footer.' },
       { term: 'The logo', rest: ' in the header and a website link in the footer, so people know who sent it and can click through.' },
     ],
   },

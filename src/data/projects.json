@@ -281,7 +281,7 @@
       "Localization"
     ],
     "type": "case-study",
-    "role": "UX Designer, CMS developer and accessibility lead",
+    "role": "UX Designer, CMS developer, and accessibility lead",
     "team": [
       {
         "name": "Alyssa",
@@ -292,7 +292,7 @@
         "role": "Project manager"
       }
     ],
-    "summary": "The public website for a highway corridor project. I designed it, built it in the CMS, and led its accessibility work: color contrast, keyboard navigation, the Spanish menu, alt text and video scripts. The site shipped and is still live.",
+    "summary": "The public website for a highway corridor project. I designed it, built it in the CMS, and led its accessibility work: color contrast, keyboard navigation, the Spanish menu, alt text, and video scripts. The site shipped and is still live.",
     "sources": [
       "Portfolio Map (spreadsheet)",
       "User confirmation, Oct 2026"
@@ -451,7 +451,7 @@
     "type": "professional",
     "role": "Developmental Editor",
     "summary": "Vista Higher Learning's French program, one of three curricula in my editorial work there.",
-    "detail": "As developmental editor I managed the editorial lifecycle of print and digital language curricula: Thèmes (©2016), Descubre (©2017) and Mosaik (©2018). The work covered thematic modules, teaching sequences and interactive multimedia for advanced language learners.",
+    "detail": "As developmental editor I managed the editorial lifecycle of print and digital language curricula: Thèmes (©2016), Descubre (©2017), and Mosaik (©2018). The work covered thematic modules, teaching sequences, and interactive multimedia for advanced language learners.",
     "sources": [
       "Résumé"
     ],
@@ -531,7 +531,7 @@
     "type": "professional",
     "role": "AI UX Consultant",
     "summary": "Advising product teams on interface trust and long-term usability in AI products.",
-    "detail": "I investigated platform governance, algorithmic transparency and user retention mechanics across AI ecosystems, and advised product teams on interface trust and long-term usability.",
+    "detail": "I investigated platform governance, algorithmic transparency, and user retention mechanics across AI ecosystems, and advised product teams on interface trust and long-term usability.",
     "sources": [
       "Résumé"
     ],
@@ -570,7 +570,7 @@
     "type": "professional",
     "role": "UX Analyst, Marketing Intelligence",
     "summary": "Comparative research on how people find things in European digital heritage collections.",
-    "detail": "I ran comparative qualitative research across European digital cultural heritage repositories, evaluating metadata discoverability, institutional access barriers and participatory user pathways.",
+    "detail": "I ran comparative qualitative research across European digital cultural heritage repositories, evaluating metadata discoverability, institutional access barriers, and participatory user pathways.",
     "sources": [
       "Résumé"
     ],
@@ -734,9 +734,9 @@
     ],
     "capabilities": [],
     "type": "exhibition",
-    "role": "Co-creator, co-director and solo performer",
+    "role": "Co-creator, co-director, and solo performer",
     "summary": "A site-specific performance setting a synthesized voice against an unamplified human one.",
-    "detail": "A multimedia performance contrasting algorithmic voice synthesis with the unamplified biological voice, ending in a solo spoken-word piece I performed. I co-directed the scenography, fashion styling and reactive DMX lighting.",
+    "detail": "A multimedia performance contrasting algorithmic voice synthesis with the unamplified biological voice, ending in a solo spoken-word piece I performed. I co-directed the scenography, fashion styling, and reactive DMX lighting.",
     "sources": [
       "Résumé"
     ],
@@ -774,7 +774,7 @@
     "type": "exhibition",
     "role": "Co-director",
     "summary": "A participatory installation where visitors built miniature rooms and negotiated a shared tower of them.",
-    "detail": "Visitors staged miniature domestic interiors inside a wooden enclosure using physical objects, AI-painted backdrops and adjustable desk lamps. Their designs were compiled into a shared pixelated tower interface to negotiate collective living space.",
+    "detail": "Visitors staged miniature domestic interiors inside a wooden enclosure using physical objects, AI-painted backdrops, and adjustable desk lamps. Their designs were compiled into a shared pixelated tower interface to negotiate collective living space.",
     "sources": [
       "Résumé"
     ],
@@ -810,8 +810,8 @@
     "capabilities": [],
     "type": "exhibition",
     "role": "Artist",
-    "summary": "Synthetic turf, gingham and handwritten social-media tags, testing how domestic materials and digital labels change a shared space.",
-    "detail": "A spatial media installation combining synthetic turf, gingham textiles and handwritten social-media metadata tags, to test how tactile domestic materials and digital overlays change the way people read a shared space.",
+    "summary": "Synthetic turf, gingham, and handwritten social-media tags, testing how domestic materials and digital labels change a shared space.",
+    "detail": "A spatial media installation combining synthetic turf, gingham textiles, and handwritten social-media metadata tags, to test how tactile domestic materials and digital overlays change the way people read a shared space.",
     "sources": [
       "Résumé"
     ],

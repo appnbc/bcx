@@ -1,7 +1,7 @@
 const en = {
   title: 'Index',
-  description: (n: number) => `All ${n} projects by Brian Contreras: UX design, UX writing, conversation design, research and creative practice.`,
-  intro: (n: number) => `All ${n} projects in one list: case studies, professional work, exhibitions, talks and writing.`,
+  description: (n: number) => `All ${n} projects by Brian Contreras: UX design, UX writing, conversation design, research, and creative practice.`,
+  intro: (n: number) => `All ${n} projects in one list: case studies, professional work, exhibitions, talks, and writing.`,
   legendPages: 'Case studies',
   legendPagesTail: 'open as their own pages; the rest',
   legendEntriesTail: 'expand in place.',

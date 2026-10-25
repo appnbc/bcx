@@ -114,7 +114,7 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
       </div>
       {selected.map((s, i) => (
         <article class:list={['grid selected', { 'selected--flip': i % 2 === 1 }]} data-kinds={s.kinds}>
-          <div class:list={['selected__visual mat', i % 2 === 0 ? 'mat--sage' : 'mat--peach']}>
+          <div class:list={['selected__visual mat', i % 2 === 0 ? 'mat--a' : 'mat--b']}>
             {s.image ? (
               <a class:list={['zoom mat__item', { mat__stack: s.back }]} href={fulls[i]} data-alt={s.alt} data-caption={s.p.title}>
                 {s.back && <Picture class="mat__back" src={s.back} alt="" formats={['avif', 'webp']} widths={widthsFor(s.back)} quality={IMAGE_QUALITY} sizes="(min-width: 900px) 40vw, 80vw" loading="lazy" style={`--w: ${s.back.width}px`} />}
@@ -225,8 +225,9 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
 
 <style>
   /*
-   * One signature (the highlighter), one rule for shapes
+   * One signature (the lime highlighter), one rule for shapes
    * (square corners; pills only for controls), one label style, ink + paper.
+   * The page's language tints the washes, the mats, and the fine lines.
    */
   .calm { --hl: var(--highlight); }
 
@@ -242,8 +243,8 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
 
   /* Highlighter: the only mark. */
   mark {
-    background: linear-gradient(var(--hl), var(--hl)) no-repeat 0 62% / 100% 0.72em;
-    color: inherit;
+    background: linear-gradient(var(--hl), var(--hl)) no-repeat 0 var(--mark-pos) / 100% var(--mark-band);
+    color: var(--mark-fg);
     padding-inline: 0.04em;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
@@ -252,9 +253,8 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
   mark:nth-of-type(1) { animation-delay: 300ms; }
   mark:nth-of-type(2) { animation-delay: 650ms; }
   mark:nth-of-type(3) { animation-delay: 1000ms; }
-  @keyframes swipe { from { background-size: 0% 0.72em; } }
+  @keyframes swipe { from { background-size: 0% var(--mark-band); } }
   @media (prefers-reduced-motion: reduce) { mark { animation: none; } }
-  @media (prefers-color-scheme: dark) { mark { color: var(--on-highlight); background-size: 100% 0.95em; background-position: 0 70%; } }
 
   /* A still wash of the two brand colours behind the (transparent) header and the hero;
      it fades out before the work. */
@@ -270,7 +270,7 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
       radial-gradient(min(620px, 80vw) 420px at 40% 80%, var(--wash-c), transparent 70%);
     mask-image: linear-gradient(to bottom, #000 60%, transparent);
   }
-  .intro { padding-top: var(--space-7); row-gap: var(--space-5); }
+  .intro { padding-top: var(--space-7); row-gap: var(--space-5); --ink-muted: var(--ink-muted-on-wash); }
   .hero {
     font-size: clamp(2.25rem, 1.2rem + 4.2vw, 5.5rem);
     line-height: 1.08;
@@ -279,7 +279,7 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
     max-width: 17ch;
   }
   .intro__sub { font-size: var(--step-1); line-height: 1.4; color: var(--ink-muted); }
-  .note { border-left: 3px solid var(--hl); padding-left: var(--space-3); align-self: end; font-size: var(--step--1); color: var(--ink-muted); }
+  .note { border-left: 3px solid var(--accent-b-ink); padding-left: var(--space-3); align-self: end; font-size: var(--step--1); color: var(--ink-muted); }
   .intro__art { max-width: 340px; width: 100%; justify-self: center; }
   @media (min-width: 900px) {
     .intro .hero { grid-column: 1 / 8; grid-row: 1; }
@@ -301,9 +301,10 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
     background: transparent;
     color: var(--ink-muted);
     cursor: pointer;
+    transition: color var(--t-quick) ease, background-color var(--t-quick) ease;
   }
   .switch button:hover { color: var(--ink); }
-  .switch button[aria-pressed='true'] { background: var(--hl); color: var(--on-highlight); }
+  .switch button[aria-pressed='true'] { background: var(--selected-bg); color: var(--selected-fg); }
 
   /* Every section opens the same way: a full-width ink rule, then the title. */
   .block { margin-top: var(--space-7); }
@@ -329,10 +330,18 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
     place-items: center;
     aspect-ratio: 4 / 3;
     padding: clamp(var(--space-4), 6%, var(--space-6));
-    background: var(--mat-bg);
+    background: color-mix(in srgb, var(--mat-accent) var(--mat-dose), var(--paper));
+    --ink-muted: var(--ink-muted-on-wash);
+    transition: background-color var(--t-quick) ease, translate var(--t-quick) var(--ease-out);
   }
-  .mat--sage { --mat-bg: var(--mat-sage); }
-  .mat--peach { --mat-bg: var(--mat-peach); }
+  .mat--a { --mat-accent: var(--accent-a); }
+  .mat--b { --mat-accent: var(--accent-b); }
+  /* A featured project answers the pointer, or the keyboard, as one piece:
+     its panel lifts 2px and the language's light gathers in it. */
+  .selected:focus-within .mat { --mat-dose: var(--mat-dose-hover); translate: 0 -2px; }
+  @media (hover: hover) {
+    .selected:hover .mat { --mat-dose: var(--mat-dose-hover); translate: 0 -2px; }
+  }
   .mat__item {
     display: grid;
     grid-template: minmax(0, 1fr) / minmax(0, 1fr);
@@ -354,9 +363,11 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
   .mat__stack :global(.mat__front) { max-width: min(88%, var(--w)); max-height: 88%; rotate: 2deg; translate: 5% 6%; }
   .mat__stack :global(.mat__back) { max-width: min(88%, var(--w)); max-height: 88%; rotate: -3deg; translate: -5% -6%; }
   .selected__type { justify-self: stretch; }
+  /* Text panels keep the 4:3 shape where they can, but grow when longer translations need room. */
+  .mat:has(> .selected__type) { grid-template-rows: auto; }
 
   .samples { margin-top: var(--space-5); }
-  .sample { background: var(--mat-sage); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3); }
+  .sample { background: var(--mat-b); --ink-muted: var(--ink-muted-on-wash); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3); }
   .sample :global(.edit-view) { margin: 0; }
   .sample p, .sample__why { margin: 0; font-size: var(--step--1); color: var(--ink-muted); }
   .sample__why { padding-left: 1.1em; }
@@ -366,7 +377,8 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
   .selected__issues li { padding: var(--space-2) 0; border-top: 1px solid var(--rule); }
   .selected h3 { font-size: var(--step-3); font-weight: 400; letter-spacing: -0.02em; margin: 0 0 var(--space-3); }
   .selected h3 a, .practice h3 a { text-decoration: none; }
-  .selected h3 a:hover, .practice h3 a:hover { background: linear-gradient(var(--hl), var(--hl)) no-repeat 0 85% / 100% 0.3em; }
+  .selected h3 a, .practice h3 a { text-decoration: underline 2px transparent; text-underline-offset: 0.16em; transition: text-decoration-color var(--t-quick) ease; }
+  .selected h3 a:hover, .practice h3 a:hover { text-decoration-color: var(--accent-a-ink); }
   @media (min-width: 900px) {
     .selected .selected__visual { grid-column: 1 / 8; }
     .selected .selected__text { grid-column: 9 / 13; }
@@ -374,21 +386,24 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
     .selected--flip .selected__text { grid-column: 1 / 5; grid-row: 1; }
   }
 
-  /* Links that lead somewhere get the same highlighter underline, filling on hover. */
+  /* Links that lead somewhere: an underline in the language's accent, flooded with lime on hover. */
   .more, .all-link {
     font-family: var(--sans);
     font-weight: 600;
-    text-decoration: none;
     color: inherit;
-    background: linear-gradient(var(--hl), var(--hl)) no-repeat 0 100% / 100% 0.3em;
+    text-decoration: underline 2px var(--accent-a-ink);
+    text-underline-offset: 0.25em;
+    background: linear-gradient(var(--hl), var(--hl)) no-repeat 0 100% / 100% 0;
     padding-inline: 0.1em;
-    transition: background-size 150ms ease;
+    transition: background-size var(--t-quick) var(--ease-out), color var(--t-quick) ease, text-decoration-color var(--t-quick) ease;
   }
-  .more:hover, .all-link:hover { background-size: 100% 100%; color: var(--on-highlight); text-decoration: none; }
+  .more:hover, .all-link:hover, .more:focus-visible, .all-link:focus-visible { background-size: 100% 100%; color: var(--on-highlight); text-decoration-color: var(--on-highlight); }
   .all-link { display: inline-block; font-family: var(--serif); font-weight: 400; font-size: var(--step-4); letter-spacing: -0.02em; margin-bottom: var(--space-2); }
 
   .practice { list-style: none; padding: 0; margin: var(--space-5) 0 0; }
-  .practice li { border-top: 1px solid var(--rule); padding-top: var(--space-3); }
+  .practice li { border-top: 1px solid var(--rule); padding-top: var(--space-3); transition: border-color var(--t-quick) ease; }
+  .practice li:focus-within { border-top-color: var(--ink); }
+  @media (hover: hover) { .practice li:hover { border-top-color: var(--ink); } }
   .practice h3 { font-size: var(--step-2); font-weight: 400; margin: 0 0 var(--space-2); }
   .practice p { font-size: var(--step--1); }
 

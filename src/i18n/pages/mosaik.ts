@@ -3,12 +3,12 @@ const en = {
   title: 'What carried over',
   p1Before: 'Mosaik is Vista Higher Learning’s German program, one of the curricula I worked on as developmental editor. The design decisions made for',
   p1After: ', from the editorial style guide to the digital features, were applied to the German collection the following year.',
-  p2: 'The shared guidelines were written for exactly this: colleagues covered French, German and Italian alongside my Spanish, with English as the common base, so one set of rules could serve every language.',
+  p2: 'The shared guidelines were written for exactly this: colleagues covered French, German, and Italian alongside my Spanish, with English as the common base, so one set of rules could serve every language.',
   noteLabel: 'More detail',
   noteBefore: 'The reasoning behind these decisions is in the',
   noteLink: 'Descubre case study',
   noteAfter: '.',
-  coversAlt: 'Covers of Mosaik 1, 2 and 3: colorful photographs of European buildings and architecture.',
+  coversAlt: 'Covers of Mosaik 1, 2, and 3: colorful photographs of European buildings and architecture.',
   coversCaption: 'The Mosaik series, ©2018.',
 };
 

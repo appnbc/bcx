@@ -2,6 +2,7 @@
 import '@fontsource-variable/newsreader/opsz.css';
 import '@fontsource-variable/newsreader/opsz-italic.css';
 import '@fontsource-variable/public-sans/wght.css';
+import '@fontsource/ibm-plex-mono/latin-400.css';
 import '../styles/tokens.css';
 import '../styles/base.css';
 import '../styles/layout.css';
@@ -9,6 +10,7 @@ import { site, hasContact } from '../config';
 import { href, stripLocale, type Locale } from '../i18n/locales';
 import { ui } from '../i18n/ui';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import ThemeSwitch from '../components/ThemeSwitch.astro';
 
 interface Props {
   title: string;
@@ -50,7 +52,7 @@ const { email, linkedin, other = [] } = site.contact;
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content={site.name} />
     <meta name="twitter:card" content="summary" />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="color-scheme" content="dark" />
     {hidden && <meta name="robots" content="noindex" />}
     {offerLanguages && (
       <>
@@ -61,24 +63,50 @@ const { email, linkedin, other = [] } = site.contact;
       </>
     )}
     <link rel="icon" href={href('en', '/favicon.svg')} type="image/svg+xml" />
-    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        root.classList.add('js');
+        // Dark unless the visitor picked light with the header switch.
+        try {
+          const theme = localStorage.getItem('theme');
+          if (theme === 'light' || theme === 'dark') root.dataset.theme = theme;
+        } catch {}
+        // Arriving from the language switcher: paint one frame in the previous language's
+        // palette, then let the accent colours ease into this one (transition in tokens.css).
+        try {
+          const from = sessionStorage.getItem('lang-from');
+          sessionStorage.removeItem('lang-from');
+          if (!from || from === root.lang || !/^(en|es|it)$/.test(from) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          root.dataset.fromLang = from;
+          const release = () => requestAnimationFrame(() => requestAnimationFrame(() => delete root.dataset.fromLang));
+          if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', release, { once: true });
+          else release();
+        } catch {}
+      })();
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">{t.skipLink}</a>
     <header class:list={['site-header', { 'site-header--overlay': overlayHeader }]}>
       <div class="wrap">
         <a class="site-name" href={href(lang, '/')}>{site.name} <span>{t.role}</span></a>
-        <nav class="site-nav" aria-label={t.nav.label}>
-          <ul>
-            {nav.map((item) => (
-              <li>
-                <a href={href(lang, item.path)} aria-current={item.key === current ? 'page' : undefined}>{item.label}</a>
-              </li>
-            ))}
-            <li><a href="#contact">{t.nav.contact}</a></li>
-          </ul>
-        </nav>
-        {offerLanguages && <LanguageSwitcher lang={lang} path={path} />}
+        <div class="site-bar">
+          <nav class="site-nav" aria-label={t.nav.label}>
+            <ul>
+              {nav.map((item) => (
+                <li>
+                  <a href={href(lang, item.path)} aria-current={item.key === current ? 'page' : undefined}>{item.label}</a>
+                </li>
+              ))}
+              <li><a href="#contact">{t.nav.contact}</a></li>
+            </ul>
+          </nav>
+          <div class="site-tools">
+            {offerLanguages && <LanguageSwitcher lang={lang} path={path} />}
+            <ThemeSwitch lang={lang} />
+          </div>
+        </div>
       </div>
     </header>
 

@@ -39,11 +39,13 @@ for (const route of routes) {
   });
 }
 
-test.describe('dark mode', () => {
-  test.use({ colorScheme: 'dark' });
-  for (const route of ['/', '/work/descubre/', '/archive/']) {
-    test(`${route}: dark contrast is clean`, async ({ page }) => {
+// Every route above runs in the default dark theme; these check the light theme too.
+test.describe('light theme', () => {
+  for (const route of ['/', '/es/', '/it/about/', '/work/descubre/', '/archive/', '/work/sunnyvale-cleanwater/']) {
+    test(`${route}: light contrast is clean`, async ({ page }) => {
+      await page.addInitScript(() => localStorage.setItem('theme', 'light'));
       await page.goto(route, { waitUntil: 'networkidle' });
+      expect(await page.evaluate(() => document.documentElement.dataset.theme)).toBe('light');
       const results = await new AxeBuilder({ page }).withTags(['wcag2aa']).analyze();
       const bad = results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');
       expect(bad.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(', ')}`)).toEqual([]);
