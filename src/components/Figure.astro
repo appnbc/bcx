@@ -46,4 +46,13 @@ const sizes = {
     background: #fff;
   }
   figcaption { margin-top: var(--space-2); max-width: 60ch; }
+  /* A short teal rule leads into each caption, like an annotation line on a proof. */
+  figcaption::before {
+    content: '';
+    display: inline-block;
+    width: 1.1em;
+    margin-right: 0.5em;
+    vertical-align: 0.3em;
+    border-top: 1.5px solid var(--signal-ink);
+  }
 </style>

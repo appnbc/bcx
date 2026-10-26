@@ -120,7 +120,7 @@ html { scroll-padding-top: calc(var(--header-h, 72px) + var(--space-3)); }
   transition: text-decoration-color var(--t-quick) ease;
 }
 .site-nav a:hover { text-decoration-color: var(--ink-muted); }
-/* The current page keeps a solid underline: graphite on porcelain, signal lime on graphite. */
+/* The current page keeps a solid underline: deep teal on porcelain, signal teal on graphite. */
 .site-nav a[aria-current] { text-decoration-color: var(--indicator); }
 
 main { display: block; }
@@ -178,7 +178,7 @@ main:focus { outline: none; }
 }
 .contact__bubble::before { bottom: -24px; border-width: 24px 24px 0 0; border-top-color: var(--ink); }
 .contact__bubble::after { bottom: -18.5px; left: calc(1.1em + 2.5px); border-width: 18px 18px 0 0; border-top-color: var(--paper); }
-/* An underline in the language's accent says "link"; lime floods in on hover. */
+/* An underline in the language's accent says "link"; teal floods in on hover. */
 .contact-big {
   letter-spacing: -0.02em;
   overflow-wrap: anywhere;
@@ -205,6 +205,16 @@ main:focus { outline: none; }
 .contact__copy button:hover { background: var(--ink); color: var(--paper); }
 .contact__status { font-family: var(--sans); font-size: var(--step--1); color: var(--ink-muted); }
 .contact-list { list-style: none; padding: 0; margin: 0; display: flex; gap: var(--space-4); }
+/* The page ends with the maker's mark, stamped at the end of a fine rule like a hallmark. */
+.colophon { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-6); --mark-size: 1.75rem; }
+.colophon::before { content: ''; flex: 1; border-top: 1px solid var(--rule); }
+
+/* Curatorial marginalia: a fine bracket in the language's warm accent, closed by two short
+   ticks, as an editor would mark a passage in the margin. */
+.bracket { position: relative; border-left: 1.5px solid var(--accent-b-ink); padding-left: var(--space-3); }
+.bracket::before, .bracket::after { content: ''; position: absolute; left: -1.5px; width: 7px; border-top: 1.5px solid var(--accent-b-ink); }
+.bracket::before { top: 0; }
+.bracket::after { bottom: 0; }
 
 /* Running text inside a .col-text block */
 .prose { max-width: var(--measure); }

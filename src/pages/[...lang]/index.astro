@@ -96,13 +96,14 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
       </h1>
       <p class="col-text intro__sub">{c.sub}</p>
       <div class="intro__art"><HeroArt /></div>
-      <aside class="col-margin note">
+      <aside class="col-margin note bracket">
         <p class="label-text">{c.currentlyLabel}</p>
         <p>{c.currently}</p>
       </aside>
     </header>
 
     <section id="work" class="block" aria-labelledby="selected-title">
+      <div class="thread" aria-hidden="true"></div>
       <div class="block__head">
         <h2 id="selected-title">{c.selectedTitle}</h2>
         <div class="switch" data-switch role="group" aria-label={c.switch.label}>
@@ -225,7 +226,7 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
 
 <style>
   /*
-   * One signature (the lime highlighter), one rule for shapes
+   * One signature (the teal highlighter), one rule for shapes
    * (square corners; pills only for controls), one label style, ink + paper.
    * The page's language tints the washes, the mats, and the fine lines.
    */
@@ -279,7 +280,7 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
     max-width: 17ch;
   }
   .intro__sub { font-size: var(--step-1); line-height: 1.4; color: var(--ink-muted); }
-  .note { border-left: 3px solid var(--accent-b-ink); padding-left: var(--space-3); align-self: end; font-size: var(--step--1); color: var(--ink-muted); }
+  .note { align-self: end; font-size: var(--step--1); color: var(--ink-muted); }
   .intro__art { max-width: 340px; width: 100%; justify-self: center; }
   @media (min-width: 900px) {
     .intro .hero { grid-column: 1 / 8; grid-row: 1; }
@@ -308,6 +309,64 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
 
   /* Every section opens the same way: a full-width ink rule, then the title. */
   .block { margin-top: var(--space-7); }
+
+  /* The signal thread: on wide screens a fine line comes out of the bottom of the illustration's
+     interface (it starts behind it, so the window hides its top end), turns, runs back across
+     the page, and lands on the work's opening rule at a teal node: from the copy being edited
+     into the work itself. Still and decorative. */
+  .thread { display: none; }
+  @media (min-width: 900px) {
+    #work { position: relative; }
+    .thread {
+      display: block;
+      position: absolute;
+      z-index: -1;
+      left: 0;
+      right: 0;
+      bottom: 100%;
+      height: 420px;
+      pointer-events: none;
+      --r: 14px;
+      --bend: 44px;
+      --thread: var(--rule-strong);
+    }
+    /* Down from the interface, then left. */
+    .thread::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: var(--bend);
+      left: var(--r);
+      right: 20.5%;
+      border: solid var(--thread);
+      border-width: 0 1px 1px 0;
+      border-bottom-right-radius: var(--r);
+    }
+    /* Then down to the rule, ending at the node. */
+    .thread::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: var(--r);
+      height: calc(var(--bend) + 1px);
+      border: solid var(--thread);
+      border-width: 1px 0 0 1px;
+      border-top-left-radius: var(--r);
+    }
+    #work > .block__head { position: relative; }
+    #work > .block__head::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -4px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--mark-point);
+      box-shadow: 0 0 0 2px var(--paper);
+    }
+  }
   .block__head {
     display: flex;
     flex-wrap: wrap;
@@ -333,6 +392,28 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
     background: color-mix(in srgb, var(--mat-accent) var(--mat-dose), var(--paper));
     --ink-muted: var(--ink-muted-on-wash);
     transition: background-color var(--t-quick) ease, translate var(--t-quick) var(--ease-out);
+  }
+  /* Registration marks at two opposite corners, as on a proof sheet: a fine trim line
+     just outside the panel. They draw in a little closer when the work is hovered or focused. */
+  .selected__visual { position: relative; }
+  .selected__visual::before {
+    content: '';
+    position: absolute;
+    inset: calc(-1 * var(--reg-gap));
+    pointer-events: none;
+    --reg-gap: 12px;
+    --reg-len: 10px;
+    --reg: linear-gradient(var(--rule-strong), var(--rule-strong));
+    background:
+      var(--reg) 0 0 / var(--reg-len) 1px no-repeat,
+      var(--reg) 0 0 / 1px var(--reg-len) no-repeat,
+      var(--reg) 100% 100% / var(--reg-len) 1px no-repeat,
+      var(--reg) 100% 100% / 1px var(--reg-len) no-repeat;
+    transition: inset var(--t-quick) var(--ease-out);
+  }
+  .selected:focus-within .selected__visual::before { inset: -8px; }
+  @media (hover: hover) {
+    .selected:hover .selected__visual::before { inset: -8px; }
   }
   .mat--a { --mat-accent: var(--accent-a); }
   .mat--b { --mat-accent: var(--accent-b); }
@@ -386,7 +467,7 @@ const fulls = await Promise.all(selected.map(async (s) => (s.image ? (await getI
     .selected--flip .selected__text { grid-column: 1 / 5; grid-row: 1; }
   }
 
-  /* Links that lead somewhere: an underline in the language's accent, flooded with lime on hover. */
+  /* Links that lead somewhere: an underline in the language's accent, flooded with teal on hover. */
   .more, .all-link {
     font-family: var(--sans);
     font-weight: 600;

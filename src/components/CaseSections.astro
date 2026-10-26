@@ -6,6 +6,7 @@
  */
 import { langFromUrl } from '../i18n/locales';
 import { ui } from '../i18n/ui';
+import Mark from './Mark.astro';
 const t = ui[langFromUrl(Astro.url)];
 const html = await Astro.slots.render('default');
 const items = [...html.matchAll(/<section\b[^>]*\bid="([^"]+)"[\s\S]*?<h2\b[^>]*>([\s\S]*?)<\/h2>/g)].map(([, id, title]) => ({
@@ -22,6 +23,7 @@ const items = [...html.matchAll(/<section\b[^>]*\bid="([^"]+)"[\s\S]*?<h2\b[^>]*
   </nav>
 )}
 <Fragment set:html={html} />
+<div class="grid end-mark"><div class="col-text"><Mark /></div></div>
 
 <script>
   const links = [...document.querySelectorAll<HTMLAnchorElement>('nav.toc a')];
@@ -92,6 +94,9 @@ const items = [...html.matchAll(/<section\b[^>]*\bid="([^"]+)"[\s\S]*?<h2\b[^>]*
   .toc__list a:hover { color: var(--ink); background: var(--paper-sunk); }
   .toc__list a[aria-current] { color: var(--selected-fg); background: var(--selected-bg); font-weight: 600; }
   @media (max-width: 640px) { .toc__label { display: none; } }
+
+  /* The case study closes with the maker's mark, the way a magazine article ends on a small sign. */
+  .end-mark { margin-top: var(--space-6); --mark-size: 1.5rem; }
 
   /* Keep jumped-to headings clear of the sticky bar. */
   :global(.section) { scroll-margin-top: 4rem; }

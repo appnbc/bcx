@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Mixed from '../../components/Mixed.astro';
 import NameBadge from '../../components/NameBadge.astro';
+import Mark from '../../components/Mark.astro';
 import { site } from '../../config';
 import { ui } from '../../i18n/ui';
 import { href, langOf, getLangPaths } from '../../i18n/locales';
@@ -98,8 +99,9 @@ const sections: { id: string; title: string; items: Item[] }[] = [
       </div>
       <div class="col-text prose">
         <p>{c.second}</p>
+        <div class="about-sign"><Mark /></div>
       </div>
-      <aside class="col-margin about-areas">
+      <aside class="col-margin about-areas bracket">
         <h2 class="about-areas__title meta">{c.areasTitle}</h2>
         <p>{c.areas}</p>
       </aside>
@@ -163,7 +165,9 @@ const sections: { id: string; title: string; items: Item[] }[] = [
 
 <style>
   .about-head { padding-top: var(--space-6); row-gap: var(--space-4); margin-bottom: var(--space-6); }
-  .about-areas { border-left: 3px solid var(--accent-b-ink); padding-left: var(--space-3); align-self: start; font-size: var(--step--1); }
+  .about-areas { align-self: start; font-size: var(--step--1); }
+  /* The introduction is signed with the maker's mark. */
+  .about-sign { margin-top: var(--space-4); --mark-size: 2.25rem; }
   .about-areas__title { font-size: var(--step--2); font-weight: 400; font-weight: 600; margin-bottom: var(--space-2); }
   .about-badge { justify-self: start; }
   @media (min-width: 900px) {

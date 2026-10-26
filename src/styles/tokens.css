@@ -1,14 +1,15 @@
 /*
- * Graphite ink on warm porcelain, with signal lime as the one signature mark.
+ * Graphite ink on warm porcelain, with signal teal as the one signature mark.
  * Each language brings two accents of its own (EN cobalt and coral, ES violet and
  * gold, IT terracotta and sage) as coloured light: washes, tints, and fine lines.
  *
  * Contrast rules (WCAG 2.2 AA, measured against porcelain #F4F2EC and graphite #171B22):
- * - The original accents and lime are atmosphere. On porcelain they never carry text,
- *   focus rings, or essential borders (lime is 1.1:1, cobalt 3.3:1).
- * - Lines and indicators on porcelain use the darker "-ink" companions (5.4–6.1:1).
- *   On graphite the originals pass (4.7–13.9:1), so dark mode points "-ink" back at them.
- * - Selected states are a solid chip (graphite with lime text, or the reverse in dark
+ * - The original accents and signal teal are atmosphere. On porcelain they never carry
+ *   text, focus rings, or essential borders (teal is 1.9:1, cobalt 3.3:1).
+ * - Lines and indicators on porcelain use the darker "-ink" companions (5.4–6.1:1; deep
+ *   teal 5.63:1). On graphite the originals pass (4.7–8.2:1), so dark mode points "-ink"
+ *   back at them. --signal-ink is the teal to draw with on whichever surface is showing.
+ * - Selected states are a solid chip (graphite with teal text, or the reverse in dark
  *   mode), so they never depend on hue alone.
  */
 @property --accent-a { syntax: '<color>'; inherits: true; initial-value: #5B7CFA; }
@@ -24,7 +25,8 @@
   --porcelain: #F4F2EC;
   --slate: #68716D;        /* 4.497:1 on porcelain: graphics only, never small text */
   --fine-rule: #D9DCD5;    /* decorative dividers only */
-  --lime: #D9F277;
+  --teal: #59C3BD;         /* signal teal: 8.19:1 on graphite, 1.88:1 on porcelain */
+  --teal-ink: #176B66;     /* deep teal for lines and marks on porcelain: 5.63:1 */
 
   /* Language accents, and their companions for lines and text on porcelain */
   --cobalt: #5B7CFA;     --cobalt-ink: #3652B8;      /* 6.14:1 */
@@ -39,18 +41,20 @@
   --paper-sunk: #EDEAE3;             /* --ink-muted keeps 4.58:1 here */
   --ink: var(--graphite);
   --ink-muted: #626B67;              /* 4.91:1 */
-  --ink-muted-on-wash: #474F4C;      /* ≥4.78:1 even where two washes and lime overlap at full strength */
+  --ink-muted-on-wash: #3B4340;      /* ≥4.74:1 even where all three washes overlap at full strength */
   --rule: var(--fine-rule);
   --rule-strong: #858C87;            /* 3.08:1: boundaries of controls */
   --red: var(--terracotta-ink);      /* the editor's red pen, on deleted copy */
-  --highlight: var(--lime);
+  --highlight: var(--teal);          /* the highlighter band: graphite text on it is 8.19:1 */
   --on-highlight: var(--graphite);
   --selected-bg: var(--graphite);
-  --selected-fg: var(--lime);        /* 13.91:1 */
+  --selected-fg: var(--teal);        /* 8.19:1 */
+  --signal-ink: var(--teal-ink);     /* teal that draws lines and small marks on this surface */
+  --mark-point: var(--teal);         /* the maker's mark's one point: decorative, always the signal teal */
   /* The current language: graphite chip, accent text (4.69–6.69:1 on graphite). */
   --lang-chip-bg: var(--graphite);
   --lang-chip-fg: var(--accent-a);
-  --indicator: var(--graphite);      /* active underlines; lime can't carry them on porcelain */
+  --indicator: var(--teal-ink);      /* active underlines: deep teal, 5.63:1 on porcelain */
   --scrim: rgb(23 27 34 / 0.86);
   --mat-shadow: rgb(23 27 34 / 0.26);
   /* The headline highlighter: a band behind the lower part of the words. */
@@ -68,10 +72,10 @@
   transition: --accent-a 900ms ease, --accent-b 900ms ease, --accent-a-ink 900ms ease, --accent-b-ink 900ms ease;
 
   /* The soft glows behind the hero and the contact section: the signature accent (a)
-     leads, the warm one (b) answers, plus a breath of lime (c) that stays the same everywhere. */
+     leads, the warm one (b) answers, plus a breath of teal (c) that stays the same everywhere. */
   --wash-a: color-mix(in srgb, var(--accent-a) 40%, transparent);
   --wash-b: color-mix(in srgb, var(--accent-b) 34%, transparent);
-  --wash-c: color-mix(in srgb, var(--lime) 24%, transparent);
+  --wash-c: color-mix(in srgb, var(--teal) 20%, transparent);
   /* Panels that work sits on, tinted with the same two accents; a little deeper on hover. */
   --mat-dose: 12%;
   --mat-dose-hover: 18%;
@@ -147,25 +151,27 @@ html:root[data-from-lang='en'] {
   --gold-ink: var(--gold);             /* 9.20:1 */
   --terracotta-ink: var(--terracotta); /* 5.26:1 */
   --sage-ink: var(--sage);             /* 6.69:1 */
+  --teal-ink: var(--teal);             /* 8.19:1 */
 
   --paper: var(--graphite);
   --paper-sunk: #1E232B;
   --ink: var(--porcelain);
   --ink-muted: #A9B3AD;              /* 8.01:1 */
-  --ink-muted-on-wash: #CBD2CE;
+  --ink-muted-on-wash: #DDE2DF;
   --rule: #2C323A;
   --rule-strong: #6B736E;            /* 3.54:1 */
   --red: var(--terracotta);
-  --highlight: var(--lime);
+  --highlight: var(--teal);
   --on-highlight: var(--graphite);
-  --selected-bg: var(--lime);
+  --selected-bg: var(--teal);
   --selected-fg: var(--graphite);
   --lang-chip-bg: var(--accent-a);     /* graphite text on it: 4.69–6.69:1 */
   --lang-chip-fg: var(--graphite);
-  --indicator: var(--lime);
+  --indicator: var(--teal);
+  --signal-ink: var(--teal);
   --scrim: rgb(8 10 13 / 0.86);
   --mat-shadow: rgb(0 0 0 / 0.5);
-  /* Highlighted words take dark text on a deeper lime band. */
+  /* Highlighted words take dark text on a deeper teal band. */
   --mark-fg: var(--on-highlight);
   --mark-band: 0.95em;
   --mark-pos: 70%;
@@ -173,7 +179,7 @@ html:root[data-from-lang='en'] {
   /* Coloured light reads stronger on a dark surface: lower the dose. */
   --wash-a: color-mix(in srgb, var(--accent-a) 28%, transparent);
   --wash-b: color-mix(in srgb, var(--accent-b) 24%, transparent);
-  --wash-c: color-mix(in srgb, var(--lime) 7%, transparent);
+  --wash-c: color-mix(in srgb, var(--teal) 9%, transparent);
   --mat-dose: 16%;
   --mat-dose-hover: 22%;
   --mat-a: color-mix(in srgb, var(--accent-a) var(--mat-dose), var(--paper));

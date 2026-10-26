@@ -21,14 +21,14 @@ test('only the homepage hero gets the soft colour wash, hidden from assistive te
   assert.ok(!/hero-wash/.test(page('/about/')), 'not on inner pages');
 });
 
-test('graphite, porcelain and lime palette, with no trace of the old navy, yellow, forest or peach', async () => {
+test('graphite, porcelain and teal palette, with no trace of the old navy, yellow, forest, peach or lime', async () => {
   const { readFileSync, readdirSync } = await import('node:fs');
   const tokens = readFileSync(new URL('../src/styles/tokens.css', import.meta.url), 'utf8');
-  for (const v of ['--graphite: #171B22', '--porcelain: #F4F2EC', '--slate: #68716D', '--fine-rule: #D9DCD5', '--lime: #D9F277', '--paper: var(--porcelain)', '--ink: var(--graphite)', '--highlight: var(--lime)']) assert.ok(tokens.includes(v), v);
+  for (const v of ['--graphite: #171B22', '--porcelain: #F4F2EC', '--slate: #68716D', '--fine-rule: #D9DCD5', '--teal: #59C3BD', '--teal-ink: #176B66', '--paper: var(--porcelain)', '--ink: var(--graphite)', '--highlight: var(--teal)']) assert.ok(tokens.includes(v), v);
   for (const v of ['--cobalt: #5B7CFA', '--coral: #E07A6F', '--violet: #A48BEE', '--gold: #E3B75A', '--terracotta: #DF6B5C', '--sage: #88AA85']) assert.ok(tokens.includes(v), v);
   const files = (dir) => readdirSync(new URL(dir, import.meta.url), { recursive: true }).filter((f) => /\.(css|astro|svg|ts)$/.test(f)).map((f) => new URL(`${dir}${f.replace(/\\/g, '/')}`, import.meta.url));
   for (const f of [...files('../src/'), ...files('../public/')]) {
-    assert.ok(!/1D2B53|FFE45C|0F1830|255 228 92|29 43 83|15 24 48|1B1A17|15392F|FFC9B5|FCFCFA|9 26 21|21 57 47/i.test(readFileSync(f, 'utf8')), `${f.pathname} still uses an old colour`);
+    assert.ok(!/1D2B53|FFE45C|0F1830|255 228 92|29 43 83|15 24 48|1B1A17|15392F|FFC9B5|FCFCFA|9 26 21|21 57 47|D9F277|--lime/i.test(readFileSync(f, 'utf8')), `${f.pathname} still uses an old colour`);
   }
 });
 
@@ -74,7 +74,40 @@ test('text and indicator tokens meet WCAG 2.2 AA on the surfaces they sit on', a
     assert.ok(contrast(hex(light, `--${c}`), G) >= 4.5, `--${c} on graphite`);
   }
   // Selected chips, and control boundaries at 3:1.
-  assert.ok(contrast(hex(light, '--lime'), G) >= 4.5, 'lime and graphite chip');
+  assert.ok(contrast(hex(light, '--teal'), G) >= 4.5, 'teal and graphite chip');
+  // Teal lines and marks: the deep companion on porcelain, the signal teal on graphite.
+  assert.ok(contrast(hex(light, '--signal-ink'), P) >= 4.5, 'light --signal-ink on porcelain');
+  assert.ok(contrast(hex(dark, '--signal-ink'), G) >= 4.5, 'dark --signal-ink on graphite');
+  assert.ok(contrast(hex(light, '--indicator'), P) >= 3, 'light --indicator');
+  assert.ok(contrast(hex(dark, '--indicator'), G) >= 3, 'dark --indicator');
+  assert.ok(contrast(hex(light, '--selected-fg'), hex(light, '--selected-bg')) >= 4.5, 'light selected chip');
+  assert.ok(contrast(hex(dark, '--selected-fg'), hex(dark, '--selected-bg')) >= 4.5, 'dark selected chip');
   assert.ok(contrast(hex(light, '--rule-strong'), P) >= 3, 'light --rule-strong');
   assert.ok(contrast(hex(dark, '--rule-strong'), G) >= 3, 'dark --rule-strong');
+});
+
+test('the favicon is the graphite B mark with a teal point', async () => {
+  const { readFileSync } = await import('node:fs');
+  const svg = readFileSync(new URL('../public/favicon.svg', import.meta.url), 'utf8');
+  assert.match(svg, /<rect[^>]*fill="#171B22"/, 'graphite tile');
+  assert.match(svg, /stroke="#F4F2EC"/, 'porcelain B');
+  assert.match(svg, /<circle[^>]*fill="#59C3BD"/, 'teal point');
+});
+
+test('the maker’s mark signs the footer, the About page, and the end of each case study, always hidden from assistive tech', () => {
+  const marks = (html) => html.match(/<svg[^>]*class="[^"]*maker-mark[^"]*"[^>]*>/g) ?? [];
+  for (const prefix of ['', '/es', '/it']) {
+    for (const route of ['/', '/about/', '/archive/', '/work/descubre/']) {
+      const found = marks(page(`${prefix}${route}`));
+      assert.ok(found.length >= 1, `${prefix}${route}: footer mark`);
+      for (const m of found) assert.match(m, /aria-hidden="true"/, `${prefix}${route}: decorative`);
+    }
+    assert.equal(marks(page(`${prefix}/`)).length, 1, `${prefix}/: once on the homepage`);
+    assert.equal(marks(page(`${prefix}/about/`)).length, 2, `${prefix}/about/: signature and footer`);
+    assert.equal(marks(page(`${prefix}/work/descubre/`)).length, 2, `${prefix}/work/descubre/: end mark and footer`);
+  }
+});
+
+test('the homepage signal thread is decorative', () => {
+  for (const prefix of ['', '/es', '/it']) assert.match(page(`${prefix}/`), /<div class="thread"[^>]*aria-hidden="true"/, `${prefix || '/'} thread`);
 });

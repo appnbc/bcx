@@ -11,6 +11,7 @@ import { href, stripLocale, type Locale } from '../i18n/locales';
 import { ui } from '../i18n/ui';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import ThemeSwitch from '../components/ThemeSwitch.astro';
+import Mark from '../components/Mark.astro';
 
 interface Props {
   title: string;
@@ -140,6 +141,7 @@ const { email, linkedin, other = [] } = site.contact;
           <p class="label">{t.contact.soon}</p>
         )}
       </div>
+      <div class="wrap colophon"><Mark /></div>
     </footer>
 
     <dialog id="lightbox" class="lightbox" aria-label={t.lightbox.label}>

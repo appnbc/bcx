@@ -70,10 +70,11 @@ To test a subfolder build locally: `BASE_PATH=/portfolio npm run build` (in Git 
 
 The look follows a small set of rules; keep to them when adding pages.
 
-- **Paper and ink.** Off-white paper, deep green ink. Dark mode swaps to deep green paper with pale ink.
-- **Each language has its own light.** The soft glows behind the hero and the contact section (`--wash-a`, `--wash-b`, `--wash-c` in `src/styles/tokens.css`) are sage and peach in English, saffron and rose in Spanish, lemon and Mediterranean blue in Italian. Ink, highlighter and panels never change.
-- **One mark: the highlighter.** Peach marks what matters: headline phrases, inserted copy, active filters, links that lead somewhere. Red appears only on deleted copy.
+- **Paper and ink.** Graphite ink on warm porcelain. Dark (the default) swaps to graphite paper with porcelain ink.
+- **Each language has its own light.** The soft glows behind the hero and the contact section (`--wash-a`, `--wash-b`, `--wash-c` in `src/styles/tokens.css`) are cobalt and coral in English, violet and gold in Spanish, sage and terracotta in Italian, with a breath of teal in all three. Ink, highlighter, and the maker's mark never change.
+- **One signature: signal teal.** Teal (`--teal`, #59C3BD) marks what matters: headline phrases, inserted copy, selected filters, and the maker's mark's point. On porcelain, teal lines and text use the deep companion (`--teal-ink`, #176B66); `--signal-ink` picks the right one for the surface. Red appears only on deleted copy.
+- **A few quiet marks, never more.** The B monogram (`src/components/Mark.astro`, same geometry as `public/favicon.svg`) signs the footer, the About introduction, and the end of each case study. Registration marks frame only the homepage's featured work; one signal thread leads from the hero into it. Margin notes use the editor's bracket (`.bracket`). All of these are hidden from assistive tech.
 - **One shape rule.** Screenshots and panels are square-cornered with a thin border. Rounded pills are only for things you click.
-- **Work sits on panels.** On the homepage each selected project sits on a sage or peach panel, shown no larger than its real file. Small originals can be piled two deep, like papers on a desk.
+- **Work sits on panels.** On the homepage each selected project sits on a panel tinted with the language's accents, shown no larger than its real file. Small originals can be piled two deep, like papers on a desk.
 - **One label style.** Small, semibold, sans-serif, muted ink.
 - **Sections open the same way.** A thick ink rule, then the title.
