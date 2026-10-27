@@ -44,11 +44,11 @@ npm run images
 
 ## Spanish and Italian
 
-Every page also exists at `/es/…` and `/it/…` (for example `/es/work/descubre/`). The deployed site has them **public**: the deploy workflow sets `LANGUAGES_PUBLIC: '1'`, which shows the English | Español | Italiano switcher, adds absolute `hreflang` links and lets search engines index them. Local builds and `npm test` keep the private default (no switcher, `noindex`). The Spanish is neutral Latin American Spanish.
+Every page also exists at `/es/…` and `/it/…` (for example `/es/work/descubre/`). The deployed site has them **public**: the deploy workflow sets `LANGUAGES_PUBLIC: '1'`, which shows the English | Español | Italiano switcher, adds absolute `hreflang` links and lets search engines index them. Local builds are public too; `LANGUAGES_PUBLIC=0` builds the private variant (no switcher, `noindex`). The Spanish is neutral Latin American Spanish.
 
 - **Where the copy lives:** UI text in `src/i18n/ui.ts`; each page's copy in `src/i18n/pages/<page>.ts` (English, Spanish and Italian side by side); project summaries and roles under `i18n` in `src/data/projects.json` (edit `scripts/translations-projects.mjs` and run `node scripts/merge-project-translations.mjs`). A missing or misshapen translation fails `npm test`.
 - **What stays in English:** Brian's own artifacts (interface copy, email subject lines, the Burger Queen dialogue, style-guide originals), titles of works, and official job titles. They are marked `lang="en"` so screen readers pronounce them correctly.
-- **Taking them private again:** remove `LANGUAGES_PUBLIC` from the deploy workflow's build step.
+- **Taking them private again:** set `LANGUAGES_PUBLIC: '0'` in the deploy workflow's build step.
 
 ## Deploying to GitHub Pages
 

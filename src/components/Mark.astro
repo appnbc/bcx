@@ -1,7 +1,7 @@
 ---
 /**
  * The maker's mark: the favicon's geometric B, stamped like a hallmark. A fine
- * frame and the B take the ink of whatever surface they sit on; the one point
+ * frame, an engraved inner hairline, and the B take the ink of whatever surface they sit on; the one point
  * is always signal teal. Purely decorative, so it is hidden from assistive tech.
  * Used sparingly: the footer, the About signature, and the end of a case study.
  */
@@ -12,6 +12,7 @@ const { class: className } = Astro.props;
 ---
 <svg class:list={['maker-mark', className]} viewBox="0 0 64 64" aria-hidden="true" focusable="false">
   <rect class="maker-mark__frame" x="3" y="3" width="58" height="58" rx="14" />
+  <rect class="maker-mark__engraving" x="7" y="7" width="50" height="50" rx="10" />
   <path class="maker-mark__b" d="M20.5 16v32.8M20.5 16h11.2c6.5 0 10.2 3.4 10.2 8.1s-3.7 8.1-10.2 8.1H20.5m0 0h13.1c6.6 0 10.3 3.4 10.3 8.4s-3.7 8.4-10.3 8.4H20.5" />
   <circle class="maker-mark__point" cx="48.5" cy="14.5" r="4.4" />
 </svg>
@@ -19,6 +20,8 @@ const { class: className } = Astro.props;
 <style>
   .maker-mark { width: var(--mark-size, 2rem); height: auto; flex: none; color: var(--ink); overflow: visible; }
   .maker-mark__frame { fill: none; stroke: currentColor; stroke-width: 2; opacity: 0.45; }
+  /* A second, hair-fine rule inside the frame, cut like the inner line of an engraved hallmark. */
+  .maker-mark__engraving { fill: none; stroke: currentColor; stroke-width: 0.75; opacity: 0.35; }
   .maker-mark__b { fill: none; stroke: currentColor; stroke-width: 4.4; stroke-linecap: round; stroke-linejoin: round; }
   .maker-mark__point { fill: var(--mark-point); }
 </style>

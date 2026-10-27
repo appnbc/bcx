@@ -36,9 +36,18 @@
   --terracotta: #DF6B5C; --terracotta-ink: #A43D31;  /* 5.70:1 */
   --sage: #88AA85;       --sage-ink: #496A47;        /* 5.46:1 */
 
+  /* Two shared secondary signals, the same in every language and only ever in small doses:
+     pink for direction (arrows that lead on), yellow for "you are here" (a linked-to row).
+     Teal stays the signature. On graphite the companions point back at the originals. */
+  --pink: var(--coral);   --pink-ink: var(--coral-ink);   /* 5.37:1 on porcelain, 5.91:1 on graphite */
+  --yellow: var(--gold);  --yellow-ink: var(--gold-ink);  /* 5.54:1 on porcelain, 9.20:1 on graphite */
+
   /* Surfaces and text */
   --paper: var(--porcelain);
   --paper-sunk: #EDEAE3;             /* --ink-muted keeps 4.58:1 here */
+  /* The page settles from paper into the sunk tone on its way down to the contact section:
+     a neutral shift too slow to see on any one screen, felt as depth over the scroll. */
+  --page-tone: linear-gradient(180deg, var(--paper) 0, var(--paper) 36rem, var(--paper-sunk) 100%);
   --ink: var(--graphite);
   --ink-muted: #626B67;              /* 4.91:1 */
   --ink-muted-on-wash: #3B4340;      /* ≥4.74:1 even where all three washes overlap at full strength */

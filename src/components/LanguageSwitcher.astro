@@ -51,11 +51,12 @@ const { lang, path } = Astro.props;
     color: var(--ink-muted);
     transition: color var(--t-quick) ease, background-color var(--t-quick) ease, text-decoration-color var(--t-quick) ease;
   }
-  .lang-switcher a:hover { color: var(--ink); text-decoration-color: var(--lang-accent); }
+  .lang-switcher a:hover, .lang-switcher a:focus-visible { color: var(--ink); text-decoration-color: var(--lang-accent); }
   /* The current language is a solid chip in its own accent: graphite with coloured text, or the
      reverse in dark mode. The chip shape carries the state, so it never relies on hue alone. */
   .lang-switcher a[aria-current] { background: var(--lang-chip-bg); color: var(--lang-chip-fg); text-decoration: none; }
-  .lang-switcher__code { display: none; }
+  /* Codes are set in mono, so the switcher reads as a tool, apart from the menu's sans. */
+  .lang-switcher__code { display: none; font-family: var(--mono); font-weight: 400; letter-spacing: 0.04em; }
   /* A small-caps tag for translations still in review. */
   .lang-switcher__beta {
     margin-left: 0.4em; /* the link is a flex box, which drops the space before the tag */

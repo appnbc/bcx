@@ -42,5 +42,11 @@ const next = pages[(i + 1) % pages.length];
   .pager .meta { display: block; }
   .pager__title { font-size: var(--step-1); }
   .pager__title { text-decoration: underline 2px transparent; text-underline-offset: 0.18em; transition: text-decoration-color var(--t-quick) ease; }
-  .pager a:hover .pager__title { text-decoration-color: var(--accent-a-ink); }
+  .pager a:hover .pager__title, .pager a:focus-visible .pager__title { text-decoration-color: var(--accent-a-ink); }
+  /* Small pink arrows point the way and lean a step further on hover or focus. */
+  .pager a[rel] .meta::before, .pager a[rel] .meta::after { display: inline-block; color: var(--pink-ink); transition: translate var(--t-quick) var(--ease-out); }
+  .pager a[rel='prev'] .meta::before { content: '←' / ''; margin-right: 0.4em; }
+  .pager a[rel='next'] .meta::after { content: '→' / ''; margin-left: 0.4em; }
+  .pager a[rel='prev']:is(:hover, :focus-visible) .meta::before { translate: -3px 0; }
+  .pager a[rel='next']:is(:hover, :focus-visible) .meta::after { translate: 3px 0; }
 </style>

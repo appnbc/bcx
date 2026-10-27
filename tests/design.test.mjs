@@ -73,6 +73,11 @@ test('text and indicator tokens meet WCAG 2.2 AA on the surfaces they sit on', a
     assert.ok(contrast(hex(light, `--${c}-ink`), P) >= 4.5, `--${c}-ink on porcelain`);
     assert.ok(contrast(hex(light, `--${c}`), G) >= 4.5, `--${c} on graphite`);
   }
+  // The shared pink and yellow signals: their companions on porcelain, the originals on graphite.
+  for (const c of ['pink', 'yellow']) {
+    assert.ok(contrast(hex(light, `--${c}-ink`), P) >= 4.5, `--${c}-ink on porcelain`);
+    assert.ok(contrast(hex(light, `--${c}`), G) >= 4.5, `--${c} on graphite`);
+  }
   // Selected chips, and control boundaries at 3:1.
   assert.ok(contrast(hex(light, '--teal'), G) >= 4.5, 'teal and graphite chip');
   // Teal lines and marks: the deep companion on porcelain, the signal teal on graphite.

@@ -58,7 +58,10 @@ const t = ui[lang];
   .case-band { padding-block: var(--space-6) var(--space-5); border-bottom: 2px solid var(--ink); }
   .case-band__inner { row-gap: var(--space-3); }
   .case-band__kicker { font-family: var(--sans); font-size: var(--step--1); font-weight: 600; color: var(--ink-muted); display: flex; gap: var(--space-2); flex-wrap: wrap; margin: 0; }
-  .case-band__kicker a { color: inherit; }
+  /* The way back to the index: an arrow in the shared pink that steps back on hover or focus. */
+  .case-band__kicker a { color: inherit; display: inline-flex; align-items: center; min-height: 24px; }
+  .case-band__kicker a::before { content: '←' / ''; margin-right: 0.35em; color: var(--pink-ink); transition: translate var(--t-quick) var(--ease-out); }
+  .case-band__kicker a:hover::before, .case-band__kicker a:focus-visible::before { translate: -3px 0; }
   .case-band__title {
     font-size: clamp(2.6rem, 1.4rem + 5vw, 6.5rem);
     line-height: 0.98;
@@ -77,7 +80,7 @@ const t = ui[lang];
     align-self: start;
     padding: var(--space-4);
     border: 1px solid var(--rule);
-    background: var(--paper);
+    background: var(--paper-sunk);
   }
   .case-band__facts a { color: var(--ink); }
   @media (min-width: 900px) {

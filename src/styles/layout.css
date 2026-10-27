@@ -82,9 +82,10 @@ html { scroll-padding-top: calc(var(--header-h, 72px) + var(--space-3)); }
   backdrop-filter: blur(10px);
   --switcher-outline: 0;
   --switcher-pad: 0;
-  /* Type in the bar keeps growing with the window, up to about 1920px. */
-  --nav-size: clamp(1rem, 0.85rem + 0.3vw, 1.2rem);
-  --switcher-size: clamp(0.88rem, 0.75rem + 0.25vw, 1.05rem);
+  /* Type in the bar keeps growing with the window, up to about 1920px, but stays a quiet
+     label size (about 85% of the body's scale) so the name leads the header. */
+  --nav-size: clamp(0.85rem, 0.72rem + 0.26vw, 1.02rem);
+  --switcher-size: clamp(0.78rem, 0.66rem + 0.21vw, 0.9rem);
 }
 .site-tools { display: flex; align-items: center; gap: var(--space-3); }
 .site-header .site-bar .lang-switcher,
@@ -119,9 +120,10 @@ html { scroll-padding-top: calc(var(--header-h, 72px) + var(--space-3)); }
   text-underline-offset: 0.35em;
   transition: text-decoration-color var(--t-quick) ease;
 }
-.site-nav a:hover { text-decoration-color: var(--ink-muted); }
-/* The current page keeps a solid underline: deep teal on porcelain, signal teal on graphite. */
-.site-nav a[aria-current] { text-decoration-color: var(--indicator); }
+.site-nav a:hover, .site-nav a:focus-visible { text-decoration-color: var(--ink-muted); }
+/* The current page keeps a heavier weight and a thicker, solid underline: deep teal on
+   porcelain, signal teal on graphite. Weight and thickness carry it without the hue. */
+.site-nav a[aria-current] { font-weight: 650; text-decoration-color: var(--indicator); text-decoration-thickness: 3px; }
 
 main { display: block; }
 main:focus { outline: none; }

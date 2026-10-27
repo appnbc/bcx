@@ -148,7 +148,10 @@ const groups = [
   .archive-cols { display: none; }
   .archive-list { list-style: none; margin: var(--space-4) 0 0; padding: 0; border-bottom: 1px solid var(--rule); }
   .archive-row { border-top: 1px solid var(--rule); scroll-margin-top: var(--space-4); }
+  .archive-row { position: relative; }
+  /* A row reached by link: sunk paper, and a short yellow tick in the margin to say "here". */
   .archive-row:target { background: var(--paper-sunk); }
+  .archive-row:target::before { content: ''; position: absolute; left: -10px; top: var(--space-3); height: 1.4em; border-left: 3px solid var(--yellow-ink); }
   .archive-row__swatch {
     display: inline-block;
     width: 0.62em;
@@ -180,9 +183,11 @@ const groups = [
   .archive-row__go { color: var(--ink-muted); font-family: var(--sans); display: inline-block; transition: transform 150ms ease; }
   details[open] .archive-row__go { transform: rotate(45deg); }
   .archive-row__title { text-decoration: underline 2px transparent; text-underline-offset: 0.18em; transition: text-decoration-color var(--t-quick) ease; }
-  .archive-row__line:hover .archive-row__title { text-decoration-color: var(--accent-a-ink); }
+  .archive-row__line:is(:hover, :focus-visible) .archive-row__title { text-decoration-color: var(--accent-a-ink); }
   .archive-row__swatch { transition: background-color var(--t-quick) ease; }
-  .archive-row__line:hover .archive-row__swatch:not(.archive-row__swatch--entry) { background: var(--accent-a-ink); }
+  .archive-row__line:is(:hover, :focus-visible) .archive-row__swatch:not(.archive-row__swatch--entry) { background: var(--accent-a-ink); }
+  .archive-row__go { transition: transform 150ms ease, color var(--t-quick) ease; }
+  .archive-row__line:is(:hover, :focus-visible) .archive-row__go { color: var(--pink-ink); }
 
   @media (min-width: 900px) {
     .archive-cols {

@@ -8,6 +8,9 @@ import { DIST, allPages, page } from './helpers.mjs';
 const pageIds = ['sunnyvale-cleanwater', 'ladwp-turf-replacement', 'descubre', 'alfredo-voice-services', '526-lowcountry-corridor', 'the-burger-queen', 'mosaik'];
 export const routes = ['/', '/archive/', '/about/', ...pageIds.map((id) => `/work/${id}/`)];
 const langs = ['', '/es', '/it'];
+// The language switcher and the hreflang alternates are the places meant to link across languages.
+const withoutSwitcher = (html) =>
+  html.replace(/<nav class="lang-switcher[\s\S]*?<\/nav>/g, '').replace(/<link rel="alternate" hreflang=[^>]*>/g, '');
 const langOfFile = (file) => {
   const rel = file.slice(DIST.length).replace(/\\/g, '/').replace(/^\//, '');
   return rel.startsWith('es/') ? 'es' : rel.startsWith('it/') ? 'it' : 'en';
@@ -23,26 +26,43 @@ test('html lang matches the locale', () => {
   }
 });
 
-test('private mode: es/it are noindex; no hreflang or switcher anywhere', () => {
-  for (const file of allPages()) {
-    const html = readFileSync(file, 'utf8');
-    assert.ok(!html.includes('hreflang='), `${file} has hreflang`);
-    assert.ok(!html.includes('class="lang-switcher'), `${file} has a switcher`);
-    if (langOfFile(file) !== 'en') assert.ok(html.includes('name="robots" content="noindex"'), `${file} indexable`);
+test('private mode (LANGUAGES_PUBLIC=0): es/it are noindex; no hreflang or switcher anywhere', { timeout: 240000 }, () => {
+  const out = 'dist-private-test';
+  rmSync(out, { recursive: true, force: true });
+  execSync('npx astro build', { env: { ...process.env, LANGUAGES_PUBLIC: '0', OUT_DIR: out }, stdio: 'pipe' });
+  try {
+    for (const lang of langs) {
+      for (const r of routes) {
+        const file = join(out, `${lang}${r}`, 'index.html');
+        const html = readFileSync(file, 'utf8');
+        assert.ok(!html.includes('hreflang='), `${file} has hreflang`);
+        assert.ok(!html.includes('class="lang-switcher'), `${file} has a switcher`);
+        if (lang) assert.ok(html.includes('name="robots" content="noindex"'), `${file} indexable`);
+      }
+    }
+  } finally {
+    rmSync(out, { recursive: true, force: true });
   }
 });
 
-test('english pages never link into /es/ or /it/', () => {
+test('public by default: a plain build has the switcher and indexable translations', () => {
+  const html = page('/work/descubre/');
+  assert.ok(html.includes('class="lang-switcher'), 'switcher');
+  assert.ok(html.includes('hreflang="es"'), 'hreflang');
+  assert.ok(!page('/es/').includes('content="noindex"'), 'es indexable');
+});
+
+test('english pages never link into /es/ or /it/, except through the switcher', () => {
   for (const file of allPages().filter((f) => langOfFile(f) === 'en')) {
-    const html = readFileSync(file, 'utf8');
+    const html = withoutSwitcher(readFileSync(file, 'utf8'));
     assert.ok(!/href="\/(es|it)\//.test(html), `${file} links into a translation`);
   }
 });
 
-test('internal links on es/it pages stay in their language', () => {
+test('internal links on es/it pages stay in their language, except through the switcher', () => {
   for (const file of allPages().filter((f) => langOfFile(f) !== 'en')) {
     const lang = langOfFile(file);
-    const html = readFileSync(file, 'utf8');
+    const html = withoutSwitcher(readFileSync(file, 'utf8'));
     for (const [, href] of html.matchAll(/<a\b[^>]*\shref="(\/[^"]*)"/g)) {
       if (href.startsWith('/_astro/') || href === '/favicon.svg') continue;
       assert.ok(href.startsWith(`/${lang}/`), `${file}: ${href}`);

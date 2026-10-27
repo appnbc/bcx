@@ -11,11 +11,11 @@ function buildEnv(name: string): string | undefined {
 
 export const site = {
   /**
-   * Spanish and Italian pages are built and deployed, but stay unannounced (no switcher,
-   * no hreflang, noindex) until this is true. LANGUAGES_PUBLIC=1 turns it on for one build;
-   * `astro dev` always has it on, so the switcher can be tried locally.
+   * Spanish and Italian are public: language switcher, hreflang, indexable. LANGUAGES_PUBLIC=0
+   * builds them unannounced instead (no switcher, no hreflang, noindex); `astro dev` always
+   * has them public, so the switcher can be tried locally.
    */
-  languagesPublic: buildEnv('LANGUAGES_PUBLIC') === '1' || import.meta.env.DEV,
+  languagesPublic: buildEnv('LANGUAGES_PUBLIC') !== '0' || import.meta.env.DEV,
   name: 'Brian Contreras',
   statement:
     'I design and write interfaces for public programs, language learning, and voice, in English and Spanish.',
